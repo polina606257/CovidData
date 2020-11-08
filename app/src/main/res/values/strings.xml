@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">CovidAppApi</string>
+    <string name="find_button">Find</string>
+    <string name="cases_textView">Cases:</string>
+    <string name="deaths_textView">Deaths:</string>
+    <string name="recovered_textView">Recovered:</string>
+    <string name="cases_per_one_million_textView">Cases per one million:</string>
+    <string name="deaths_per_one_million_textView">Today recovered:</string>
+    <string name="tests_per_one_million_textView">Tests per one million:</string>
+    <string name="no_data_text">no data</string>
+
+    <string-array name="chooseDataSpinnerItems">
+        <item>all</item>
+        <item>state</item>
+        <item>country</item>
+    </string-array>
+
+</resources>
