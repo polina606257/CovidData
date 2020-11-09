@@ -3,23 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_all_cases">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.coviddata.ui.home.AllCasesFragment"
-        android:label="@string/title_home"
+        android:id="@+id/navigation_all_cases"
+        android:name="com.example.coviddata.ui.allcases.AllCasesFragment"
+        android:label="@string/title_all_cases"
         tools:layout="@layout/fragment_cases_all" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.coviddata.ui.dashboard.CountriesCasesFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_cases_countries" />
+        android:id="@+id/navigation_countries_cases"
+        android:name="com.example.coviddata.ui.countriescases.CountriesCasesFragment"
+        android:label="@string/title_countries_cases"
+        tools:layout="@layout/fragment_cases_countries" >
+        <action
+            android:id="@+id/action_navigation_countries_cases_to_navigation_country_cases"
+            app:destination="@id/navigation_country_cases" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.coviddata.ui.notification.CountryCasesFragment"
-        android:label="@string/title_notifications"
+        android:id="@+id/navigation_country_cases"
+        android:name="com.example.coviddata.ui.countrycases.CountryCasesFragment"
+        android:label="@string/title_country_cases"
         tools:layout="@layout/fragment_cases_country" />
 </navigation>

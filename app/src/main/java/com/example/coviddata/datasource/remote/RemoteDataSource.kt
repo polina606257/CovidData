@@ -56,6 +56,7 @@ class RemoteDataSource {
             }
 
             override fun onFailure(call: Call<AllCases>, t: Throwable) {
+                Log.v("MyLog", t.message.toString())
             }
         })
     }

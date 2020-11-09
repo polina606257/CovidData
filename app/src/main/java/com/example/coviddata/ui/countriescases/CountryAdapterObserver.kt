@@ -1,10 +1,11 @@
-package com.example.coviddata.ui.dashboard
+package com.example.coviddata.ui.countriescases
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.covidappapi.model.CountryCases
 import com.example.coviddata.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.country_item.view.*
 
 interface ListAdapterObserver {
@@ -22,7 +23,9 @@ class ListAdapter(private val list: List<CountryCases>, val observer: ListAdapte
             this.countryCases = countryCases
             itemView.country_name_textView.text = countryCases.name
             itemView.country_all_cases_textView.text = countryCases.cases.toString()
-            // Picasso.with(this).load(countryCases.flag).into(itemView.country_flag_imageView);
+            Picasso.with(itemView.context)
+                    .load(countryCases.countryInfo.flag)
+                    .into(itemView.country_flag_imageView);
         }
     }
 

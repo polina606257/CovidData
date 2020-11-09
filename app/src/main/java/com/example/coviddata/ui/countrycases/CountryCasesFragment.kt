@@ -1,4 +1,4 @@
-package com.example.coviddata.ui.notification
+package com.example.coviddata.ui.countrycases
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ class CountryCasesFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_cases_country, container, false)
-        CovidApp.repository.countryLiveData.observe(this) { countryData ->
+        CovidApp.repository.countryLiveData.observe(viewLifecycleOwner) { countryData ->
             if (countryData != null) {
                 country_textView.text = "${countryData.name}"
                 total_number_textView.text = "${countryData.cases}"
