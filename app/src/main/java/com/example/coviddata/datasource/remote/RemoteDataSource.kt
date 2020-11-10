@@ -1,4 +1,5 @@
 package com.example.covidappapi.datasource.remote
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.covidappapi.model.AllCases
 import com.example.covidappapi.model.CountryCases
@@ -65,10 +66,12 @@ class RemoteDataSource {
         remoteService.getCountriesCases().enqueue(object : Callback<List<CountryCases>> {
             override fun onResponse(call: Call<List<CountryCases>>,
                                     response: Response<List<CountryCases>>) {
+                Log.d("myLog", response.body().toString())
                 countriesLiveData.value = response.body()!!
             }
 
             override fun onFailure(call: Call<List<CountryCases>>, t: Throwable) {
+                Log.d("myLog", t.message.toString())
             }
         })
     }

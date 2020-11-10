@@ -9,7 +9,7 @@ import com.example.coviddata.CovidApp
 import com.example.coviddata.R
 import kotlinx.android.synthetic.main.fragment_cases_country.*
 
-class CountryCasesFragment : Fragment() {
+class CountryCasesFragment(id: Int) : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -37,4 +37,5 @@ class CountryCasesFragment : Fragment() {
         }
         return root
     }
+
 }
