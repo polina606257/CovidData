@@ -12,6 +12,7 @@ import com.example.coviddata.CovidApp
 import com.example.coviddata.R
 import kotlinx.android.synthetic.main.fragment_cases_countries.*
 
+
 class CountriesCasesFragment : Fragment(), ListAdapterObserver {
 
     override fun onCreateView(
@@ -41,8 +42,8 @@ class CountriesCasesFragment : Fragment(), ListAdapterObserver {
     }
 
     override fun onItemClick(countryCases: CountryCases) {
-        findNavController().navigate(R.id.navigation_country_cases)
-        CovidApp.repository.refreshCountryCases(countryCases)
-
+        val bundle = Bundle()
+        bundle.putString("arg1", countryCases.name)
+        findNavController().navigate(R.id.navigation_country_cases, bundle)
     }
 }

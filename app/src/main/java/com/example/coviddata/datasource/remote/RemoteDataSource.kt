@@ -36,20 +36,6 @@ class RemoteDataSource {
         retrofit.create(ApiRemoteService::class.java)
     }
 
-//    fun getAllCases(callback: (CovidData) -> Unit) {
-//        remoteService.getAllCases().enqueue(object : Callback<CovidData> {
-//            override fun onResponse(call: Call<CovidData>, response: Response<CovidData>){
-//                callback(response.body()!!)
-//            }
-//
-//            override fun onFailure(call: Call<CovidData>, t: Throwable){
-//            }
-//        })
-//    }
-/*    suspend fun getAllCasesSync(): CovidData{
-        return remoteService.getAllCases()
-    }*/
-
     fun refreshAllCases() {
         remoteService.getAllCases().enqueue(object : Callback<AllCases> {
             override fun onResponse(call: Call<AllCases>, response: Response<AllCases>) {
@@ -84,6 +70,7 @@ class RemoteDataSource {
             }
 
             override fun onFailure(call: Call<CountryCases>, t: Throwable) {
+                Log.d("myLog", t.message.toString())
             }
         })
     }
