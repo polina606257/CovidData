@@ -1,71 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.allcases.AllCasesFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/showCasesLinearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.coviddata.ui.allcases.AllCasesViewModel" />
+    </data>
 
-        <TextView
-            android:id="@+id/casesTextView"
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.allcases.AllCasesFragment">
+
+        <LinearLayout
+            android:id="@+id/showCasesLinearLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/show_cases_textView_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/showCasesLinearLayout"
-            app:layout_constraintEnd_toEndOf="@+id/showCasesLinearLayout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/showCasesLinearLayout"
-            app:layout_constraintTop_toTopOf="@+id/deathsTextView"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/deathsTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/show_cases_textView_text_size"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/showCasesLinearLayout"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/showCasesLinearLayout"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/recoveredTextView"
-            android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/casesTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/show_cases_textView_text_size"
+                android:text="@{Integer.toString(viewModel.allCasesLiveData.cases)}"
+                app:layout_constraintBottom_toBottomOf="@+id/showCasesLinearLayout"
+                app:layout_constraintEnd_toEndOf="@+id/showCasesLinearLayout"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/showCasesLinearLayout"
+                app:layout_constraintTop_toTopOf="@+id/deathsTextView"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/deathsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/show_cases_textView_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/showCasesLinearLayout"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/showCasesLinearLayout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/recoveredTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/show_cases_textView_text_size"
+                app:layout_constraintBottom_toBottomOf="@+id/showCasesLinearLayout"
+                app:layout_constraintEnd_toEndOf="@+id/showCasesLinearLayout"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/showCasesLinearLayout"
+                app:layout_constraintTop_toTopOf="@+id/showCasesLinearLayout"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/refreshButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/show_cases_textView_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/showCasesLinearLayout"
-            app:layout_constraintEnd_toEndOf="@+id/showCasesLinearLayout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/showCasesLinearLayout"
-            app:layout_constraintTop_toTopOf="@+id/showCasesLinearLayout"
-            app:layout_constraintVertical_bias="0.0" />
+            android:text="REFRESH"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+        <!--    <Button-->
+        <!--        android:id="@+id/findAllCasesBtn"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:text="@string/find_button"-->
+        <!--        android:textSize="@dimen/find_button_size_text"-->
+        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintHorizontal_bias="0.526"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/showCasesLinearLayout"-->
+        <!--        app:layout_constraintVertical_bias="1.0" />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/findAllCasesBtn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/find_button"-->
-<!--        android:textSize="@dimen/find_button_size_text"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.526"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/showCasesLinearLayout"-->
-<!--        app:layout_constraintVertical_bias="1.0" />-->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

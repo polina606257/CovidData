@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.covidappapi.model.CountryCases
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_cases_countries.*
 
 
 class CountriesCasesFragment : Fragment(), ListAdapterObserver {
-
+    val viewModel: CountriesCasesViewModel by viewModels()
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -27,7 +28,7 @@ class CountriesCasesFragment : Fragment(), ListAdapterObserver {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        CovidApp.repository.countriesLiveData.observe(viewLifecycleOwner) { covidCountryCases ->
+        viewModel.countriesLiveData.observe(viewLifecycleOwner) { covidCountryCases ->
             countriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             countriesRecyclerView.adapter = ListAdapter(covidCountryCases, this)
         }
@@ -42,8 +43,10 @@ class CountriesCasesFragment : Fragment(), ListAdapterObserver {
     }
 
     override fun onItemClick(countryCases: CountryCases) {
-        val bundle = Bundle()
-        bundle.putString("arg1", countryCases.name)
-        findNavController().navigate(R.id.navigation_country_cases, bundle)
+/*        val bundle = Bundle()
+        bundle.putString("arg1", countryCases.name)*/
+        val action = CountriesCasesFragmentDirections
+                .actionNavigationCountriesCasesToNavigationCountryCases(countryCases.name)
+        findNavController().navigate(action)
     }
 }

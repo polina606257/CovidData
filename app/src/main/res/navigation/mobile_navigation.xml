@@ -25,5 +25,9 @@
         android:id="@+id/navigation_country_cases"
         android:name="com.example.coviddata.ui.countrycases.CountryCasesFragment"
         android:label="@string/title_country_cases"
-        tools:layout="@layout/fragment_cases_country" />
+        tools:layout="@layout/fragment_cases_country" >
+        <argument
+            android:name="countryName"
+            app:argType="string" />
+    </fragment>
 </navigation>

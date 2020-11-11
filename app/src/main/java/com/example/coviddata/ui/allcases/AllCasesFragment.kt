@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_cases_all.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.coviddata.CovidApp
 import com.example.coviddata.R
 import kotlinx.android.synthetic.main.fragment_cases_all.*
 
 class AllCasesFragment : Fragment() {
-
+    //val viewModel = AllCasesViewModel()
+    val viewModel: AllCasesViewModel by viewModels()
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -24,7 +26,7 @@ class AllCasesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        CovidApp.repository.allcasesLastLiveData.observe(viewLifecycleOwner) { covidData ->
+        /*viewModel.allCasesLiveData.observe(viewLifecycleOwner) { covidData ->
             if (covidData != null) {
                 casesTextView.text = "Cases: ${covidData.cases}"
                 deathsTextView.text = "Deaths: ${covidData.deaths}"
@@ -34,10 +36,12 @@ class AllCasesFragment : Fragment() {
                 deathsTextView.text = "Deaths: no data"
                 recoveredTextView.text = "Recovered: no data"
             }
-        }
-        CovidApp.repository.refreshAllCases()
+        }*/
 //        findAllCasesBtn.setOnClickListener{
 //            CovidApp.repository.refreshAllCases()
 //        }
+        refreshButton.setOnClickListener {
+            viewModel.refreshAllCases()
+        }
     }
 }
