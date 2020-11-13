@@ -14,77 +14,60 @@
         android:layout_height="match_parent"
         tools:context=".ui.allcases.AllCasesFragment">
 
-        <LinearLayout
-            android:id="@+id/showCasesLinearLayout"
+        <GridLayout
+            android:id="@+id/gridLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:columnCount="2"
+            android:orientation="horizontal"
+            android:useDefaultMargins="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/casesTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/show_cases_textView_text_size"
-                android:text="@{Integer.toString(viewModel.allCasesLiveData.cases)}"
-                app:layout_constraintBottom_toBottomOf="@+id/showCasesLinearLayout"
-                app:layout_constraintEnd_toEndOf="@+id/showCasesLinearLayout"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/showCasesLinearLayout"
-                app:layout_constraintTop_toTopOf="@+id/deathsTextView"
-                app:layout_constraintVertical_bias="0.0" />
+                android:id="@+id/total_textView"
+                style="@style/country_text_data_GridLayout"
+                android:text="@string/cases_textView" />
 
             <TextView
-                android:id="@+id/deathsTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/show_cases_textView_text_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/showCasesLinearLayout"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/showCasesLinearLayout"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                android:id="@+id/total_number_textView"
+                style="@style/country_data_GridLayout"
+                android:text="@{Integer.toString(viewModel.allCasesLiveData.cases)}" />
 
             <TextView
-                android:id="@+id/recoveredTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/show_cases_textView_text_size"
-                app:layout_constraintBottom_toBottomOf="@+id/showCasesLinearLayout"
-                app:layout_constraintEnd_toEndOf="@+id/showCasesLinearLayout"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/showCasesLinearLayout"
-                app:layout_constraintTop_toTopOf="@+id/showCasesLinearLayout"
-                app:layout_constraintVertical_bias="0.0" />
+                android:id="@+id/deaths_textView"
+                style="@style/country_text_data_GridLayout"
+                android:text="@string/deaths_textView" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/deaths_number_textView"
+                style="@style/country_data_GridLayout"
+                android:text="@{Integer.toString(viewModel.allCasesLiveData.deaths)}" />
+
+            <TextView
+                android:id="@+id/recovered_textView"
+                style="@style/country_text_data_GridLayout"
+                android:text="@string/recovered_textView" />
+
+            <TextView
+                android:id="@+id/recovered_number_textView"
+                style="@style/country_data_GridLayout"
+                android:text="@{Integer.toString(viewModel.allCasesLiveData.recovered)}" />
+        </GridLayout>
 
         <Button
             android:id="@+id/refreshButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="REFRESH"
+            android:text="@string/RefreshCasesButton"
+            android:onClick="@{() -> viewModel.refreshAllCases()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!--    <Button-->
-        <!--        android:id="@+id/findAllCasesBtn"-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:text="@string/find_button"-->
-        <!--        android:textSize="@dimen/find_button_size_text"-->
-        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintHorizontal_bias="0.526"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toBottomOf="@+id/showCasesLinearLayout"-->
-        <!--        app:layout_constraintVertical_bias="1.0" />-->
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
