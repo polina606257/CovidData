@@ -43,7 +43,7 @@ class RemoteDataSource {
             }
 
             override fun onFailure(call: Call<AllCases>, t: Throwable) {
-                Log.v("MyLog", t.message.toString())
+                Log.v("MyLogAllCases", t.message.toString())
             }
         })
     }
@@ -52,12 +52,12 @@ class RemoteDataSource {
         remoteService.getCountriesCases().enqueue(object : Callback<List<CountryCases>> {
             override fun onResponse(call: Call<List<CountryCases>>,
                                     response: Response<List<CountryCases>>) {
-                Log.d("myLog", response.body().toString())
+                Log.d("myLogCountries", response.body().toString())
                 countriesLiveData.value = response.body()!!
             }
 
             override fun onFailure(call: Call<List<CountryCases>>, t: Throwable) {
-                Log.d("myLog", t.message.toString())
+                Log.d("myLogCountriesCases", t.message.toString())
             }
         })
     }
@@ -70,7 +70,7 @@ class RemoteDataSource {
             }
 
             override fun onFailure(call: Call<CountryCases>, t: Throwable) {
-                Log.d("myLog", t.message.toString())
+                Log.d("myLogCountryCases", t.message.toString())
             }
         })
     }

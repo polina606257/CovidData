@@ -1,89 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.countrycases.CountryCasesFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/country_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/country_textView_in_country_marginTop"
-        android:textSize="@dimen/country_textView_textSize_in_country"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.coviddata.ui.countrycases.CountryCasesViewModel" />
+    </data>
 
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:columnCount="2"
-        android:useDefaultMargins="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_textView">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.countrycases.CountryCasesFragment">
 
         <TextView
-            android:id="@+id/total_textView"
-            android:text="@string/cases_textView"
-            style="@style/country_text_data_GridLayout" />
+            android:id="@+id/country_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/country_textView_in_country_marginTop"
+            android:textSize="@dimen/country_textView_textSize_in_country"
+            android:textStyle="bold"
+            android:text="@{viewModel.countryLiveData.name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/total_number_textView"
-            style="@style/country_data_GridLayout" />
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:columnCount="2"
+            android:useDefaultMargins="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/country_textView">
 
-        <TextView
-            android:id="@+id/deaths_textView"
-            style="@style/country_text_data_GridLayout"
-            android:text="@string/deaths_textView" />
+            <TextView
+                android:id="@+id/total_textView"
+                android:text="@string/cases_textView"
+                style="@style/country_text_data_GridLayout" />
 
-        <TextView
-            android:id="@+id/deaths_number_textView"
-            style="@style/country_data_GridLayout" />
+            <TextView
+                android:id="@+id/total_number_textView"
+                style="@style/country_data_GridLayout"
+                android:text="@{Integer.toString(viewModel.countryLiveData.cases)}" />
 
-        <TextView
-            android:id="@+id/recovered_textView"
-            style="@style/country_text_data_GridLayout"
-            android:text="@string/recovered_textView" />
+            <TextView
+                android:id="@+id/deaths_textView"
+                style="@style/country_text_data_GridLayout"
+                android:text="@string/deaths_textView" />
 
-        <TextView
-            android:id="@+id/recovered_number_textView"
-            style="@style/country_data_GridLayout" />
+            <TextView
+                android:id="@+id/deaths_number_textView"
+                style="@style/country_data_GridLayout"
+                android:text="@{Integer.toString(viewModel.countryLiveData.deaths)}"/>
 
-        <TextView
-            android:id="@+id/cases_per_one_million_textView"
-            style="@style/country_text_data_GridLayout"
-            android:text="@string/cases_per_one_million_textView" />
+            <TextView
+                android:id="@+id/recovered_textView"
+                style="@style/country_text_data_GridLayout"
+                android:text="@string/recovered_textView" />
 
-        <TextView
-            android:id="@+id/cases_per_one_million_number_textView"
-            style="@style/country_data_GridLayout" />
+            <TextView
+                android:id="@+id/recovered_number_textView"
+                style="@style/country_data_GridLayout"
+                android:text="@{Integer.toString(viewModel.countryLiveData.recovered)}"/>
 
-        <TextView
-            android:id="@+id/deaths_per_one_million_textView"
-            style="@style/country_text_data_GridLayout"
-            android:text="@string/deaths_per_one_million_textView" />
+            <TextView
+                android:id="@+id/cases_per_one_million_textView"
+                style="@style/country_text_data_GridLayout"
+                android:text="@string/cases_per_one_million_textView" />
 
-        <TextView
-            android:id="@+id/deaths_per_one_million_number_textView"
-            style="@style/country_data_GridLayout" />
+            <TextView
+                android:id="@+id/cases_per_one_million_number_textView"
+                style="@style/country_data_GridLayout"
+                android:text="@{Double.toString(viewModel.countryLiveData.casesPerOneMillion)}"/>
 
-        <TextView
-            android:id="@+id/tests_per_one_million_textView"
-            style="@style/country_text_data_GridLayout"
-            android:text="@string/tests_per_one_million_textView" />
+            <TextView
+                android:id="@+id/deaths_per_one_million_textView"
+                style="@style/country_text_data_GridLayout"
+                android:text="@string/deaths_per_one_million_textView" />
 
-        <TextView
-            android:id="@+id/tests_per_one_million_number_textView"
-            style="@style/country_data_GridLayout" />
-    </GridLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/deaths_per_one_million_number_textView"
+                style="@style/country_data_GridLayout"
+                android:text="@{Double.toString(viewModel.countryLiveData.deathsPerOneMillion)}"/>
+
+            <TextView
+                android:id="@+id/tests_per_one_million_textView"
+                style="@style/country_text_data_GridLayout"
+                android:text="@string/tests_per_one_million_textView" />
+
+            <TextView
+                android:id="@+id/tests_per_one_million_number_textView"
+                style="@style/country_data_GridLayout"
+                android:text="@{Double.toString(viewModel.countryLiveData.testsPerOneMillion)}"/>
+        </GridLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
 
 
 

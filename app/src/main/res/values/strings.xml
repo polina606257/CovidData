@@ -11,11 +11,11 @@
     <string name="deaths_per_one_million_textView">Today recovered:</string>
     <string name="tests_per_one_million_textView">Tests per one million:</string>
     <string name="no_data_text">no data</string>
+    <string name="RefreshCasesButton">REFRESH</string>
 
-    <string-array name="chooseDataSpinnerItems">
-        <item>all</item>
-        <item>state</item>
-        <item>country</item>
+    <string-array name="spinner_order_country_choice">
+        <item>alphabet order</item>
+        <item>covid cases order</item>
     </string-array>
 
 </resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="find_button_size_text">18sp</dimen>
-    <dimen name="show_cases_textView_text_size">24sp</dimen>
     <dimen name="country_flag_width">40dp</dimen>
     <dimen name="country_flag_height">20dp</dimen>
     <dimen name="country_name_in_country_item_marginStart">10dp</dimen>
@@ -11,4 +10,5 @@
     <dimen name="country_data_textSize_gridLayout">25sp</dimen>
     <dimen name="country_textView_in_country_marginTop">80dp</dimen>
     <dimen name="country_textView_textSize_in_country">35sp</dimen>
+    <dimen name="countries_recycleView_marginTop">30dp</dimen>
 </resources>

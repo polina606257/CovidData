@@ -1,39 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/country_item_linearLayout"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/country_item_height"
-    android:layout_marginBottom="@dimen/country_item_marginBottom"
-    android:layout_marginStart="@dimen/country_item_marginStartEnd"
-    android:layout_marginEnd="@dimen/country_item_marginStartEnd">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/country_flag_imageView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="h,1:2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/black" />
+        <data>
+                <variable
+                    name="modelView"
+                    type="com.example.coviddata.ui.countriescases.CountriesCasesViewModel" />
+        </data>
 
-    <TextView
-        android:id="@+id/country_name_textView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:layout_marginStart="@dimen/country_name_in_country_item_marginStart"
-        app:layout_constraintEnd_toStartOf="@+id/country_all_cases_textView"
-        app:layout_constraintStart_toEndOf="@+id/country_flag_imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/country_item_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/country_item_height"
+            android:layout_marginBottom="@dimen/country_item_marginBottom"
+            android:layout_marginStart="@dimen/country_item_marginStartEnd"
+            android:layout_marginEnd="@dimen/country_item_marginStartEnd">
 
-    <TextView
-        android:id="@+id/country_all_cases_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent" />
+                <ImageView
+                    android:id="@+id/country_flag_imageView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:flag="@{modelView.countryLiveData.flag}"
+                    app:layout_constraintDimensionRatio="h,1:2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@color/black" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/country_name_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="@dimen/country_name_in_country_item_marginStart"
+                    android:text="@{modelView.countryLiveData.name}"
+                    app:layout_constraintEnd_toStartOf="@+id/country_all_cases_textView"
+                    app:layout_constraintStart_toEndOf="@+id/country_flag_imageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/country_all_cases_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@{Integer.toString(modelView.countryLiveData.cases)}"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

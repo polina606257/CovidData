@@ -11,16 +11,17 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
     </style>
 
     <style name="country_data_GridLayout">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
         <item name="android:textSize">@dimen/country_data_textSize_gridLayout</item>
     </style>
 
     <style name="country_text_data_GridLayout" parent="country_data_GridLayout">
         <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">start</item>
     </style>
 </resources>
