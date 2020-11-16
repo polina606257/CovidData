@@ -50,8 +50,8 @@ class RemoteDataSource {
     }
 
     fun refreshCountriesCases() {
-        countriesLiveData.value = getTestCountries()
-/*        remoteService.getCountriesCases().enqueue(object : Callback<List<CountryCases>> {
+//        countriesLiveData.value = getTestCountries()
+       remoteService.getCountriesCases().enqueue(object : Callback<List<CountryCases>> {
             override fun onResponse(call: Call<List<CountryCases>>,
                                     response: Response<List<CountryCases>>) {
                 Log.d("myLogCountries", response.body().toString())
@@ -61,7 +61,7 @@ class RemoteDataSource {
             override fun onFailure(call: Call<List<CountryCases>>, t: Throwable) {
                 Log.d("myLogCountriesCases", t.message.toString())
             }
-        })*/
+        })
     }
 
     fun refreshCountryCases(country: CountryCases) {
@@ -78,11 +78,11 @@ class RemoteDataSource {
     }
 }
 
-fun getTestCountries(): List<CountryCases> = listOf(
-        CountryCases(
-                name="Russia", cases =45654
-        ),
-        CountryCases(
-                name="USA", cases =456
-        )
-)
+//fun getTestCountries(): List<CountryCases> = listOf(
+//        CountryCases(
+//                name="Russia", cases = 45654
+//        ),
+//        CountryCases(
+//                name="USA", cases = 456
+//        )
+//)

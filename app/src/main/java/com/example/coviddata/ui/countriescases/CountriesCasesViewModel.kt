@@ -1,4 +1,4 @@
-package com.example.coviddata.ui.countriescases
+ package com.example.coviddata.ui.countriescases
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -17,7 +17,6 @@ interface ListAdapterObserver {
 
 class ListAdapter(private val list: List<CountryCases>, val observer: ListAdapterObserver)
     : RecyclerView.Adapter<ListAdapter.CountryViewHolder>() {
-    //var valueFilter: ValueFilter? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.country_item, parent, false)

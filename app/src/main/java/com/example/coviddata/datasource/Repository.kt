@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import com.example.covidappapi.datasource.local.LocalDataSource
 import com.example.covidappapi.datasource.remote.RemoteDataSource
 import com.example.covidappapi.model.AllCases
+import com.example.covidappapi.model.CountryCases
 import java.time.LocalDateTime
 
     class Repository (
@@ -23,7 +24,8 @@ import java.time.LocalDateTime
             history.maxByOrNull { it.datetime }
         }
 
-        val countriesLiveData = remoteDataSource.countriesLiveData
+        private val _countriesLiveData = remoteDataSource.countriesLiveData
+        val countriesLiveData:LiveData<List<CountryCases>> = _countriesLiveData
 
         fun refreshAllCases(){
             remoteDataSource.refreshAllCases()
