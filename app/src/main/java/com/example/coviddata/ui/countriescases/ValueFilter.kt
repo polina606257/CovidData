@@ -2,6 +2,7 @@ package com.example.coviddata.ui.countriescases
 
 import android.widget.Filter
 
+/*
 class ValueFilter(list: List<CountriesCasesViewModel>) : Filter() {
 
     val countriesNameList = list.map { countryCases -> countryCases.name }
@@ -36,3 +37,4 @@ class ValueFilter(list: List<CountriesCasesViewModel>) : Filter() {
         notifyDataSetChanged()
     }
 }
+*/
