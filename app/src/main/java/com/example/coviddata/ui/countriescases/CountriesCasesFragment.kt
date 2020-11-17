@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.covidappapi.model.CountryCases
@@ -31,7 +32,7 @@ class CountriesCasesFragment : Fragment(), ListAdapterObserver {
         countriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.refreshCountries()
-        viewModel.countriesLiveData.observe(viewLifecycleOwner){ countries->
+        viewModel.mediatorLiveData.observe(viewLifecycleOwner){ countries->
             countries?.let{
                 countriesRecyclerView.adapter = ListAdapter(it, this)
             }
@@ -47,8 +48,8 @@ class CountriesCasesFragment : Fragment(), ListAdapterObserver {
         countriesOrderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, selectedItem: View, position: Int, id: Long) {
                 when (position) {
-                    0 -> viewModel.sortParam = SortParam.NAME
-                    1 -> viewModel.sortParam = SortParam.CASES
+                    0 -> viewModel.sortParamLiveData.value = SortParam.NAME
+                    1 -> viewModel.sortParamLiveData.value = SortParam.CASES
                 }
             }
 
@@ -62,7 +63,7 @@ class CountriesCasesFragment : Fragment(), ListAdapterObserver {
                return true
             }
             override fun onQueryTextChange(userInput: String?): Boolean {
-                viewModel.filterParam = userInput ?: ""
+                viewModel.filterParamLiveData = ((userInput ?: "") as MutableLiveData<String>)
                 return true
             }
         })
