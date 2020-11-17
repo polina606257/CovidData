@@ -1,8 +1,11 @@
 package com.example.coviddata.ui.allcases.history
 
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.bold
+import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
 import com.example.covidappapi.model.AllCases
 import com.example.coviddata.R
@@ -29,10 +32,15 @@ class ListAdapter(private val list: List<AllCases>)
 
         fun bind(item: AllCases) {
             this.historyCases = item
-            itemView.date_time_history.text = "Date and time:   ${item.datetime}"
-            itemView.all_cases_per_date_time.text = "Cases:  ${item.cases}"
-            itemView.all_deaths_per_date_time.text = "Deaths:  ${item.deaths}"
-            itemView.all_recovered_per_date_time.text = "Recovered:  ${item.recovered}"
+            itemView.date_time_history.text = prepareTextForView("Data and time: ", item.datetime)
+            itemView.all_cases_per_date.text = prepareTextForView("Cases: ", item.cases.toString())
+            itemView.all_deaths_per_date.text = prepareTextForView("Deaths: ", item.deaths.toString())
+            itemView.all_recovered_per_date.text = prepareTextForView("Recovered: ", item.recovered.toString())
         }
+    }
+
+    fun prepareTextForView(boldText: String, regularText: String) : SpannableStringBuilder {
+        val s = SpannableStringBuilder().bold { append(boldText) }.append(regularText)
+        return s
     }
 }

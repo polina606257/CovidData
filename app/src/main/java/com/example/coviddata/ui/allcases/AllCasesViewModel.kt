@@ -13,6 +13,7 @@ class AllCasesViewModel : ViewModel(){
 
     private val _allCasesLiveData = CovidApp.repository.allcasesLastLiveData
     val allCasesLiveData: LiveData<AllCases?> = _allCasesLiveData
+    val allCasesHistoryLiveData: LiveData<List<AllCases>> = CovidApp.repository.allCasesHistoryLiveData
 
     fun refreshAllCases(){
         CovidApp.repository.refreshAllCases()

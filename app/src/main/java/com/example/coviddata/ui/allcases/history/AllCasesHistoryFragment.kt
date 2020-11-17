@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.covidappapi.model.AllCases
 import com.example.coviddata.R
+import com.example.coviddata.ui.allcases.AllCasesViewModel
+import com.example.coviddata.ui.countriescases.CountriesCasesViewModel
 import com.example.coviddata.ui.countriescases.ListAdapter
 import kotlinx.android.synthetic.main.fragment_all_cases_history.*
 import kotlinx.android.synthetic.main.fragment_cases_countries.*
@@ -15,7 +18,7 @@ import java.time.LocalDateTime
 
 class AllCasesHistoryFragment : Fragment() {
 
-
+    val viewModel: AllCasesViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
@@ -26,10 +29,11 @@ class AllCasesHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val list: List<AllCases> = listOf(AllCases(200, 30, 15, LocalDateTime.now().toString()),
-        AllCases(300, 30, 40, LocalDateTime.now().toString()))
+//        val list: List<AllCases> = listOf(AllCases(200, 30, 15, LocalDateTime.now().toString()),
+//        AllCases(300, 30, 40, LocalDateTime.now().toString()))
 
-                historyCasesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        historyCasesRecyclerView.adapter = ListAdapter(list)
+        historyCasesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        viewModel.allCasesHistoryLiveData.observe(viewLifecycleOwner) { historyCases -> historyCases?.
+        let {historyCasesRecyclerView.adapter = ListAdapter(it) }}
     }
 }
