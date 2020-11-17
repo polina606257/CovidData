@@ -17,5 +17,8 @@
         <item>alphabet order</item>
         <item>covid cases order</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="covid_history_btn_text">COVID HISTORY</string>
 
 </resources>

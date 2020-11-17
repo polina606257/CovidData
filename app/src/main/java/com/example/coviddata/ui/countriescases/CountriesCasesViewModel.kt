@@ -18,14 +18,14 @@ class CountriesCasesViewModel : ViewModel() {
     private val countriesLiveDataFromRepository = CovidApp.repository.countriesLiveData
     val mediatorLiveData = MediatorLiveData<List<CountryCases>>()
 
-    init {
-        mediatorLiveData.addSource(sortParamLiveData) { val listCountries = prepareListCountries() ->
-            mediatorLiveData.setValue(listCountries)}
-        mediatorLiveData.addSource(filterParamLiveData) {val listCountries = prepareListCountries() ->
-            mediatorLiveData.setValue(listCountries) }
-        mediatorLiveData.addSource(countriesLiveDataFromRepository) {countriesLiveDataFromRepository.value ->
-            mediatorLiveData.setValue(countriesLiveDataFromRepository.value)}
-    }
+//    init {
+//        mediatorLiveData.addSource(sortParamLiveData) { val listCountries = prepareListCountries() ->
+//            mediatorLiveData.setValue(listCountries)}
+//        mediatorLiveData.addSource(filterParamLiveData) {val listCountries = prepareListCountries() ->
+//            mediatorLiveData.setValue(listCountries) }
+//        mediatorLiveData.addSource(countriesLiveDataFromRepository) {countriesLiveDataFromRepository.value ->
+//            mediatorLiveData.setValue(countriesLiveDataFromRepository.value)}
+//    }
 
     private fun prepareListCountries(): List<CountryCases>?{
         val countries = countriesLiveDataFromRepository.value

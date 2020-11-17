@@ -9,7 +9,11 @@
         android:id="@+id/navigation_all_cases"
         android:name="com.example.coviddata.ui.allcases.AllCasesFragment"
         android:label="@string/title_all_cases"
-        tools:layout="@layout/fragment_cases_all" />
+        tools:layout="@layout/fragment_cases_all" >
+        <action
+            android:id="@+id/action_navigation_all_cases_to_all_cases_history_fragment2"
+            app:destination="@id/all_cases_history_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_countries_cases"
@@ -30,4 +34,9 @@
             android:name="countryName"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/all_cases_history_fragment"
+        android:name="com.example.coviddata.ui.allcases.history.AllCasesHistoryFragment"
+        android:label="fragment_all_cases_history"
+        tools:layout="@layout/fragment_all_cases_history" />
 </navigation>
