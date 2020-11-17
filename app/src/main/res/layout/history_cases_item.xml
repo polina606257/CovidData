@@ -6,11 +6,11 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/dateTimeHistory"
+        android:id="@+id/date_time_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date"
         android:textStyle="bold"
+        android:textColor="@color/design_default_color_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,27 +21,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateTimeHistory">
+        app:layout_constraintTop_toBottomOf="@+id/date_time_history">
 
         <TextView
-            android:id="@+id/allCasesPerDateTime"
+            android:id="@+id/all_cases_per_date_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cases: " />
+            android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/allDeathsPerDateTime"
+            android:id="@+id/all_deaths_per_date_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Deaths: " />
+            android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/allRecoveredPerDateTime"
+            android:id="@+id/all_recovered_per_date_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Recovered: " />
+            android:layout_weight="1" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
