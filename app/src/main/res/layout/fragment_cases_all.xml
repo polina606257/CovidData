@@ -47,7 +47,7 @@
             <TextView
                 android:id="@+id/total_number_textView"
                 style="@style/country_data_GridLayout"
-                android:text="@{Integer.toString(viewModel.allCasesLiveData.cases)}" />
+                android:text="@{Integer.toString(viewModel.worldDataLiveData.cases)}" />
 
             <TextView
                 android:id="@+id/deaths_textView"
@@ -57,7 +57,7 @@
             <TextView
                 android:id="@+id/deaths_number_textView"
                 style="@style/country_data_GridLayout"
-                android:text="@{Integer.toString(viewModel.allCasesLiveData.deaths)}" />
+                android:text="@{Integer.toString(viewModel.worldDataLiveData.deaths)}" />
 
             <TextView
                 android:id="@+id/recovered_textView"
@@ -67,7 +67,7 @@
             <TextView
                 android:id="@+id/recovered_number_textView"
                 style="@style/country_data_GridLayout"
-                android:text="@{Integer.toString(viewModel.allCasesLiveData.recovered)}" />
+                android:text="@{Integer.toString(viewModel.worldDataLiveData.recovered)}" />
         </GridLayout>
 
         <Button

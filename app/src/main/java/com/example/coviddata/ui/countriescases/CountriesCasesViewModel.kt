@@ -1,10 +1,9 @@
  package com.example.coviddata.ui.countriescases
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.covidappapi.model.CountryCases
+import com.example.coviddata.model.CountryData
 import com.example.coviddata.CovidApp
 
 enum class SortParam {
@@ -12,22 +11,30 @@ enum class SortParam {
 }
 
 class CountriesCasesViewModel : ViewModel() {
+    private var _listener: Listener? = null
+    fun setListener(listener: Listener){
+        _listener = listener
+    }
+    interface Listener{
+        fun onShowCountryDetails(countryData: CountryData)
+    }
 
-    var sortParamLiveData: MutableLiveData<SortParam> = MutableLiveData(SortParam.NAME)
-    var filterParamLiveData: MutableLiveData<String> = MutableLiveData<String>("")
+    val sortParamLiveData: MutableLiveData<SortParam> = MutableLiveData(SortParam.NAME)
+    val filterParamLiveData: MutableLiveData<String> = MutableLiveData<String>("")
     private val countriesLiveDataFromRepository = CovidApp.repository.countriesLiveData
-    val mediatorLiveData = MediatorLiveData<List<CountryCases>>()
+    val countriesLiveData = MediatorLiveData<List<CountryData>>().apply {
+        addSource(sortParamLiveData) {
+            value = prepareListCountries()
+        }
+        addSource(filterParamLiveData) {
+            value = prepareListCountries()
+        }
+        addSource(countriesLiveDataFromRepository) {
+            value = prepareListCountries()
+        }
+    }
 
-//    init {
-//        mediatorLiveData.addSource(sortParamLiveData) { val listCountries = prepareListCountries() ->
-//            mediatorLiveData.setValue(listCountries)}
-//        mediatorLiveData.addSource(filterParamLiveData) {val listCountries = prepareListCountries() ->
-//            mediatorLiveData.setValue(listCountries) }
-//        mediatorLiveData.addSource(countriesLiveDataFromRepository) {countriesLiveDataFromRepository.value ->
-//            mediatorLiveData.setValue(countriesLiveDataFromRepository.value)}
-//    }
-
-    private fun prepareListCountries(): List<CountryCases>?{
+    private fun prepareListCountries(): List<CountryData>?{
         val countries = countriesLiveDataFromRepository.value
         val filteredCountries = if (filterParamLiveData.value != "")
             countries?.filter { it.name.startsWith(filterParamLiveData.value!!, true) }
@@ -41,6 +48,12 @@ class CountriesCasesViewModel : ViewModel() {
 
     fun refreshCountries() {
         CovidApp.repository.refreshCountriesCases()
+    }
+
+    fun showCountryDetails(countryData: CountryData){
+        _listener?.let {
+            it.onShowCountryDetails(countryData)
+        }
     }
 }
 

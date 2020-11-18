@@ -8,15 +8,14 @@ import android.widget.AdapterView
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.covidappapi.model.CountryCases
+import com.example.coviddata.model.CountryData
 import com.example.coviddata.R
 import kotlinx.android.synthetic.main.fragment_cases_countries.*
 
 
-class CountriesCasesFragment : Fragment(), ListAdapterObserver {
+class CountriesCasesFragment : Fragment(), CountriesCasesViewModel.Listener {
 
     val viewModel: CountriesCasesViewModel by viewModels()
 
@@ -30,20 +29,13 @@ class CountriesCasesFragment : Fragment(), ListAdapterObserver {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         countriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-
+        viewModel.setListener(this)
         viewModel.refreshCountries()
-        viewModel.mediatorLiveData.observe(viewLifecycleOwner){ countries->
+        viewModel.countriesLiveData.observe(viewLifecycleOwner){ countries->
             countries?.let{
-                countriesRecyclerView.adapter = ListAdapter(it, this)
+                countriesRecyclerView.adapter = ListAdapter(it, viewModel)
             }
         }
-
-
-//        viewModel.countryLiveData.observe(viewLifecycleOwner) { covidCountryCases ->
-//            countriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-//            countriesRecyclerView.adapter = ListAdapter(covidCountryCases, this)
-//        }
-
 
         countriesOrderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, selectedItem: View, position: Int, id: Long) {
@@ -63,16 +55,16 @@ class CountriesCasesFragment : Fragment(), ListAdapterObserver {
                return true
             }
             override fun onQueryTextChange(userInput: String?): Boolean {
-                viewModel.filterParamLiveData = ((userInput ?: "") as MutableLiveData<String>)
+                viewModel.filterParamLiveData.value = userInput ?: ""
                 return true
             }
         })
 
     }
 
-    override fun onItemClick(countryCases: CountryCases) {
+    override fun onShowCountryDetails(countryData: CountryData) {
         val action = CountriesCasesFragmentDirections
-                .actionNavigationCountriesCasesToNavigationCountryCases(countryCases.name)
+                .actionNavigationCountriesCasesToNavigationCountryCases(countryData.name)
         findNavController().navigate(action)
     }
 }

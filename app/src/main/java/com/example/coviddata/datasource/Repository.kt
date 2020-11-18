@@ -4,28 +4,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.covidappapi.datasource.local.LocalDataSource
 import com.example.covidappapi.datasource.remote.RemoteDataSource
-import com.example.covidappapi.model.AllCases
-import com.example.covidappapi.model.CountryCases
-import java.time.LocalDateTime
+import com.example.covidappapi.model.WorldData
+import com.example.coviddata.model.CountryData
+import java.time.LocalDate
 
-    class Repository (
+class Repository (
             private val localDataSource: LocalDataSource,
             private val remoteDataSource: RemoteDataSource)
     {
         init {
             remoteDataSource.allCasesLiveData.observeForever { allCovidData ->
-                allCovidData.datetime = LocalDateTime.now().toString()
+                allCovidData.date = LocalDate.now().toString()
                 localDataSource.allCasesDao().insert(allCovidData)
             }
         }
 
-        val allCasesHistoryLiveData: LiveData<List<AllCases>> = localDataSource.allCasesDao().getAllCasesLiveData()
-        val allcasesLastLiveData = Transformations.map(allCasesHistoryLiveData) { history ->
-            history.maxByOrNull { it.datetime }
+        val worldDataHistoryLiveData: LiveData<List<WorldData>> = localDataSource.allCasesDao().getAllCasesLiveData()
+        val allcasesLastLiveData = Transformations.map(worldDataHistoryLiveData) { history ->
+            history.maxByOrNull { it.date }
         }
 
         private val _countriesLiveData = remoteDataSource.countriesLiveData
-        val countriesLiveData:LiveData<List<CountryCases>> = _countriesLiveData
+        val countriesLiveData:LiveData<List<CountryData>> = _countriesLiveData
 
         fun refreshAllCases(){
             remoteDataSource.refreshAllCases()
@@ -35,11 +35,11 @@ import java.time.LocalDateTime
             remoteDataSource.refreshCountriesCases()
         }
 
-        fun insert(dataAllCases: AllCases){
-            localDataSource.allCasesDao().insert(dataAllCases)
+        fun insert(dataWorldData: WorldData){
+            localDataSource.allCasesDao().insert(dataWorldData)
         }
 
-        fun delete(dataAllCases: AllCases){
-            localDataSource.allCasesDao().delete(dataAllCases)
+        fun delete(dataWorldData: WorldData){
+            localDataSource.allCasesDao().delete(dataWorldData)
         }
     }

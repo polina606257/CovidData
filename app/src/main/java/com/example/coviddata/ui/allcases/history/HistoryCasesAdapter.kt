@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.bold
-import androidx.core.text.color
 import androidx.recyclerview.widget.RecyclerView
-import com.example.covidappapi.model.AllCases
+import com.example.covidappapi.model.WorldData
 import com.example.coviddata.R
 import kotlinx.android.synthetic.main.history_cases_item.view.*
 
-class ListAdapter(private val list: List<AllCases>)
+class ListAdapter(private val list: List<WorldData>)
     : RecyclerView.Adapter<ListAdapter.HistoryCasesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryCasesViewHolder {
@@ -27,20 +26,21 @@ class ListAdapter(private val list: List<AllCases>)
         holder.bind(historyCases)
     }
 
-    inner class HistoryCasesViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        var historyCases: AllCases? = null
+    class HistoryCasesViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        var historyCases: WorldData? = null
 
-        fun bind(item: AllCases) {
+        fun bind(item: WorldData) {
             this.historyCases = item
-            itemView.date_time_history.text = prepareTextForView("Data and time: ", item.datetime)
+            itemView.date_time_history.text = prepareTextForView("Data and time: ", item.date)
             itemView.all_cases_per_date.text = prepareTextForView("Cases: ", item.cases.toString())
             itemView.all_deaths_per_date.text = prepareTextForView("Deaths: ", item.deaths.toString())
             itemView.all_recovered_per_date.text = prepareTextForView("Recovered: ", item.recovered.toString())
         }
+        fun prepareTextForView(boldText: String, regularText: String) : SpannableStringBuilder {
+            val s = SpannableStringBuilder().bold { append(boldText) }.append(regularText)
+            return s
+        }
     }
 
-    fun prepareTextForView(boldText: String, regularText: String) : SpannableStringBuilder {
-        val s = SpannableStringBuilder().bold { append(boldText) }.append(regularText)
-        return s
-    }
+
 }

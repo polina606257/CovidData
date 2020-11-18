@@ -3,30 +3,20 @@ package com.example.coviddata.ui.countriescases
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.example.covidappapi.model.CountryCases
+import com.example.coviddata.model.CountryData
 import com.example.coviddata.R
+import com.example.coviddata.databinding.CountryItemBinding
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.country_item.view.*
 
-interface ListAdapterObserver {
-    fun onItemClick(countryCases: CountryCases)
-}
-
-class ListAdapter(private val list: List<CountryCases>, val observer: ListAdapterObserver)
+class ListAdapter(private val list: List<CountryData>, private val viewModel: CountriesCasesViewModel)
     : RecyclerView.Adapter<ListAdapter.CountryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.country_item, parent, false)
-        val holder = CountryViewHolder(view)
-
-        holder.itemView.setOnClickListener {
-            holder.countryCases?.let {
-                observer.onItemClick(it)
-            }
-        }
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = CountryItemBinding.inflate(inflater, parent, false)
+        val holder = CountryViewHolder(binding, viewModel)
         return holder
     }
 
@@ -37,21 +27,17 @@ class ListAdapter(private val list: List<CountryCases>, val observer: ListAdapte
         holder.bind(country)
     }
 
-    inner class CountryViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        var countryCases: CountryCases? = null
+    class CountryViewHolder(
+            val binding: CountryItemBinding,
+            val viewModel: CountriesCasesViewModel
+    ): RecyclerView.ViewHolder(binding.root) {
+        var countryData: CountryData? = null
 
-        fun bind(item: CountryCases) {
-            this.countryCases = item
-            itemView.country_name_textView.text = item.name
-            itemView.country_all_cases_textView.text = item.cases.toString()
-            try {
-                Picasso.with(itemView.context)
-                        .load(item.countryInfo.flag)
-                        .into(itemView.country_flag_imageView)
-            }catch (e: Exception){
-
-            }
-
+        fun bind(item: CountryData) {
+            this.countryData = item
+            binding.countryData = item
+            binding.viewModel = viewModel
+            binding.executePendingBindings()
         }
     }
 }

@@ -2,7 +2,7 @@ package com.example.coviddata.ui.allcases
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.covidappapi.model.AllCases
+import com.example.covidappapi.model.WorldData
 import com.example.coviddata.CovidApp
 
 class AllCasesViewModel : ViewModel(){
@@ -12,8 +12,8 @@ class AllCasesViewModel : ViewModel(){
     }
 
     private val _allCasesLiveData = CovidApp.repository.allcasesLastLiveData
-    val allCasesLiveData: LiveData<AllCases?> = _allCasesLiveData
-    val allCasesHistoryLiveData: LiveData<List<AllCases>> = CovidApp.repository.allCasesHistoryLiveData
+    val worldDataLiveData: LiveData<WorldData?> = _allCasesLiveData
+    val worldDataHistoryLiveData: LiveData<List<WorldData>> = CovidApp.repository.worldDataHistoryLiveData
 
     fun refreshAllCases(){
         CovidApp.repository.refreshAllCases()

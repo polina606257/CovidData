@@ -29,8 +29,9 @@ class AllCasesFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        historyCasesButton.setOnClickListener { button ->
+        historyCasesButton.setOnClickListener {button ->
             val action = AllCasesFragmentDirections.actionNavigationAllCasesToAllCasesHistoryFragment2()
-            findNavController().navigate(action) }
+            findNavController().navigate(action)
         }
     }
+}

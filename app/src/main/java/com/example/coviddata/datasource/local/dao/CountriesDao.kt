@@ -5,16 +5,16 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.covidappapi.model.CountryCases
+import com.example.coviddata.model.CountryData
 
 @Dao
 interface CountriesDao {
-    @Query("SELECT * FROM CountryCases")
-    fun getCountryCasesLiveData(): LiveData<List<CountryCases>>
+    @Query("SELECT * FROM CountryData")
+    fun getCountryCasesLiveData(): LiveData<List<CountryData>>
 
     @Insert
-    fun insert(countryData: CountryCases)
+    fun insert(countryData: CountryData)
 
     @Delete
-    fun delete(countryData: CountryCases)
+    fun delete(countryData: CountryData)
 }

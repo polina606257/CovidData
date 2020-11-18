@@ -1,21 +1,18 @@
 package com.example.covidappapi.datasource.local.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import com.example.covidappapi.model.AllCases
+import androidx.room.*
+import com.example.covidappapi.model.WorldData
 
 @Dao
 interface AllCasesDao {
 
-        @Query("SELECT * FROM AllCases")
-        fun getAllCasesLiveData(): LiveData<List<AllCases>>
+        @Query("SELECT * FROM WorldData")
+        fun getAllCasesLiveData(): LiveData<List<WorldData>>
 
-        @Insert
-        fun insert(dataAllCases: AllCases)
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        fun insert(dataWorldData: WorldData)
 
         @Delete
-        fun delete(dataAllCases: AllCases)
+        fun delete(dataWorldData: WorldData)
     }

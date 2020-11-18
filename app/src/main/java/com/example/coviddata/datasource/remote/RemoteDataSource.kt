@@ -1,8 +1,8 @@
 package com.example.covidappapi.datasource.remote
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.covidappapi.model.AllCases
-import com.example.covidappapi.model.CountryCases
+import com.example.covidappapi.model.WorldData
+import com.example.coviddata.model.CountryData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,19 +17,19 @@ class RemoteDataSource {
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)
         .build()
-    val allCasesLiveData = MutableLiveData<AllCases>()
-    val countriesLiveData = MutableLiveData<List<CountryCases>>()
-    val countryLiveData = MutableLiveData<CountryCases>()
+    val allCasesLiveData = MutableLiveData<WorldData>()
+    val countriesLiveData = MutableLiveData<List<CountryData>>()
+    val countryLiveData = MutableLiveData<CountryData>()
 
     interface ApiRemoteService {
         @GET("v3/covid-19/all")
-        fun getAllCases(): Call<AllCases>
+        fun getAllCases(): Call<WorldData>
 
         @GET("v3/covid-19/countries")
-        fun getCountriesCases(): Call<List<CountryCases>>
+        fun getCountriesCases(): Call<List<CountryData>>
 
         @GET("v3/covid-19/countries/{country}")
-        fun getCountryCases(@Path ("country") country: String): Call<CountryCases>
+        fun getCountryCases(@Path ("country") country: String): Call<CountryData>
     }
 
     private val remoteService: ApiRemoteService by lazy {
@@ -37,13 +37,13 @@ class RemoteDataSource {
     }
 
     fun refreshAllCases() {
-        remoteService.getAllCases().enqueue(object : Callback<AllCases> {
-            override fun onResponse(call: Call<AllCases>, response: Response<AllCases>) {
+        remoteService.getAllCases().enqueue(object : Callback<WorldData> {
+            override fun onResponse(call: Call<WorldData>, response: Response<WorldData>) {
                 Log.d("myLog", response.body().toString())
                 allCasesLiveData.value = response.body()!!
             }
 
-            override fun onFailure(call: Call<AllCases>, t: Throwable) {
+            override fun onFailure(call: Call<WorldData>, t: Throwable) {
                 Log.v("MyLogAllCases", t.message.toString())
             }
         })
@@ -51,27 +51,27 @@ class RemoteDataSource {
 
     fun refreshCountriesCases() {
 //        countriesLiveData.value = getTestCountries()
-       remoteService.getCountriesCases().enqueue(object : Callback<List<CountryCases>> {
-            override fun onResponse(call: Call<List<CountryCases>>,
-                                    response: Response<List<CountryCases>>) {
+       remoteService.getCountriesCases().enqueue(object : Callback<List<CountryData>> {
+            override fun onResponse(call: Call<List<CountryData>>,
+                                    response: Response<List<CountryData>>) {
                 Log.d("myLogCountries", response.body().toString())
                 countriesLiveData.value = response.body()!!
             }
 
-            override fun onFailure(call: Call<List<CountryCases>>, t: Throwable) {
+            override fun onFailure(call: Call<List<CountryData>>, t: Throwable) {
                 Log.d("myLogCountriesCases", t.message.toString())
             }
         })
     }
 
-    fun refreshCountryCases(country: CountryCases) {
-        remoteService.getCountryCases(country.name).enqueue(object : Callback<CountryCases> {
-            override fun onResponse(call: Call<CountryCases>,
-                                    response: Response<CountryCases>) {
+    fun refreshCountryCases(country: CountryData) {
+        remoteService.getCountryCases(country.name).enqueue(object : Callback<CountryData> {
+            override fun onResponse(call: Call<CountryData>,
+                                    response: Response<CountryData>) {
                 countryLiveData.value = response.body()!!
             }
 
-            override fun onFailure(call: Call<CountryCases>, t: Throwable) {
+            override fun onFailure(call: Call<CountryData>, t: Throwable) {
                 Log.d("myLogCountryCases", t.message.toString())
             }
         })

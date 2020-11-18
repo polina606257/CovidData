@@ -4,10 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class AllCases(
+data class WorldData(
     val cases: Int,
     val deaths: Int,
     val recovered: Int,
     @PrimaryKey
-    var datetime: String
+    var date: String
 )

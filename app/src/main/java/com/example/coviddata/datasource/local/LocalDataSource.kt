@@ -4,10 +4,10 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.covidappapi.datasource.local.dao.CountriesDao
 import com.example.covidappapi.datasource.local.dao.AllCasesDao
-import com.example.covidappapi.model.AllCases
-import com.example.covidappapi.model.CountryCases
+import com.example.covidappapi.model.WorldData
+import com.example.coviddata.model.CountryData
 
-@Database(entities = [AllCases::class, CountryCases::class], version = 1)
+@Database(entities = [WorldData::class, CountryData::class], version = 1)
 abstract class LocalDataSource : RoomDatabase(){
     abstract fun allCasesDao(): AllCasesDao
     abstract fun countriesDao(): CountriesDao
