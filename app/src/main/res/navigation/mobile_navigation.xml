@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_all_cases"
-        android:name="com.example.coviddata.ui.allcases.AllCasesFragment"
-        android:label="@string/title_all_cases"
-        tools:layout="@layout/fragment_cases_all" >
+        android:name="com.example.coviddata.ui.worlddata.WorldDataFragment"
+        android:label="@string/title_world_data"
+        tools:layout="@layout/fragment_data_world" >
         <action
             android:id="@+id/action_navigation_all_cases_to_all_cases_history_fragment2"
             app:destination="@id/all_cases_history_fragment" />
@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/navigation_countries_cases"
-        android:name="com.example.coviddata.ui.countriescases.CountriesCasesFragment"
-        android:label="@string/title_countries_cases"
-        tools:layout="@layout/fragment_cases_countries" >
+        android:name="com.example.coviddata.ui.allcountriesdata.AllCountriesDataFragment"
+        android:label="@string/title_all_countries_data"
+        tools:layout="@layout/fragment_data_all_countries" >
         <action
             android:id="@+id/action_navigation_countries_cases_to_navigation_country_cases"
             app:destination="@id/navigation_country_cases" />
@@ -27,16 +27,16 @@
 
     <fragment
         android:id="@+id/navigation_country_cases"
-        android:name="com.example.coviddata.ui.countrycases.CountryCasesFragment"
-        android:label="@string/title_country_cases"
-        tools:layout="@layout/fragment_cases_country" >
+        android:name="com.example.coviddata.ui.countrydata.CountryDataFragment"
+        android:label="@string/title_country_data"
+        tools:layout="@layout/fragment_data_country" >
         <argument
             android:name="countryName"
             app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/all_cases_history_fragment"
-        android:name="com.example.coviddata.ui.allcases.history.AllCasesHistoryFragment"
+        android:name="com.example.coviddata.ui.worlddata.history.WorldDataHistoryFragment"
         android:label="fragment_all_cases_history"
-        tools:layout="@layout/fragment_all_cases_history" />
+        tools:layout="@layout/fragment_history_world_data" />
 </navigation>

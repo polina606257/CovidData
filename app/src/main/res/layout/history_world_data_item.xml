@@ -28,19 +28,19 @@
         app:layout_constraintTop_toBottomOf="@+id/date_time_history">
 
         <TextView
-            android:id="@+id/all_cases_per_date"
+            android:id="@+id/world_data_cases_per_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
         <TextView
-            android:id="@+id/all_deaths_per_date"
+            android:id="@+id/world_data_deaths_per_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
         <TextView
-            android:id="@+id/all_recovered_per_date"
+            android:id="@+id/world_data_recovered_per_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>

@@ -1,4 +1,4 @@
-package com.example.coviddata.ui.countrycases
+package com.example.coviddata.ui.countrydata
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,17 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.coviddata.R
-import com.example.coviddata.databinding.FragmentCasesCountryBinding
-import kotlinx.android.synthetic.main.fragment_cases_country.*
+import com.example.coviddata.databinding.FragmentDataCountryBinding
 
-class CountryCasesFragment : Fragment() {
+class CountryDataFragment : Fragment() {
 
-    val viewModel: CountryCasesViewModel by viewModels()
-    val args: CountryCasesFragmentArgs by navArgs()
+    val viewModel: CountryDataViewModel by viewModels()
+    val args: CountryDataFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
-        val root = inflater.inflate(R.layout.fragment_cases_country, container, false)
+        val root = inflater.inflate(R.layout.fragment_data_country, container, false)
         return root
     }
 
@@ -27,7 +26,7 @@ class CountryCasesFragment : Fragment() {
 
         val countryName = args.countryName
         viewModel.initCountryName(countryName)
-        val binding = FragmentCasesCountryBinding.bind(view)
+        val binding = FragmentDataCountryBinding.bind(view)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 

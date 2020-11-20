@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.countriescases.CountriesCasesFragment">
+    tools:context=".ui.allcountriesdata.AllCountriesDataFragment">
 
         <SearchView
-            android:id="@+id/searchView"
+            android:id="@+id/countriesSearchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/countriesOrderSpinner"
+            android:id="@+id/countriesSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_order_country_choice"
-            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            android:entries="@array/spinner_order_countries_choice"
+            app:layout_constraintTop_toBottomOf="@+id/countriesSearchView"
             tools:layout_editor_absoluteX="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countriesOrderSpinner">
+        app:layout_constraintTop_toBottomOf="@+id/countriesSpinner">
         </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

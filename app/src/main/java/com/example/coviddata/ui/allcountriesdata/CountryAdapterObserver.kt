@@ -1,14 +1,10 @@
-package com.example.coviddata.ui.countriescases
+package com.example.coviddata.ui.allcountriesdata
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coviddata.model.CountryData
-import com.example.coviddata.R
 import com.example.coviddata.databinding.CountryItemBinding
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.country_item.view.*
 
 class ListAdapter(private val list: List<CountryData>, private val viewModel: CountriesCasesViewModel)
     : RecyclerView.Adapter<ListAdapter.CountryViewHolder>() {

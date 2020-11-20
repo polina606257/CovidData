@@ -1,24 +1,20 @@
 <resources>
     <string name="app_name">CovidAppApi</string>
-    <string name="title_all_cases">Covid in world</string>
-    <string name="title_countries_cases">Covid in countries</string>
-    <string name="title_country_cases">Covid in country</string>
-    <string name="find_button">Find</string>
+    <string name="title_world_data">Covid in world</string>
+    <string name="title_all_countries_data">Covid in countries</string>
+    <string name="title_country_data">Covid in country</string>
     <string name="cases_textView">Cases:</string>
     <string name="deaths_textView">Deaths:</string>
     <string name="recovered_textView">Recovered:</string>
     <string name="cases_per_one_million_textView">Cases per one million:</string>
     <string name="deaths_per_one_million_textView">Today recovered:</string>
     <string name="tests_per_one_million_textView">Tests per one million:</string>
-    <string name="no_data_text">no data</string>
-    <string name="RefreshCasesButton">REFRESH</string>
-
-    <string-array name="spinner_order_country_choice">
-        <item>alphabet order</item>
-        <item>covid cases order</item>
-    </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="RefreshWorldDataButton">REFRESH</string>
     <string name="covid_history_btn_text">COVID HISTORY</string>
+
+    <string-array name="spinner_order_countries_choice">
+        <item>alphabet order</item>
+        <item>cases order</item>
+    </string-array>
 
 </resources>

@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.allcases.history.AllCasesHistoryFragment">
+    tools:context=".ui.worlddata.history.WorldDataHistoryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/historyCasesRecyclerView"
+        android:id="@+id/historyWorldDataRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical" />

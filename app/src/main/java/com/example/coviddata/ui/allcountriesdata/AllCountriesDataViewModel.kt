@@ -1,4 +1,4 @@
- package com.example.coviddata.ui.countriescases
+ package com.example.coviddata.ui.allcountriesdata
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -42,7 +42,7 @@ class CountriesCasesViewModel : ViewModel() {
             countries
         return when(sortParamLiveData.value!!){
             SortParam.NAME -> filteredCountries?.sortedBy { it.name }
-            SortParam.CASES -> filteredCountries?.sortedBy { it.cases }
+            SortParam.CASES -> filteredCountries?.sortedByDescending { it.cases }
         }
     }
 

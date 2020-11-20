@@ -4,11 +4,11 @@
     <item
         android:id="@+id/navigation_all_cases"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_all_cases" />
+        android:title="@string/title_world_data" />
 
     <item
         android:id="@+id/navigation_countries_cases"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_countries_cases" />
+        android:title="@string/title_all_countries_data" />
 
 </menu>

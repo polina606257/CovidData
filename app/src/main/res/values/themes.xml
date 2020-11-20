@@ -13,14 +13,14 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
     </style>
 
-    <style name="country_data_GridLayout">
+    <style name="data_number_GridLayout">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">end</item>
         <item name="android:textSize">@dimen/country_data_textSize_gridLayout</item>
     </style>
 
-    <style name="country_text_data_GridLayout" parent="country_data_GridLayout">
+    <style name="data_title_GridLayout" parent="data_number_GridLayout">
         <item name="android:textStyle">bold</item>
         <item name="android:layout_gravity">start</item>
     </style>

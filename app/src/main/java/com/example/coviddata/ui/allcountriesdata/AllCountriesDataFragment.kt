@@ -1,4 +1,4 @@
-package com.example.coviddata.ui.countriescases
+package com.example.coviddata.ui.allcountriesdata
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,16 +12,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.R
-import kotlinx.android.synthetic.main.fragment_cases_countries.*
+import kotlinx.android.synthetic.main.fragment_data_all_countries.*
 
-
-class CountriesCasesFragment : Fragment(), CountriesCasesViewModel.Listener {
+class AllCountriesDataFragment : Fragment(), CountriesCasesViewModel.Listener {
 
     val viewModel: CountriesCasesViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
-        val root = inflater.inflate(R.layout.fragment_cases_countries, container, false)
+        val root = inflater.inflate(R.layout.fragment_data_all_countries, container, false)
 
         return root
     }
@@ -37,7 +36,7 @@ class CountriesCasesFragment : Fragment(), CountriesCasesViewModel.Listener {
             }
         }
 
-        countriesOrderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        countriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, selectedItem: View, position: Int, id: Long) {
                 when (position) {
                     0 -> viewModel.sortParamLiveData.value = SortParam.NAME
@@ -50,7 +49,7 @@ class CountriesCasesFragment : Fragment(), CountriesCasesViewModel.Listener {
             }
         }
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        countriesSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                return true
             }
@@ -63,7 +62,7 @@ class CountriesCasesFragment : Fragment(), CountriesCasesViewModel.Listener {
     }
 
     override fun onShowCountryDetails(countryData: CountryData) {
-        val action = CountriesCasesFragmentDirections
+        val action = AllCountriesDataFragmentDirections
                 .actionNavigationCountriesCasesToNavigationCountryCases(countryData.name)
         findNavController().navigate(action)
     }

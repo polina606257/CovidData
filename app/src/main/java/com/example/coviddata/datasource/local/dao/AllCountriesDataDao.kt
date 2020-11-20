@@ -8,7 +8,7 @@ import androidx.room.Query
 import com.example.coviddata.model.CountryData
 
 @Dao
-interface CountriesDao {
+interface AllCountriesDataDao {
     @Query("SELECT * FROM CountryData")
     fun getCountryCasesLiveData(): LiveData<List<CountryData>>
 

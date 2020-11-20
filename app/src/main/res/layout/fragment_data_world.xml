@@ -6,16 +6,16 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.coviddata.ui.allcases.AllCasesViewModel" />
+            type="com.example.coviddata.ui.worlddata.WorldDataViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.allcases.AllCasesFragment">
+        tools:context=".ui.worlddata.WorldDataFragment">
 
         <Button
-            android:id="@+id/historyCasesButton"
+            android:id="@+id/historyWorldDataButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/covid_history_btn_text"
@@ -40,41 +40,41 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/total_textView"
-                style="@style/country_text_data_GridLayout"
+                android:id="@+id/world_data_cases_title_textView"
+                style="@style/data_title_GridLayout"
                 android:text="@string/cases_textView" />
 
             <TextView
-                android:id="@+id/total_number_textView"
-                style="@style/country_data_GridLayout"
+                android:id="@+id/world_data_cases_number_textView"
+                style="@style/data_number_GridLayout"
                 android:text="@{Integer.toString(viewModel.worldDataLiveData.cases)}" />
 
             <TextView
-                android:id="@+id/deaths_textView"
-                style="@style/country_text_data_GridLayout"
+                android:id="@+id/world_data_deaths_title_textView"
+                style="@style/data_title_GridLayout"
                 android:text="@string/deaths_textView" />
 
             <TextView
-                android:id="@+id/deaths_number_textView"
-                style="@style/country_data_GridLayout"
+                android:id="@+id/world_data_deaths_number_textView"
+                style="@style/data_number_GridLayout"
                 android:text="@{Integer.toString(viewModel.worldDataLiveData.deaths)}" />
 
             <TextView
-                android:id="@+id/recovered_textView"
-                style="@style/country_text_data_GridLayout"
+                android:id="@+id/world_data_recovered_title_textView"
+                style="@style/data_title_GridLayout"
                 android:text="@string/recovered_textView" />
 
             <TextView
-                android:id="@+id/recovered_number_textView"
-                style="@style/country_data_GridLayout"
+                android:id="@+id/world_data_recovered_number_textView"
+                style="@style/data_number_GridLayout"
                 android:text="@{Integer.toString(viewModel.worldDataLiveData.recovered)}" />
         </GridLayout>
 
         <Button
-            android:id="@+id/refreshButton"
+            android:id="@+id/refreshWorldDataButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/RefreshCasesButton"
+            android:text="@string/RefreshWorldDataButton"
             android:onClick="@{() -> viewModel.refreshAllCases()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,10 +1,10 @@
-package com.example.coviddata.ui.countrycases
+package com.example.coviddata.ui.countrydata
 
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.coviddata.CovidApp
 
-class CountryCasesViewModel : ViewModel(){
+class CountryDataViewModel : ViewModel(){
     private var countryName: String? = null
     fun initCountryName(countryName: String){
         this.countryName = countryName
