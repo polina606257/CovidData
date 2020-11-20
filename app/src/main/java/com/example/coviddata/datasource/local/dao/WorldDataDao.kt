@@ -8,7 +8,7 @@ import com.example.covidappapi.model.WorldData
 interface WorldDataDao {
 
         @Query("SELECT * FROM WorldData")
-        fun getAllCasesLiveData(): LiveData<List<WorldData>>
+        fun getHistoryWorldDataLiveData(): LiveData<List<WorldData>>
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         fun insert(dataWorldData: WorldData)

@@ -5,9 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity
+@Entity(primaryKeys = ["date","name"])
 data class CountryData(
-        @PrimaryKey
+        var date: String,
         @SerializedName(value = "country")
         val name: String,
         @Embedded(prefix = "countryInfo")

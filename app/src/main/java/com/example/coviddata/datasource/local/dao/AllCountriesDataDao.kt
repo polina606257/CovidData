@@ -1,18 +1,15 @@
 package com.example.covidappapi.datasource.local.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.coviddata.model.CountryData
 
 @Dao
 interface AllCountriesDataDao {
     @Query("SELECT * FROM CountryData")
-    fun getCountryCasesLiveData(): LiveData<List<CountryData>>
+    fun getHistoryAllCountriesDataLiveData(): LiveData<List<CountryData>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(countryData: CountryData)
 
     @Delete

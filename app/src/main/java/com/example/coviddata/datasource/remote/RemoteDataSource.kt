@@ -17,30 +17,30 @@ class RemoteDataSource {
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)
         .build()
-    val allCasesLiveData = MutableLiveData<WorldData>()
-    val countriesLiveData = MutableLiveData<List<CountryData>>()
+    val worldDataLiveData = MutableLiveData<WorldData>()
+    val allCountriesLiveData = MutableLiveData<List<CountryData>>()
     val countryLiveData = MutableLiveData<CountryData>()
 
     interface ApiRemoteService {
         @GET("v3/covid-19/all")
-        fun getAllCases(): Call<WorldData>
+        fun getWorldData(): Call<WorldData>
 
         @GET("v3/covid-19/countries")
-        fun getCountriesCases(): Call<List<CountryData>>
+        fun getAllCountriesData(): Call<List<CountryData>>
 
         @GET("v3/covid-19/countries/{country}")
-        fun getCountryCases(@Path ("country") country: String): Call<CountryData>
+        fun getCountryData(@Path ("country") country: String): Call<CountryData>
     }
 
     private val remoteService: ApiRemoteService by lazy {
         retrofit.create(ApiRemoteService::class.java)
     }
 
-    fun refreshAllCases() {
-        remoteService.getAllCases().enqueue(object : Callback<WorldData> {
+    fun refreshWorldData() {
+        remoteService.getWorldData().enqueue(object : Callback<WorldData> {
             override fun onResponse(call: Call<WorldData>, response: Response<WorldData>) {
                 Log.d("myLog", response.body().toString())
-                allCasesLiveData.value = response.body()!!
+                worldDataLiveData.value = response.body()!!
             }
 
             override fun onFailure(call: Call<WorldData>, t: Throwable) {
@@ -49,13 +49,13 @@ class RemoteDataSource {
         })
     }
 
-    fun refreshCountriesCases() {
+    fun refreshAllCountriesData() {
 //        countriesLiveData.value = getTestCountries()
-       remoteService.getCountriesCases().enqueue(object : Callback<List<CountryData>> {
+       remoteService.getAllCountriesData().enqueue(object : Callback<List<CountryData>> {
             override fun onResponse(call: Call<List<CountryData>>,
                                     response: Response<List<CountryData>>) {
                 Log.d("myLogCountries", response.body().toString())
-                countriesLiveData.value = response.body()!!
+                allCountriesLiveData.value = response.body()!!
             }
 
             override fun onFailure(call: Call<List<CountryData>>, t: Throwable) {
@@ -64,8 +64,8 @@ class RemoteDataSource {
         })
     }
 
-    fun refreshCountryCases(country: CountryData) {
-        remoteService.getCountryCases(country.name).enqueue(object : Callback<CountryData> {
+    fun refreshCountryData(country: CountryData) {
+        remoteService.getCountryData(country.name).enqueue(object : Callback<CountryData> {
             override fun onResponse(call: Call<CountryData>,
                                     response: Response<CountryData>) {
                 countryLiveData.value = response.body()!!

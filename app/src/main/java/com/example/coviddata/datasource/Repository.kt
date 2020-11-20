@@ -13,33 +13,37 @@ class Repository (
             private val remoteDataSource: RemoteDataSource)
     {
         init {
-            remoteDataSource.allCasesLiveData.observeForever { allCovidData ->
-                allCovidData.date = LocalDate.now().toString()
-                localDataSource.allCasesDao().insert(allCovidData)
+            remoteDataSource.worldDataLiveData.observeForever { worldCovidData ->
+                worldCovidData.date = LocalDate.now().toString()
+                localDataSource.worldDataDao().insert(worldCovidData)
+            }
+
+            remoteDataSource.allCountriesLiveData.observeForever { allCountriesData ->
+                for (countryData in allCountriesData) {
+                    countryData.date = LocalDate.now().toString()
+                    localDataSource.allCountriesDataDao().insert(countryData)
+                }
             }
         }
 
-        val worldDataHistoryLiveData: LiveData<List<WorldData>> = localDataSource.allCasesDao().getAllCasesLiveData()
-        val allcasesLastLiveData = Transformations.map(worldDataHistoryLiveData) { history ->
+        val worldDataHistoryLiveData: LiveData<List<WorldData>> = localDataSource.worldDataDao()
+                .getHistoryWorldDataLiveData()
+        val worldDataLastLiveData = Transformations.map(worldDataHistoryLiveData) { history ->
             history.maxByOrNull { it.date }
         }
 
-        private val _countriesLiveData = remoteDataSource.countriesLiveData
-        val countriesLiveData:LiveData<List<CountryData>> = _countriesLiveData
+        val allCountriesHistoryLiveData: LiveData<List<CountryData>> = localDataSource.allCountriesDataDao()
+                .getHistoryAllCountriesDataLiveData()
 
-        fun refreshAllCases(){
-            remoteDataSource.refreshAllCases()
+        val allCountriesDataLastLiveData = Transformations.map(allCountriesHistoryLiveData) {history ->
+                history.filter { it.date == (history.maxByOrNull { it.date })?.date.toString() }
+            }
+
+        fun refreshWorldData(){
+            remoteDataSource.refreshWorldData()
         }
 
-        fun refreshCountriesCases() {
-            remoteDataSource.refreshCountriesCases()
-        }
-
-        fun insert(dataWorldData: WorldData){
-            localDataSource.allCasesDao().insert(dataWorldData)
-        }
-
-        fun delete(dataWorldData: WorldData){
-            localDataSource.allCasesDao().delete(dataWorldData)
+        fun refreshAllCountriesData() {
+            remoteDataSource.refreshAllCountriesData()
         }
     }

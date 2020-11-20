@@ -10,7 +10,7 @@ class CountryDataViewModel : ViewModel(){
         this.countryName = countryName
     }
 
-    private val countriesLiveData = CovidApp.repository.countriesLiveData
+    private val countriesLiveData = CovidApp.repository.allCountriesDataLastLiveData
     val countryLiveData = Transformations.map(countriesLiveData){ countries ->
         countries.find { it.name == countryName }
     }

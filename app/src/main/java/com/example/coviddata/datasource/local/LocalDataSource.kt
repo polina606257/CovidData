@@ -9,6 +9,6 @@ import com.example.coviddata.model.CountryData
 
 @Database(entities = [WorldData::class, CountryData::class], version = 1)
 abstract class LocalDataSource : RoomDatabase(){
-    abstract fun allCasesDao(): WorldDataDao
-    abstract fun countriesDao(): AllCountriesDataDao
+    abstract fun worldDataDao(): WorldDataDao
+    abstract fun allCountriesDataDao(): AllCountriesDataDao
 }
