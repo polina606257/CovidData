@@ -14,15 +14,28 @@
         android:layout_height="match_parent"
         tools:context=".ui.countrydata.CountryDataFragment">
 
+        <Button
+            android:id="@+id/historyCountryDataButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/covid_history_btn_text"
+            app:layout_constraintBottom_toTopOf="@+id/country_title_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.126"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.264" />
+
         <TextView
             android:id="@+id/country_title_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/country_textView_in_country_marginTop"
+            android:layout_marginTop="@dimen/country_title_textView_marginTop"
+            android:text="@{viewModel.countryLiveData.name}"
             android:textSize="@dimen/country_textView_textSize_in_country"
             android:textStyle="bold"
-            android:text="@{viewModel.countryLiveData.name}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.537"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

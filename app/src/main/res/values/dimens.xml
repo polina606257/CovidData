@@ -10,4 +10,6 @@
     <dimen name="country_textView_in_country_marginTop">80dp</dimen>
     <dimen name="country_textView_textSize_in_country">35sp</dimen>
     <dimen name="countries_recycleView_marginTop">30dp</dimen>
+    <dimen name="history_item_margin">10dp</dimen>
+    <dimen name="country_title_textView_marginTop">150dp</dimen>
 </resources>

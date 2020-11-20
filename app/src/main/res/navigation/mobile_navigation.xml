@@ -33,10 +33,18 @@
         <argument
             android:name="countryName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_country_cases_to_countryDataHistoryFragment"
+            app:destination="@id/countryDataHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/all_cases_history_fragment"
         android:name="com.example.coviddata.ui.worlddata.history.WorldDataHistoryFragment"
         android:label="fragment_all_cases_history"
         tools:layout="@layout/fragment_history_world_data" />
+    <fragment
+        android:id="@+id/countryDataHistoryFragment"
+        android:name="com.example.coviddata.ui.countrydata.history.CountryDataHistoryFragment"
+        android:label="fragment_country_data_history"
+        tools:layout="@layout/fragment_country_data_history" />
 </navigation>
