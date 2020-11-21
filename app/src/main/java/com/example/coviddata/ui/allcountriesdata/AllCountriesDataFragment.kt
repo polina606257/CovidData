@@ -14,9 +14,9 @@ import com.example.coviddata.model.CountryData
 import com.example.coviddata.R
 import kotlinx.android.synthetic.main.fragment_data_all_countries.*
 
-class AllCountriesDataFragment : Fragment(), CountriesCasesViewModel.Listener {
+class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener {
 
-    val viewModel: CountriesCasesViewModel by viewModels()
+    val viewModelAll: AllCountriesDataViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
@@ -28,19 +28,19 @@ class AllCountriesDataFragment : Fragment(), CountriesCasesViewModel.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         countriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        viewModel.setListener(this)
-        viewModel.refreshCountries()
-        viewModel.countriesLiveData.observe(viewLifecycleOwner){ countries->
+        viewModelAll.setListener(this)
+        viewModelAll.refreshCountries()
+        viewModelAll.countriesLiveData.observe(viewLifecycleOwner){ countries->
             countries?.let{
-                countriesRecyclerView.adapter = ListAdapter(it, viewModel)
+                countriesRecyclerView.adapter = ListAdapter(it, viewModelAll)
             }
         }
 
         countriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, selectedItem: View, position: Int, id: Long) {
                 when (position) {
-                    0 -> viewModel.sortParamLiveData.value = SortParam.NAME
-                    1 -> viewModel.sortParamLiveData.value = SortParam.CASES
+                    0 -> viewModelAll.sortParamLiveData.value = SortParam.NAME
+                    1 -> viewModelAll.sortParamLiveData.value = SortParam.CASES
                 }
             }
 
@@ -54,7 +54,7 @@ class AllCountriesDataFragment : Fragment(), CountriesCasesViewModel.Listener {
                return true
             }
             override fun onQueryTextChange(userInput: String?): Boolean {
-                viewModel.filterParamLiveData.value = userInput ?: ""
+                viewModelAll.filterParamLiveData.value = userInput ?: ""
                 return true
             }
         })

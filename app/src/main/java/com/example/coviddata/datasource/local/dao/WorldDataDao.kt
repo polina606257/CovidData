@@ -2,7 +2,7 @@ package com.example.covidappapi.datasource.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.covidappapi.model.WorldData
+import com.example.coviddata.model.WorldData
 
 @Dao
 interface WorldDataDao {

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.covidappapi.datasource.local.LocalDataSource
 import com.example.covidappapi.datasource.remote.RemoteDataSource
-import com.example.covidappapi.model.WorldData
+import com.example.coviddata.model.WorldData
 import com.example.coviddata.model.CountryData
 import java.time.LocalDate
 

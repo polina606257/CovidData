@@ -9,7 +9,7 @@
             type="com.example.coviddata.model.CountryData" />
         <variable
             name="viewModel"
-            type="com.example.coviddata.ui.allcountriesdata.CountriesCasesViewModel" />
+            type="com.example.coviddata.ui.allcountriesdata.AllCountriesDataViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

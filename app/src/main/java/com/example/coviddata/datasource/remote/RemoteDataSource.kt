@@ -1,7 +1,7 @@
 package com.example.covidappapi.datasource.remote
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.covidappapi.model.WorldData
+import com.example.coviddata.model.WorldData
 import com.example.coviddata.model.CountryData
 import retrofit2.Call
 import retrofit2.Callback

@@ -1,4 +1,4 @@
-package com.example.covidappapi.model
+package com.example.coviddata.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

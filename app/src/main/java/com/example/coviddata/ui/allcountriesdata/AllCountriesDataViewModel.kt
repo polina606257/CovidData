@@ -10,7 +10,7 @@ enum class SortParam {
     NAME, CASES
 }
 
-class CountriesCasesViewModel : ViewModel() {
+class AllCountriesDataViewModel : ViewModel() {
     private var _listener: Listener? = null
     fun setListener(listener: Listener){
         _listener = listener
