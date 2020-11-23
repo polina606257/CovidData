@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coviddata.R
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.model.CountryInfo
+import com.example.coviddata.ui.countrydata.CountryDataFragmentArgs
 import com.example.coviddata.ui.countrydata.CountryDataViewModel
 import com.example.coviddata.ui.worlddata.WorldDataViewModel
 import com.example.coviddata.ui.worlddata.history.ListAdapter
@@ -20,6 +22,7 @@ import java.time.LocalDate
 class CountryDataHistoryFragment : Fragment() {
 
     val viewModel: CountryDataViewModel by viewModels()
+    val args: CountryDataFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -28,6 +31,8 @@ class CountryDataHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val countryName = args.countryName
+        viewModel.initCountryName(countryName)
         historyCountryDataRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.countryDataHistoryLiveData.observe(viewLifecycleOwner) { historyData ->

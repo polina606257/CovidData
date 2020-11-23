@@ -7,7 +7,7 @@
     <string name="deaths_textView">Deaths:</string>
     <string name="recovered_textView">Recovered:</string>
     <string name="cases_per_one_million_textView">Cases per one million:</string>
-    <string name="deaths_per_one_million_textView">Today recovered:</string>
+    <string name="deaths_per_one_million_textView">Deaths per one million:</string>
     <string name="tests_per_one_million_textView">Tests per one million:</string>
     <string name="RefreshWorldDataButton">REFRESH</string>
     <string name="covid_history_btn_text">COVID HISTORY</string>

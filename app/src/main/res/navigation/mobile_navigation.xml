@@ -46,5 +46,9 @@
         android:id="@+id/countryDataHistoryFragment"
         android:name="com.example.coviddata.ui.countrydata.history.CountryDataHistoryFragment"
         android:label="fragment_country_data_history"
-        tools:layout="@layout/fragment_country_data_history" />
+        tools:layout="@layout/fragment_country_data_history" >
+        <argument
+            android:name="countryName"
+            app:argType="string" />
+    </fragment>
 </navigation>

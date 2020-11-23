@@ -10,9 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.coviddata.R
 import com.example.coviddata.databinding.FragmentDataCountryBinding
-import com.example.coviddata.ui.worlddata.WorldDataFragmentDirections
 import kotlinx.android.synthetic.main.fragment_data_country.*
-import kotlinx.android.synthetic.main.fragment_data_world.*
 
 class CountryDataFragment : Fragment() {
 
@@ -39,7 +37,7 @@ class CountryDataFragment : Fragment() {
         binding.viewModel = viewModel
 
         historyCountryDataButton.setOnClickListener { button ->
-            val action = CountryDataFragmentDirections.actionNavigationCountryCasesToCountryDataHistoryFragment()
+            val action = CountryDataFragmentDirections.actionNavigationCountryCasesToCountryDataHistoryFragment(countryName)
             findNavController().navigate(action)
         }
     }
