@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.CovidApp
+import com.example.coviddata.ui.Event
 
-enum class SortParam {
+ enum class SortParam {
     NAME, CASES
 }
 

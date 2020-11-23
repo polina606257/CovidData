@@ -1,21 +1,39 @@
 package com.example.covidappapi.datasource
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.covidappapi.datasource.local.LocalDataSource
 import com.example.covidappapi.datasource.remote.RemoteDataSource
+import com.example.coviddata.datasource.DataResult
+import com.example.coviddata.datasource.FailureResult
+import com.example.coviddata.datasource.SuccessResult
 import com.example.coviddata.model.WorldData
 import com.example.coviddata.model.CountryData
 import java.time.LocalDate
 
 class Repository (
             private val localDataSource: LocalDataSource,
-            private val remoteDataSource: RemoteDataSource)
-    {
+            private val remoteDataSource: RemoteDataSource
+){
         init {
             remoteDataSource.worldDataLiveData.observeForever { worldCovidData ->
-                worldCovidData.date = LocalDate.now().toString()
-                localDataSource.worldDataDao().insert(worldCovidData)
+                when (worldCovidData) {
+                    is SuccessResult -> {
+                        worldCovidData.data.date = LocalDate.now().toString()
+                        localDataSource.worldDataDao().insert(worldCovidData.data)
+                    }
+                    is FailureResult->{
+                        worldDataLastLiveData.value = worldCovidData
+                    }
+                }
+            }
+            localDataSource.worldDataDao().getHistoryWorldDataLiveData().observeForever {history ->
+                val lastData = history.maxByOrNull { it.date }
+                if (lastData != null)
+                    worldDataLastLiveData.value = SuccessResult(lastData)
+                else
+                    worldDataLastLiveData.value = FailureResult("No data in local DB")
             }
 
             remoteDataSource.allCountriesLiveData.observeForever { allCountriesData ->
@@ -28,9 +46,13 @@ class Repository (
 
         val worldDataHistoryLiveData: LiveData<List<WorldData>> = localDataSource.worldDataDao()
                 .getHistoryWorldDataLiveData()
-        val worldDataLastLiveData = Transformations.map(worldDataHistoryLiveData) { history ->
+        val worldDataLastLiveData = MutableLiveData<DataResult<WorldData>>()
+        /*val worldDataLastLiveData: LiveData<WorldData?> = Transformations.map(worldDataHistoryLiveData) { history ->
             history.maxByOrNull { it.date }
-        }
+        }*/
+
+
+
 
         val allCountriesHistoryLiveData: LiveData<List<CountryData>> = localDataSource.allCountriesDataDao()
                 .getHistoryAllCountriesDataLiveData()
@@ -46,4 +68,4 @@ class Repository (
         fun refreshAllCountriesData() {
             remoteDataSource.refreshAllCountriesData()
         }
-    }
+}

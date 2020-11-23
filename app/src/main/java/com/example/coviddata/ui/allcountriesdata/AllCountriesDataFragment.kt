@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.R
+import com.example.coviddata.ui.Event
+import com.example.coviddata.ui.EventObserver
 import kotlinx.android.synthetic.main.fragment_data_all_countries.*
 
 class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener {

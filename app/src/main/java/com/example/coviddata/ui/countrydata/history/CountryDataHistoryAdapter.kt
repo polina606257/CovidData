@@ -33,6 +33,7 @@ class ListAdapter(private val list: List<CountryData>)
         fun bind(item: CountryData) {
             this.historyCases = item
             itemView.date_history.text = prepareTextForView("Data and time: ", item.date)
+            val text: String = itemView.context.resources.getString(R.string.cases_textView)
             itemView.country_data_cases_per_date.text = prepareTextForView("Cases: ",
                 item.cases.toString())
             itemView.country_data_deaths_per_date.text = prepareTextForView("Deaths: ",

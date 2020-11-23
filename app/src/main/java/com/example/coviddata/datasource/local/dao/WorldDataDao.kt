@@ -10,6 +10,7 @@ interface WorldDataDao {
         @Query("SELECT * FROM WorldData")
         fun getHistoryWorldDataLiveData(): LiveData<List<WorldData>>
 
+
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         fun insert(dataWorldData: WorldData)
 

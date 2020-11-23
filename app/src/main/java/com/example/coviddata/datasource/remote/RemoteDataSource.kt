@@ -1,6 +1,9 @@
 package com.example.covidappapi.datasource.remote
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.coviddata.datasource.DataResult
+import com.example.coviddata.datasource.FailureResult
+import com.example.coviddata.datasource.SuccessResult
 import com.example.coviddata.model.WorldData
 import com.example.coviddata.model.CountryData
 import retrofit2.Call
@@ -17,7 +20,7 @@ class RemoteDataSource {
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)
         .build()
-    val worldDataLiveData = MutableLiveData<WorldData>()
+    val worldDataLiveData = MutableLiveData<DataResult<WorldData>>()
     val allCountriesLiveData = MutableLiveData<List<CountryData>>()
     val countryLiveData = MutableLiveData<CountryData>()
 
@@ -40,11 +43,11 @@ class RemoteDataSource {
         remoteService.getWorldData().enqueue(object : Callback<WorldData> {
             override fun onResponse(call: Call<WorldData>, response: Response<WorldData>) {
                 Log.d("myLog", response.body().toString())
-                worldDataLiveData.value = response.body()!!
+                worldDataLiveData.value = SuccessResult(response.body()!!)
             }
 
             override fun onFailure(call: Call<WorldData>, t: Throwable) {
-                Log.v("MyLogAllCases", t.message.toString())
+                worldDataLiveData.value = FailureResult(t.message.toString())
             }
         })
     }
