@@ -31,10 +31,6 @@ class ListAdapter(private val list: List<WorldData>)
             this.historyWorldData = item
             binding.worldData = item
             binding.executePendingBindings()
-//            itemView.date_history.text = item.date
-//            itemView.world_cases_number_textView.text = item.cases.toString()
-//            itemView.world_deaths_number_textView.text = item.deaths.toString()
-//            itemView.world_recovered_number_textView.text = item.recovered.toString()
         }
     }
 }

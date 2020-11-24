@@ -7,7 +7,6 @@
         <variable
             name="worldData"
             type="com.example.coviddata.model.WorldData" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
