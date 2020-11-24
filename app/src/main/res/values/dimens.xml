@@ -6,7 +6,7 @@
     <dimen name="country_item_height">20dp</dimen>
     <dimen name="country_item_marginStartEnd">20dp</dimen>
     <dimen name="country_item_marginBottom">10dp</dimen>
-    <dimen name="country_data_textSize_gridLayout">25sp</dimen>
+    <dimen name="data_textSize">25sp</dimen>
     <dimen name="country_textView_in_country_marginTop">80dp</dimen>
     <dimen name="country_textView_textSize_in_country">35sp</dimen>
     <dimen name="countries_recycleView_marginTop">30dp</dimen>

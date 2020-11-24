@@ -1,13 +1,10 @@
-package com.example.covidappapi.datasource
+package com.example.coviddata.datasource
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.covidappapi.datasource.local.LocalDataSource
-import com.example.covidappapi.datasource.remote.RemoteDataSource
-import com.example.coviddata.datasource.DataResult
-import com.example.coviddata.datasource.FailureResult
-import com.example.coviddata.datasource.SuccessResult
+import com.example.coviddata.datasource.remote.RemoteDataSource
 import com.example.coviddata.model.WorldData
 import com.example.coviddata.model.CountryData
 import java.time.LocalDate
@@ -50,6 +47,7 @@ class Repository (
         /*val worldDataLastLiveData: LiveData<WorldData?> = Transformations.map(worldDataHistoryLiveData) { history ->
             history.maxByOrNull { it.date }
         }*/
+
 
 
 

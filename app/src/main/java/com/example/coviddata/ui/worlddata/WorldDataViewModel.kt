@@ -16,18 +16,22 @@ class WorldDataViewModel : ViewModel(){
     }
 
     private val _worldLiveData: LiveData<DataResult<WorldData>> = CovidApp.repository.worldDataLastLiveData
-    val worldDataLiveData: LiveData<WorldData?> = Transformations.map(_worldLiveData){result ->
+
+    val worldDataLiveData: LiveData<WorldData?> = Transformations.map(_worldLiveData){ result ->
         if (result is SuccessResult)
             result.data
         else
             null
     }
-    val worldExceptionLiveData = Transformations.map(_worldLiveData){result ->
+//    var valueData = worldDataLiveData.value
+
+    val worldExceptionLiveData = Transformations.map(_worldLiveData){ result ->
         if (result is FailureResult)
             result.exception
         else
             null
     }
+//    var valueException = worldExceptionLiveData.value
 
     val worldDataHistoryLiveData: LiveData<List<WorldData>> = CovidApp.repository.worldDataHistoryLiveData
 

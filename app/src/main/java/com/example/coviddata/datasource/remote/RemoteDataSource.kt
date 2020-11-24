@@ -1,4 +1,4 @@
-package com.example.covidappapi.datasource.remote
+package com.example.coviddata.datasource.remote
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.coviddata.datasource.DataResult
@@ -15,7 +15,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 class RemoteDataSource {
-    private val BASE_URL = "https://corona.lmao.ninja/"
+    private val BASE_URL = "https://corona.lmao.ninja1/"
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)

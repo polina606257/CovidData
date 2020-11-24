@@ -1,7 +1,10 @@
 package com.example.coviddata.ui.bindingadapters
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
+import com.example.coviddata.model.WorldData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.country_item.view.*
 
@@ -14,4 +17,12 @@ fun ImageView.imageURL(url: String){
     }catch (e: Exception){
 
     }
+}
+
+@BindingAdapter(value = ["app:visibilityView"], requireAll = false)
+fun View.visibilityView(value: Any?) {
+    if(value != null)
+        View.VISIBLE
+    else
+        View.INVISIBLE
 }

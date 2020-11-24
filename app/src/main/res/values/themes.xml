@@ -17,7 +17,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">end</item>
-        <item name="android:textSize">@dimen/country_data_textSize_gridLayout</item>
+        <item name="android:textSize">@dimen/data_textSize</item>
     </style>
 
     <style name="data_title_GridLayout" parent="data_number_GridLayout">
