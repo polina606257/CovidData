@@ -21,7 +21,7 @@ fun ImageView.imageURL(url: String){
 
 @BindingAdapter(value = ["app:visibilityView"], requireAll = false)
 fun View.visibilityView(value: Any?) {
-    if(value != null)
+    visibility = if(value != null)
         View.VISIBLE
     else
         View.INVISIBLE

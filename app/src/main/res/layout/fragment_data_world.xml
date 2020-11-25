@@ -34,7 +34,7 @@
             android:columnCount="2"
             android:orientation="horizontal"
             android:useDefaultMargins="true"
-            app:visibilityView="@{viewModel.worldDataHistoryLiveData}"
+            app:visibilityView="@{viewModel.worldDataLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
