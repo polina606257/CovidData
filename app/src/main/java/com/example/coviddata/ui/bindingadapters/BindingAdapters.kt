@@ -18,7 +18,7 @@ fun ImageView.imageURL(url: String){
 
 @BindingAdapter(value = ["app:visibilityViewLoading"], requireAll = false)
 fun View.visibilityViewLoading(isLoad: Any?) {
-    if(isLoad == true)
+    visibility = if(isLoad == true)
         View.VISIBLE
     else
         View.INVISIBLE
@@ -26,7 +26,7 @@ fun View.visibilityViewLoading(isLoad: Any?) {
 
 @BindingAdapter(value = ["app:visibilityViewNotLoading"], requireAll = false)
 fun View.visibilityViewNotLoading(notLoad: Any?) {
-    if(notLoad == false)
+    visibility = if(notLoad == false)
         View.VISIBLE
     else
         View.INVISIBLE
