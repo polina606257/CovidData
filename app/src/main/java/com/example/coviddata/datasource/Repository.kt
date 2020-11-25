@@ -1,6 +1,7 @@
 package com.example.covidappapi.datasource
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.covidappapi.datasource.local.LocalDataSource
 import com.example.covidappapi.datasource.remote.RemoteDataSource
@@ -16,6 +17,7 @@ class Repository (
             remoteDataSource.worldDataLiveData.observeForever { worldCovidData ->
                 worldCovidData.date = LocalDate.now().toString()
                 localDataSource.worldDataDao().insert(worldCovidData)
+                refreshWorldDataLiveData.value = false
             }
 
             remoteDataSource.allCountriesLiveData.observeForever { allCountriesData ->
@@ -31,6 +33,7 @@ class Repository (
         val worldDataLastLiveData = Transformations.map(worldDataHistoryLiveData) { history ->
             history.maxByOrNull { it.date }
         }
+        var refreshWorldDataLiveData= MutableLiveData<Boolean>()
 
         val allCountriesHistoryLiveData: LiveData<List<CountryData>> = localDataSource.allCountriesDataDao()
                 .getHistoryAllCountriesDataLiveData()
@@ -41,6 +44,7 @@ class Repository (
 
         fun refreshWorldData(){
             remoteDataSource.refreshWorldData()
+            refreshWorldDataLiveData.value = true
         }
 
         fun refreshAllCountriesData() {

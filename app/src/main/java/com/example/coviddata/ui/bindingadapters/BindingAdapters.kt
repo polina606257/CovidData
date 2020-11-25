@@ -1,9 +1,9 @@
 package com.example.coviddata.ui.bindingadapters
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.country_item.view.*
 
 @BindingAdapter(value = ["app:imageURL"], requireAll = false)
 fun ImageView.imageURL(url: String){
@@ -14,4 +14,20 @@ fun ImageView.imageURL(url: String){
     }catch (e: Exception){
 
     }
+}
+
+@BindingAdapter(value = ["app:visibilityViewLoading"], requireAll = false)
+fun View.visibilityViewLoading(isLoad: Any?) {
+    if(isLoad == true)
+        View.VISIBLE
+    else
+        View.INVISIBLE
+}
+
+@BindingAdapter(value = ["app:visibilityViewNotLoading"], requireAll = false)
+fun View.visibilityViewNotLoading(notLoad: Any?) {
+    if(notLoad == false)
+        View.VISIBLE
+    else
+        View.INVISIBLE
 }
