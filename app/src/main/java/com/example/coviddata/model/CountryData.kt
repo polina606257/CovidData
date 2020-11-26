@@ -11,7 +11,7 @@ data class CountryData(
         @SerializedName(value = "country")
         val name: String,
         @Embedded(prefix = "countryInfo")
-        val countryInfo: CountryInfo = CountryInfo(""),
+        val countryInfo: CountryInfo = CountryInfo(0.0, 0.0, " "),
         val cases: Int,
         val deaths: Int = 0,
         val recovered: Int = 0,
@@ -21,5 +21,7 @@ data class CountryData(
 )
 
 data class CountryInfo(
+        val lat: Double,
+        val long: Double,
         val flag: String
 )
