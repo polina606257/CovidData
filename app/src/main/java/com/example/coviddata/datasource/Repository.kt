@@ -33,7 +33,7 @@ class Repository (
         val worldDataLastLiveData = Transformations.map(worldDataHistoryLiveData) { history ->
             history.maxByOrNull { it.date }
         }
-        var refreshWorldDataLiveData= MutableLiveData<Boolean>()
+        var refreshWorldDataLiveData = MutableLiveData<Boolean>()
 
         val allCountriesHistoryLiveData: LiveData<List<CountryData>> = localDataSource.allCountriesDataDao()
                 .getHistoryAllCountriesDataLiveData()
