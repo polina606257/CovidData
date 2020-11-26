@@ -2,13 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_all_cases"
+        android:id="@+id/navigation_world_data"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_world_data" />
 
     <item
-        android:id="@+id/navigation_countries_cases"
+        android:id="@+id/navigation_all_countries_data"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_all_countries_data" />
+
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/covid_on_map_title" />
 
 </menu>

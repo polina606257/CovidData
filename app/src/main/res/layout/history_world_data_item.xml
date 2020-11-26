@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/design_default_color_primary"
                 android:textStyle="bold"
-                android:text="@string/date_TextView"
+                android:text="@string/date_textView"
                 android:layout_marginEnd="@dimen/date_title_in_world_history_marginEnd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

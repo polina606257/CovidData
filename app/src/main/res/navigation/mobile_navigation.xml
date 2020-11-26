@@ -3,30 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_all_cases">
+    app:startDestination="@+id/navigation_world_data">
 
     <fragment
-        android:id="@+id/navigation_all_cases"
+        android:id="@+id/navigation_world_data"
         android:name="com.example.coviddata.ui.worlddata.WorldDataFragment"
         android:label="@string/title_world_data"
         tools:layout="@layout/fragment_data_world" >
         <action
             android:id="@+id/action_navigation_all_cases_to_all_cases_history_fragment2"
-            app:destination="@id/all_cases_history_fragment" />
+            app:destination="@id/world_data_history_fragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_countries_cases"
+        android:id="@+id/navigation_map"
+        android:name="com.example.coviddata.ui.map.MapsFragment"
+        android:label="@string/covid_on_map_title"
+        tools:layout="@layout/fragment_maps"/>
+
+    <fragment
+        android:id="@+id/navigation_all_countries_data"
         android:name="com.example.coviddata.ui.allcountriesdata.AllCountriesDataFragment"
         android:label="@string/title_all_countries_data"
         tools:layout="@layout/fragment_data_all_countries" >
         <action
             android:id="@+id/action_navigation_countries_cases_to_navigation_country_cases"
-            app:destination="@id/navigation_country_cases" />
+            app:destination="@id/navigation_country_data" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_country_cases"
+        android:id="@+id/navigation_country_data"
         android:name="com.example.coviddata.ui.countrydata.CountryDataFragment"
         android:label="@string/title_country_data"
         tools:layout="@layout/fragment_data_country" >
@@ -37,11 +43,13 @@
             android:id="@+id/action_navigation_country_cases_to_countryDataHistoryFragment"
             app:destination="@id/countryDataHistoryFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/all_cases_history_fragment"
+        android:id="@+id/world_data_history_fragment"
         android:name="com.example.coviddata.ui.worlddata.history.WorldDataHistoryFragment"
         android:label="fragment_all_cases_history"
         tools:layout="@layout/fragment_history_world_data" />
+
     <fragment
         android:id="@+id/countryDataHistoryFragment"
         android:name="com.example.coviddata.ui.countrydata.history.CountryDataHistoryFragment"
@@ -51,4 +59,5 @@
             android:name="countryName"
             app:argType="string" />
     </fragment>
+
 </navigation>
