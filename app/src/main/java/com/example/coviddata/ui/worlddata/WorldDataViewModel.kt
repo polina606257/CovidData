@@ -5,24 +5,39 @@ import android.widget.ProgressBar
 import androidx.lifecycle.*
 import com.example.coviddata.model.WorldData
 import com.example.coviddata.CovidApp
+import kotlinx.coroutines.launch
 
 class WorldDataViewModel : ViewModel(){
-    private val _refreshWorldDataLiveData = CovidApp.repository.refreshWorldDataLiveData
-    val refreshWorldDataLiveData: LiveData<Boolean> = _refreshWorldDataLiveData
+    val _refreshWorldDataLiveData = MutableLiveData<Boolean>()
+    val _worldDataLiveData = MutableLiveData<WorldData?>()
+    val worldDataLiveData: LiveData<WorldData?> = _worldDataLiveData
 
-    init {
-        refreshAllCases()
+
+
+    fun refreshWorldData(){
+        viewModelScope.launch {
+            _refreshWorldDataLiveData.value = true
+            val data = CovidApp.repository.getWorldData()
+            _worldDataLiveData.value = data
+            _refreshWorldDataLiveData.value = false
+        }
     }
 
-    private val _allCasesLiveData = CovidApp.repository.worldDataLastLiveData
-    val worldDataLiveData: LiveData<WorldData?> = _allCasesLiveData
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     val worldDataHistoryLiveData: LiveData<List<WorldData>> = CovidApp.repository.worldDataHistoryLiveData
-
-
-
-    fun refreshAllCases(){
-        CovidApp.repository.refreshWorldData()
-    }
 }
 
 

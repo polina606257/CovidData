@@ -17,13 +17,11 @@ class RemoteDataSource {
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)
         .build()
-    val worldDataLiveData = MutableLiveData<WorldData>()
-    val allCountriesLiveData = MutableLiveData<List<CountryData>>()
-    val countryLiveData = MutableLiveData<CountryData>()
 
-    interface ApiRemoteService {
+
+    private interface ApiRemoteService {
         @GET("v3/covid-19/all")
-        fun getWorldData(): Call<WorldData>
+        suspend fun getWorldData(): WorldData
 
         @GET("v3/covid-19/countries")
         fun getAllCountriesData(): Call<List<CountryData>>
@@ -36,19 +34,17 @@ class RemoteDataSource {
         retrofit.create(ApiRemoteService::class.java)
     }
 
-    fun refreshWorldData() {
-        remoteService.getWorldData().enqueue(object : Callback<WorldData> {
-            override fun onResponse(call: Call<WorldData>, response: Response<WorldData>) {
-                Log.d("myLog", response.body().toString())
-                worldDataLiveData.value = response.body()!!
-            }
+    suspend fun getWorldData(): WorldData = remoteService.getWorldData()
 
-            override fun onFailure(call: Call<WorldData>, t: Throwable) {
-                Log.v("MyLogAllCases", t.message.toString())
-            }
-        })
-    }
 
+
+
+
+
+
+
+    val allCountriesLiveData = MutableLiveData<List<CountryData>>()
+    val countryLiveData = MutableLiveData<CountryData>()
     fun refreshAllCountriesData() {
 //        countriesLiveData.value = getTestCountries()
        remoteService.getAllCountriesData().enqueue(object : Callback<List<CountryData>> {
@@ -78,11 +74,3 @@ class RemoteDataSource {
     }
 }
 
-//fun getTestCountries(): List<CountryCases> = listOf(
-//        CountryCases(
-//                name="Russia", cases = 45654
-//        ),
-//        CountryCases(
-//                name="USA", cases = 456
-//        )
-//)
