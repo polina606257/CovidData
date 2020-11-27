@@ -16,6 +16,7 @@ class Repository(
     suspend fun getWorldData(): WorldData?{
         try {
             val data = remoteDataSource.getWorldData()
+            data.date = LocalDate.now().toString()
             localDataSource.worldDataDao().insert(data)
             return data
         }catch (e: Exception){

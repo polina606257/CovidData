@@ -15,6 +15,7 @@ class CovidApp : Application() {
         super.onCreate()
         val remoteDataSource = RemoteDataSource()
         val localDataSource = Room.databaseBuilder(applicationContext, LocalDataSource::class.java, "db")
+            .allowMainThreadQueries()
             .build()
         repository = Repository(localDataSource, remoteDataSource)
     }

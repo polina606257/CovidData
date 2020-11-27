@@ -46,7 +46,6 @@ class RemoteDataSource {
     val allCountriesLiveData = MutableLiveData<List<CountryData>>()
     val countryLiveData = MutableLiveData<CountryData>()
     fun refreshAllCountriesData() {
-//        countriesLiveData.value = getTestCountries()
        remoteService.getAllCountriesData().enqueue(object : Callback<List<CountryData>> {
             override fun onResponse(call: Call<List<CountryData>>,
                                     response: Response<List<CountryData>>) {
