@@ -22,6 +22,7 @@ data class CountryData(
 
 data class CountryInfo(
         var lat: Double = 0.0,
-        var long: Double = 0.0,
+        @SerializedName(value = "long")
+        var lng: Double = 0.0,
         var flag: String = ""
 )

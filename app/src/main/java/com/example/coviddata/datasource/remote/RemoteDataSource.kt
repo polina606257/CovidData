@@ -1,4 +1,4 @@
-package com.example.covidappapi.datasource.remote
+package com.example.coviddata.datasource.remote
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.coviddata.model.WorldData
