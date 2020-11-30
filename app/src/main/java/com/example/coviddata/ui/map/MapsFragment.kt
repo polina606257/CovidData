@@ -24,10 +24,14 @@ class MapsFragment : Fragment() {
     val viewModel: MapViewModel by viewModels()
 
     init {
+        viewModel._downloadMapLiveData.observeForever{
+            it == true
         CovidApp.repository.refreshAllCountriesData()
+        }
     }
 
     private val callback = OnMapReadyCallback { googleMap ->
+        viewModel._downloadMapLiveData.value = false
         viewModel.allCountriesLastLiveData.observeForever { countries ->
             for (country in countries) {
                 googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))

@@ -24,8 +24,6 @@ class WorldDataViewModel : ViewModel(){
     val worldDataLiveData: LiveData<WorldData?> = _allCasesLiveData
     val worldDataHistoryLiveData: LiveData<List<WorldData>> = CovidApp.repository.worldDataHistoryLiveData
 
-
-
     fun refreshAllCases(){
         _refreshWorldDataLiveData.value = true
         CovidApp.repository.refreshWorldData()
