@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coviddata.R
+import com.example.coviddata.model.WorldData
 import com.example.coviddata.ui.worlddata.WorldDataViewModel
 import kotlinx.android.synthetic.main.fragment_history_world_data.*
 
@@ -25,7 +26,7 @@ class WorldDataHistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         historyWorldDataRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         viewModel.worldDataHistoryLiveData.observe(viewLifecycleOwner) { historyCases ->
-            historyCases?.let {historyWorldDataRecyclerView.adapter = ListAdapter(it) }
+            historyCases?.let {historyWorldDataRecyclerView.adapter = ListAdapter(it as List<WorldData>) }
         }
     }
 }

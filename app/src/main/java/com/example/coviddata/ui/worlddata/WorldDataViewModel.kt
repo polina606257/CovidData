@@ -3,12 +3,51 @@ package com.example.coviddata.ui.worlddata
 import androidx.lifecycle.*
 import com.example.coviddata.model.WorldData
 import com.example.coviddata.CovidApp
+import com.example.coviddata.datasource.DataResult
+import com.example.coviddata.datasource.FailureResult
+import com.example.coviddata.datasource.FromCacheResult
+import com.example.coviddata.datasource.SuccessResult
+import com.example.coviddata.ui.Event
 import kotlinx.coroutines.launch
 
 class WorldDataViewModel : ViewModel(){
     val refreshWorldDataLiveData = MutableLiveData<Boolean>()
-    val _worldDataLiveData = MutableLiveData<WorldData?>()
-    val worldDataLiveData: LiveData<WorldData?> = _worldDataLiveData
+    private val _popupMessage = MutableLiveData<Event<String>>()
+    val popupMessage: LiveData<Event<String>> = _popupMessage
+
+    val _worldDataLiveData = MutableLiveData<DataResult<WorldData?>>()
+    val worldDataLiveData: LiveData<WorldData?> = Transformations.map(_worldDataLiveData){ result ->
+        when(result){
+            is SuccessResult -> result.data
+            is FailureResult -> null
+            is FromCacheResult ->{
+                _popupMessage.value = Event(result.message)
+                result.data
+            }
+        }
+    }
+
+    val worldExceptionLiveData: LiveData<String> = Transformations.map(_worldDataLiveData){ result ->
+        if (result is FailureResult)
+            result.exception
+        else
+            null
+    }
+
+//    val _worldDataHistoryLiveData = MutableLiveData<DataResult<List<WorldData?>>>()
+//    val worldDataHistoryLiveData: LiveData<List<WorldData?>> = Transformations.map(_worldDataHistoryLiveData) {result ->
+//        when(result){
+//            is SuccessResult -> result.data
+//            else -> null
+//        }
+//    }
+//
+//    val worldHistoryExceptionLiveData: LiveData<String> = Transformations.map(_worldDataHistoryLiveData){ result ->
+//        if (result is FailureResult)
+//            result.exception
+//        else
+//            null
+//    }
 
     init {
         refreshWorldData()
@@ -22,16 +61,6 @@ class WorldDataViewModel : ViewModel(){
             refreshWorldDataLiveData.value = false
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
 

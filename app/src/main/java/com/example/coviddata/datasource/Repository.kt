@@ -1,4 +1,4 @@
-package com.example.covidappapi.datasource
+package com.example.coviddata.datasource
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -13,39 +13,38 @@ class Repository(
     private val remoteDataSource: RemoteDataSource
 ) {
 
-    suspend fun getWorldData(): WorldData?{
+    suspend fun getWorldData(): DataResult<WorldData?>{
         try {
             val data = remoteDataSource.getWorldData()
             data.date = LocalDate.now().toString()
             localDataSource.worldDataDao().insert(data)
-            return data
+            return SuccessResult(data)
         }catch (e: Exception){
-            return localDataSource.worldDataDao().getLastWorldData()
+            val localData =  localDataSource.worldDataDao().getLastWorldData()
+            return FromCacheResult(localData, e.toString())
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     val worldDataHistoryLiveData: LiveData<List<WorldData>> = localDataSource.worldDataDao()
         .getHistoryWorldDataLiveData()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     init {
 
