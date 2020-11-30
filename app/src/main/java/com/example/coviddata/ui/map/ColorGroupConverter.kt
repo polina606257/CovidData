@@ -21,10 +21,10 @@ class ColorGroupConverter(val listCountries: List<CountryData>) {
     private fun getCasesRelatedForGroup(percentForMin: Double, percentForMax: Double) : ClosedFloatingPointRange<Double> {
         val countryMinCasesPerOneMillion = listCountries.minByOrNull { it.casesPerOneMillion }
         val countryMaxCasesPerOneMillion = listCountries.maxByOrNull { it.casesPerOneMillion }
-        val minNumCasesPerGroup = (countryMaxCasesPerOneMillion!!.cases - countryMinCasesPerOneMillion!!
-                .cases)* percentForMin
-        val maxNumCasesPerGroup = (countryMaxCasesPerOneMillion.cases - countryMinCasesPerOneMillion
-                .cases) * percentForMax
+        val minNumCasesPerGroup = (countryMaxCasesPerOneMillion!!.casesPerOneMillion - countryMinCasesPerOneMillion!!
+                .casesPerOneMillion)* percentForMin
+        val maxNumCasesPerGroup = (countryMaxCasesPerOneMillion.casesPerOneMillion - countryMinCasesPerOneMillion
+                .casesPerOneMillion) * percentForMax
         return minNumCasesPerGroup..(maxNumCasesPerGroup)
     }
 }

@@ -19,7 +19,7 @@
         android:id="@+id/navigation_map"
         android:name="com.example.coviddata.ui.map.MapsFragment"
         android:label="@string/covid_on_map_title"
-        tools:layout="@layout/fragment_maps"/>
+        tools:layout="@layout/fragment_google_map"/>
 
     <fragment
         android:id="@+id/navigation_all_countries_data"

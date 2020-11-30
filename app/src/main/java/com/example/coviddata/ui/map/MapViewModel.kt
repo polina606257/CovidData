@@ -8,9 +8,14 @@ import com.example.coviddata.model.CountryData
 
 class MapViewModel : ViewModel() {
     private lateinit var converter: ColorGroupConverter
-    val _downloadMapLiveData = MutableLiveData<Boolean>()
+    private val _downloadMapLiveData = MutableLiveData<Boolean>()
     val downloadMapLiveData: LiveData<Boolean> = _downloadMapLiveData
 
+
+
+    fun setDownloadStatus(isLoading: Boolean){
+        _downloadMapLiveData.value = isLoading
+    }
     val allCountriesLastLiveData = CovidApp.repository.allCountriesDataLastLiveData
 
     init{
@@ -19,7 +24,7 @@ class MapViewModel : ViewModel() {
         }
     }
 
-    fun getGroupNumber(country: CountryData) = converter.getGroupNumber(country)
+    fun getGroupNumber(country: CountryData): Int = converter.getGroupNumber(country)
 }
 
 
