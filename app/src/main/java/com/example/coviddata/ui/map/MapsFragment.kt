@@ -22,17 +22,19 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapsFragment : Fragment() {
 
     val viewModel: MapViewModel by viewModels()
-    lateinit var colorPin: BitmapDescriptor
 
     init {
         CovidApp.repository.refreshAllCountriesData()
     }
 
     private val callback = OnMapReadyCallback { googleMap ->
-            if(viewModel.allCountriesLastLiveData.value != null)
-                for(country in viewModel.allCountriesLastLiveData.value!!)
-                    googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
-                        .title(country.cases.toString()).icon(getPinColor(country)))
+        viewModel.allCountriesLastLiveData.observeForever { countries ->
+            for (country in countries) {
+                googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
+                        .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
+                        .icon(getPinColor(country)))
+            }
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater,
