@@ -31,13 +31,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/country_title_textView_marginTop"
-            android:text="@{viewModel.countryLiveData.name}"
             android:textSize="@dimen/country_textView_textSize_in_country"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.537"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+<!--        android:text="@{viewModel.countryLiveData.name}"-->
 
         <GridLayout
             android:layout_width="wrap_content"
@@ -58,8 +58,8 @@
 
             <TextView
                 android:id="@+id/country_cases_number_textView"
-                style="@style/data_number_GridLayout"
-                android:text="@{Integer.toString(viewModel.countryLiveData.cases)}" />
+                style="@style/data_number_GridLayout"/>
+<!--                android:text="@{Integer.toString(viewModel.countryLiveData.cases)}" -->
 
             <TextView
                 android:id="@+id/country_deaths_title_textView"
@@ -68,8 +68,8 @@
 
             <TextView
                 android:id="@+id/country_deaths_number_textView"
-                style="@style/data_number_GridLayout"
-                android:text="@{Integer.toString(viewModel.countryLiveData.deaths)}"/>
+                style="@style/data_number_GridLayout" />
+<!--            android:text="@{Integer.toString(viewModel.countryLiveData.deaths)}"-->
 
             <TextView
                 android:id="@+id/country_recovered_title_textView"
@@ -78,8 +78,8 @@
 
             <TextView
                 android:id="@+id/country_recovered_number_textView"
-                style="@style/data_number_GridLayout"
-                android:text="@{Integer.toString(viewModel.countryLiveData.recovered)}"/>
+                style="@style/data_number_GridLayout" />
+<!--            android:text="@{Integer.toString(viewModel.countryLiveData.recovered)}"-->
 
             <TextView
                 android:id="@+id/country_cases_per_one_million_title_textView"
@@ -88,8 +88,8 @@
 
             <TextView
                 android:id="@+id/country_cases_per_one_million_number_textView"
-                style="@style/data_number_GridLayout"
-                android:text="@{Double.toString(viewModel.countryLiveData.casesPerOneMillion)}"/>
+                style="@style/data_number_GridLayout" />
+<!--            android:text="@{Double.toString(viewModel.countryLiveData.casesPerOneMillion)}"-->
 
             <TextView
                 android:id="@+id/country_deaths_per_one_million_title_textView"
@@ -98,8 +98,8 @@
 
             <TextView
                 android:id="@+id/country_deaths_per_one_million_number_textView"
-                style="@style/data_number_GridLayout"
-                android:text="@{Double.toString(viewModel.countryLiveData.deathsPerOneMillion)}"/>
+                style="@style/data_number_GridLayout" />
+<!--            android:text="@{Double.toString(viewModel.countryLiveData.deathsPerOneMillion)}"-->
 
             <TextView
                 android:id="@+id/country_tests_per_one_million_title_textView"
@@ -108,8 +108,8 @@
 
             <TextView
                 android:id="@+id/country_tests_per_one_million_number_textView"
-                style="@style/data_number_GridLayout"
-                android:text="@{Double.toString(viewModel.countryLiveData.testsPerOneMillion)}"/>
+                style="@style/data_number_GridLayout" />
+<!--            android:text="@{Double.toString(viewModel.countryLiveData.testsPerOneMillion)}"-->
         </GridLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

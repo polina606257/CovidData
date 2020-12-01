@@ -1,36 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.allcountriesdata.AllCountriesDataFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-        <SearchView
-            android:id="@+id/countriesSearchView"
+        <data>
+                <variable
+                    name="viewModel"
+                    type="com.example.coviddata.ui.allcountriesdata.AllCountriesDataViewModel" />
+        </data>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            tools:context=".ui.allcountriesdata.AllCountriesDataFragment">
 
-        <Spinner
-            android:id="@+id/countriesSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/spinner_order_countries_choice"
-            app:layout_constraintTop_toBottomOf="@+id/countriesSearchView"
-            tools:layout_editor_absoluteX="16dp" />
+                <SearchView
+                    android:id="@+id/countriesSearchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/countriesRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scrollbars="vertical"
-            android:layout_marginTop="@dimen/countries_recycleView_marginTop"
-            app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countriesSpinner">
-        </androidx.recyclerview.widget.RecyclerView>
+                <Spinner
+                    android:id="@+id/countriesSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/spinner_order_countries_choice"
+                    app:layout_constraintTop_toBottomOf="@+id/countriesSearchView"
+                    tools:layout_editor_absoluteX="16dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/countriesRecyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scrollbars="vertical"
+                    android:layout_marginTop="@dimen/countries_recycleView_marginTop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/countriesSpinner"
+                    app:visibilityView="@{viewModel.allCountriesDataLiveData}"/>
+
+                <TextView
+                    android:id="@+id/exceptionTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="@{viewModel.allCountriesExceptionLiveData.toString()}"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibilityView="@{viewModel.allCountriesExceptionLiveData}" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

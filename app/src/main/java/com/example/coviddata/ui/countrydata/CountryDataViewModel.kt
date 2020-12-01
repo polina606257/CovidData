@@ -12,14 +12,14 @@ class CountryDataViewModel : ViewModel() {
         this.countryName = countryName
     }
 
-    private val countriesLiveData = CovidApp.repository.allCountriesDataLastLiveData
-    val countryLiveData = Transformations.map(countriesLiveData) { countries ->
-        countries.find { it.name == countryName }
-    }
-    private val allCountriesDataHistoryLiveData: LiveData<List<CountryData>> =
-        CovidApp.repository.allCountriesHistoryLiveData
-    val countryDataHistoryLiveData =
-        Transformations.map(allCountriesDataHistoryLiveData) { historyData ->
-            historyData.filter { it.name == countryName }
-        }
+//    private val countriesLiveData = CovidApp.repository.allCountriesDataLastLiveData
+//    val countryLiveData = Transformations.map(countriesLiveData) { countries ->
+//        countries.find { it.name == countryName }
+//    }
+//    private val allCountriesDataHistoryLiveData: LiveData<List<CountryData>> =
+//        CovidApp.repository.allCountriesHistoryLiveData
+//    val countryDataHistoryLiveData =
+//        Transformations.map(allCountriesDataHistoryLiveData) { historyData ->
+//            historyData.filter { it.name == countryName }
+//        }
 }

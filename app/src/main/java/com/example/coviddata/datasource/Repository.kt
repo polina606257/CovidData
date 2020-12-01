@@ -33,17 +33,17 @@ class Repository(
         .getHistoryWorldDataLiveData()
 
 
-    suspend fun getAllCountriesData(): DataResult<List<CountryData?>> {
+    suspend fun getAllCountriesData(): DataResult<List<CountryData>?> {
         try {
             val countriesData = remoteDataSource.getAllCountriesData()
-            val _countriesList: MutableList<CountryData?> = mutableListOf()
-            val countriesList = _countriesList
+            val _countriesList: MutableList<CountryData>? = mutableListOf()
+            val countriesList:List<CountryData>? = _countriesList
             for (countryData in countriesData) {
                 countryData.date = LocalDate.now().toString()
                 localDataSource.allCountriesDataDao().insert(countryData)
-                _countriesList.add(countryData)
+                _countriesList?.add(countryData)
             }
-            return SuccessResult(_countriesList)
+            return SuccessResult(countriesList)
         } catch (e: Exception) {
             val localData = localDataSource.allCountriesDataDao().getLastAllCountriesData()
             if(!localData.isEmpty())

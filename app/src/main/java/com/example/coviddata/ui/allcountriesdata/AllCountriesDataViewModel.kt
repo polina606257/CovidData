@@ -20,19 +20,20 @@ class AllCountriesDataViewModel : ViewModel() {
     fun setListener(listener: Listener){
         _listener = listener
     }
+    private val _popupMessage = MutableLiveData<Event<String>>()
+    val popupMessage = _popupMessage
+
     interface Listener{
         fun onShowCountryDetails(countryData: CountryData)
     }
 
-    val sortParamLiveData: MutableLiveData<SortParam> = MutableLiveData(SortParam.NAME)
-    val filterParamLiveData: MutableLiveData<String> = MutableLiveData<String>("")
 
     init {
         refreshCountriesData()
     }
 
-    val _allCountriesDataLiveData = MutableLiveData<DataResult<List<CountryData?>>>()
-    val allCountriesDataLiveData: LiveData<List<CountryData?>> =
+    val _allCountriesDataLiveData = MutableLiveData<DataResult<List<CountryData>?>>()
+    val allCountriesDataLiveData: LiveData<List<CountryData>?> =
         Transformations.map(_allCountriesDataLiveData){ result ->
         when(result){
             is SuccessResult -> result.data
@@ -44,31 +45,35 @@ class AllCountriesDataViewModel : ViewModel() {
         }
     }
 
-    val worldExceptionLiveData: LiveData<String> = Transformations.map(_allCountriesDataLiveData){ result ->
+    val allCountriesExceptionLiveData: LiveData<String> = Transformations.map(_allCountriesDataLiveData){ result ->
         if (result is FailureResult)
             result.exception
         else
             null
     }
 
+    val sortParamLiveData: MutableLiveData<SortParam> = MutableLiveData(SortParam.NAME)
+    val filterParamLiveData: MutableLiveData<String> = MutableLiveData<String>("")
+
+//
 //    private val countriesLiveDataFromRepository = CovidApp.repository.allCountriesDataLastLiveData
-//    val countriesLiveData = MediatorLiveData<List<CountryData>>().apply {
-//        addSource(sortParamLiveData) {
-//            value = prepareListCountries()
-//        }
-//        addSource(filterParamLiveData) {
-//            value = prepareListCountries()
-//        }
-//        addSource(countriesLiveDataFromRepository) {
-//            value = prepareListCountries()
-//        }
-//    }
+    val countriesLiveData = MediatorLiveData<List<CountryData>>().apply {
+        addSource(sortParamLiveData) {
+            value = prepareListCountries()
+        }
+        addSource(filterParamLiveData) {
+            value = prepareListCountries()
+        }
+        addSource(allCountriesDataLiveData) {
+            value = prepareListCountries()
+        }
+    }
 
     private fun prepareListCountries(): List<CountryData>?{
 //        val countries = countriesLiveDataFromRepository.value
         val countries = allCountriesDataLiveData.value
         val filteredCountries = if (filterParamLiveData.value != "")
-            countries?.filter {it.let { it!!.name.startsWith(filterParamLiveData.value!!, true)  } }
+            countries?.filter { it.name.startsWith(filterParamLiveData.value!!, true)  }
         else
             countries
         return when(sortParamLiveData.value!!){

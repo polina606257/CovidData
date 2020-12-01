@@ -35,10 +35,10 @@ class CountryDataHistoryFragment : Fragment() {
         viewModel.initCountryName(countryName)
         historyCountryDataRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.countryDataHistoryLiveData.observe(viewLifecycleOwner) { historyData ->
-            historyData?.let {historyCountryDataRecyclerView.adapter = ListAdapter(it)
-//                Log.d("countryData", historyData.toString())
-            }
-        }
+//        viewModel.countryDataHistoryLiveData.observe(viewLifecycleOwner) { historyData ->
+//            historyData?.let {historyCountryDataRecyclerView.adapter = ListAdapter(it)
+////                Log.d("countryData", historyData.toString())
+//            }
+//        }
     }
 }
