@@ -18,13 +18,12 @@ class RemoteDataSource {
         .baseUrl(BASE_URL)
         .build()
 
-
     private interface ApiRemoteService {
         @GET("v3/covid-19/all")
         suspend fun getWorldData(): WorldData
 
         @GET("v3/covid-19/countries")
-        fun getAllCountriesData(): Call<List<CountryData>>
+        suspend fun getAllCountriesData(): List<CountryData>
 
         @GET("v3/covid-19/countries/{country}")
         fun getCountryData(@Path ("country") country: String): Call<CountryData>
@@ -36,28 +35,37 @@ class RemoteDataSource {
 
     suspend fun getWorldData(): WorldData = remoteService.getWorldData()
 
-
-
-
-
+    suspend fun getAllCountriesData() = remoteService.getAllCountriesData()
 
 
 
     val allCountriesLiveData = MutableLiveData<List<CountryData>>()
-    val countryLiveData = MutableLiveData<CountryData>()
-    fun refreshAllCountriesData() {
-       remoteService.getAllCountriesData().enqueue(object : Callback<List<CountryData>> {
-            override fun onResponse(call: Call<List<CountryData>>,
-                                    response: Response<List<CountryData>>) {
-                Log.d("myLogCountries", response.body().toString())
-                allCountriesLiveData.value = response.body()!!
-            }
 
-            override fun onFailure(call: Call<List<CountryData>>, t: Throwable) {
-                Log.d("myLogCountriesCases", t.message.toString())
-            }
-        })
-    }
+//    fun refreshAllCountriesData() {
+//        remoteService.getAllCountriesData().enqueue(object : Callback<List<CountryData>> {
+//            override fun onResponse(call: Call<List<CountryData>>,
+//                                    response: Response<List<CountryData>>) {
+//                Log.d("myLogCountries", response.body().toString())
+//                allCountriesLiveData.value = response.body()!!
+//            }
+//
+//            override fun onFailure(call: Call<List<CountryData>>, t: Throwable) {
+//                Log.d("myLogCountriesCases", t.message.toString())
+//            }
+//        })
+//    }
+
+
+
+
+
+
+
+
+
+
+//    suspend fun getCountryData(country: String): CountryData = remoteService.getCountryData(country)
+val countryLiveData = MutableLiveData<CountryData>()
 
     fun refreshCountryData(country: CountryData) {
         remoteService.getCountryData(country.name).enqueue(object : Callback<CountryData> {
@@ -71,5 +79,6 @@ class RemoteDataSource {
             }
         })
     }
+
 }
 

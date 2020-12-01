@@ -34,21 +34,6 @@ class WorldDataViewModel : ViewModel(){
             null
     }
 
-//    val _worldDataHistoryLiveData = MutableLiveData<DataResult<List<WorldData?>>>()
-//    val worldDataHistoryLiveData: LiveData<List<WorldData?>> = Transformations.map(_worldDataHistoryLiveData) {result ->
-//        when(result){
-//            is SuccessResult -> result.data
-//            else -> null
-//        }
-//    }
-//
-//    val worldHistoryExceptionLiveData: LiveData<String> = Transformations.map(_worldDataHistoryLiveData){ result ->
-//        if (result is FailureResult)
-//            result.exception
-//        else
-//            null
-//    }
-
     init {
         refreshWorldData()
     }
@@ -61,10 +46,6 @@ class WorldDataViewModel : ViewModel(){
             refreshWorldDataLiveData.value = false
         }
     }
-
-
-
-
 
     val worldDataHistoryLiveData: LiveData<List<WorldData>> = CovidApp.repository.worldDataHistoryLiveData
 }

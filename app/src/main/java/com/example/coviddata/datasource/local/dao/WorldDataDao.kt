@@ -20,4 +20,5 @@ interface WorldDataDao {
     suspend fun delete(dataWorldData: WorldData)
 
     suspend fun getLastWorldData() = getHistoryWorldData().maxByOrNull { it.date }
+
 }
