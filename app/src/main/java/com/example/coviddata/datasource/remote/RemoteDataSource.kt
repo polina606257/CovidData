@@ -12,7 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 class RemoteDataSource {
-    private val BASE_URL = "https://corona.lmao.ninja1/"
+    private val BASE_URL = "https://corona.lmao.ninja/"
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)

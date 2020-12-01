@@ -26,7 +26,7 @@ class WorldDataHistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         historyWorldDataRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         viewModel.worldDataHistoryLiveData.observe(viewLifecycleOwner) { historyCases ->
-            historyCases?.let {historyWorldDataRecyclerView.adapter = ListAdapter(it as List<WorldData>) }
+            historyCases?.let {historyWorldDataRecyclerView.adapter = ListAdapter(it) }
         }
     }
 }

@@ -21,7 +21,10 @@ class Repository(
             return SuccessResult(data)
         }catch (e: Exception){
             val localData =  localDataSource.worldDataDao().getLastWorldData()
-            return FromCacheResult(localData, e.toString())
+            if(localData != null)
+            return FromCacheResult(localData, "no data from remote database, data got from local database")
+            else
+                return FailureResult(e.message.toString())
         }
     }
 
