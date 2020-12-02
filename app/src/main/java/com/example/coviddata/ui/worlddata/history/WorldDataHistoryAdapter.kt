@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coviddata.model.WorldData
 import com.example.coviddata.databinding.HistoryWorldDataItemBinding
-import kotlinx.android.synthetic.main.history_world_data_item.view.*
 
 class ListAdapter(private val list: List<WorldData>)
     : RecyclerView.Adapter<ListAdapter.HistoryWorldDataViewHolder>() {

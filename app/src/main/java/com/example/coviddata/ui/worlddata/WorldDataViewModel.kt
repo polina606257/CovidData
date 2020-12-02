@@ -15,6 +15,10 @@ class WorldDataViewModel : ViewModel(){
     private val _popupMessage = MutableLiveData<Event<String>>()
     val popupMessage: LiveData<Event<String>> = _popupMessage
 
+    init {
+        refreshWorldData()
+    }
+
     val _worldDataLiveData = MutableLiveData<DataResult<WorldData?>>()
     val worldDataLiveData: LiveData<WorldData?> = Transformations.map(_worldDataLiveData){ result ->
         when(result){
@@ -34,9 +38,7 @@ class WorldDataViewModel : ViewModel(){
             null
     }
 
-    init {
-        refreshWorldData()
-    }
+
 
     fun refreshWorldData(){
         viewModelScope.launch {

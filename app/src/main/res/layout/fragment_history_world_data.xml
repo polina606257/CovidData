@@ -20,13 +20,5 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/exceptionTextView"-->
-<!--            app:visibilityView="@{viewModel.worldHistoryExceptionLiveData}"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:text="@{viewModel.worldHistoryExceptionLiveData.toString()}"-->
-<!--            android:textStyle="bold" />-->
-
     </FrameLayout>
 </layout>

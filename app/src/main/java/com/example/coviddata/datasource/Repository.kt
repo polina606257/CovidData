@@ -1,9 +1,8 @@
 package com.example.coviddata.datasource
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.example.covidappapi.datasource.local.LocalDataSource
-import com.example.covidappapi.datasource.remote.RemoteDataSource
+import com.example.coviddata.datasource.remote.RemoteDataSource
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.model.WorldData
 import java.time.LocalDate
@@ -54,32 +53,8 @@ class Repository(
             }
         }
 
+    val allCountriesHistoryDataLiveData = localDataSource.allCountriesDataDao().getHistoryAllCountriesDataLiveData()
 
-//    init {
-//
-//
-//        remoteDataSource.allCountriesLiveData.observeForever { allCountriesData ->
-//            for (countryData in allCountriesData) {
-//                countryData.date = LocalDate.now().toString()
-//                localDataSource.allCountriesDataDao().insert(countryData)
-//            }
-//        }
-//    }
-//
-//
-//    fun refreshAllCountriesData() {
-//        remoteDataSource.refreshAllCountriesData()
-//    }
-//}
-//
-//
-//    val allCountriesHistoryLiveData: LiveData<List<CountryData>> =
-//        localDataSource.allCountriesDataDao()
-//            .getHistoryAllCountriesDataLiveData()
-//
-//    val allCountriesDataLastLiveData = Transformations.map(allCountriesHistoryLiveData) { history ->
-//        history.filter { it.date == (history.maxByOrNull { it.date })?.date.toString() }
-//    }
 }
 
 

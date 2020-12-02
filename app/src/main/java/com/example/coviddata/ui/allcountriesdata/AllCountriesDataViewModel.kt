@@ -55,8 +55,6 @@ class AllCountriesDataViewModel : ViewModel() {
     val sortParamLiveData: MutableLiveData<SortParam> = MutableLiveData(SortParam.NAME)
     val filterParamLiveData: MutableLiveData<String> = MutableLiveData<String>("")
 
-//
-//    private val countriesLiveDataFromRepository = CovidApp.repository.allCountriesDataLastLiveData
     val countriesLiveData = MediatorLiveData<List<CountryData>>().apply {
         addSource(sortParamLiveData) {
             value = prepareListCountries()
@@ -70,7 +68,6 @@ class AllCountriesDataViewModel : ViewModel() {
     }
 
     private fun prepareListCountries(): List<CountryData>?{
-//        val countries = countriesLiveDataFromRepository.value
         val countries = allCountriesDataLiveData.value
         val filteredCountries = if (filterParamLiveData.value != "")
             countries?.filter { it.name.startsWith(filterParamLiveData.value!!, true)  }

@@ -1,25 +1,60 @@
 package com.example.coviddata.ui.countrydata
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.coviddata.CovidApp
+import com.example.coviddata.datasource.DataResult
+import com.example.coviddata.datasource.FailureResult
+import com.example.coviddata.datasource.FromCacheResult
+import com.example.coviddata.datasource.SuccessResult
 import com.example.coviddata.model.CountryData
+import com.example.coviddata.ui.Event
+import kotlinx.coroutines.launch
 
 class CountryDataViewModel : ViewModel() {
     private var countryName: String? = null
     fun initCountryName(countryName: String) {
         this.countryName = countryName
     }
+    private val _popupMessage = MutableLiveData<Event<String>>()
+    val popupMessage = _popupMessage
 
-//    private val countriesLiveData = CovidApp.repository.allCountriesDataLastLiveData
-//    val countryLiveData = Transformations.map(countriesLiveData) { countries ->
-//        countries.find { it.name == countryName }
-//    }
-//    private val allCountriesDataHistoryLiveData: LiveData<List<CountryData>> =
-//        CovidApp.repository.allCountriesHistoryLiveData
-//    val countryDataHistoryLiveData =
-//        Transformations.map(allCountriesDataHistoryLiveData) { historyData ->
-//            historyData.filter { it.name == countryName }
-//        }
+    init {
+        refreshCountriesData()
+    }
+
+    val _allCountriesDataLiveData = MutableLiveData<DataResult<List<CountryData>?>>()
+    val countryDataLiveData: LiveData<CountryData>? =
+        Transformations.map(_allCountriesDataLiveData){ result ->
+            when(result){
+                is SuccessResult -> {
+                    result.data!!.find { it.name == countryName }
+                }
+                is FailureResult -> null
+                is FromCacheResult ->{
+                    _popupMessage.value = Event(result.message)
+                    result.data!!.find { it.name == countryName }
+                }
+            }
+        }
+
+    val countryExceptionLiveData: LiveData<String> = Transformations.map(_allCountriesDataLiveData){ result ->
+        if (result is FailureResult)
+            result.exception
+        else
+            null
+    }
+
+    fun refreshCountriesData(){
+        viewModelScope.launch {
+            val data = CovidApp.repository.getAllCountriesData()
+            _allCountriesDataLiveData.value = data
+        }
+    }
+
+    private val allCountriesDataHistoryLiveData: LiveData<List<CountryData>> =
+        CovidApp.repository.allCountriesHistoryDataLiveData
+    val countryDataHistoryLiveData:LiveData<List<CountryData>> =
+        Transformations.map(allCountriesDataHistoryLiveData) { historyData ->
+            historyData.filter { it.name == countryName }
+        }
 }

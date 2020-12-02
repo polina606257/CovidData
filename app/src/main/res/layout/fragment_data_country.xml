@@ -36,8 +36,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.537"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-<!--        android:text="@{viewModel.countryLiveData.name}"-->
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibilityView="@{viewModel.countryDataLiveData}"
+            android:text="@{viewModel.countryDataLiveData.name}"/>
 
         <GridLayout
             android:layout_width="wrap_content"
@@ -46,6 +47,7 @@
             android:orientation="horizontal"
             android:columnCount="2"
             android:useDefaultMargins="true"
+            app:visibilityView="@{viewModel.countryDataLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,8 +60,8 @@
 
             <TextView
                 android:id="@+id/country_cases_number_textView"
-                style="@style/data_number_GridLayout"/>
-<!--                android:text="@{Integer.toString(viewModel.countryLiveData.cases)}" -->
+                style="@style/data_number_GridLayout"
+                android:text="@{Integer.toString(viewModel.countryDataLiveData.cases)}" />
 
             <TextView
                 android:id="@+id/country_deaths_title_textView"
@@ -68,8 +70,8 @@
 
             <TextView
                 android:id="@+id/country_deaths_number_textView"
-                style="@style/data_number_GridLayout" />
-<!--            android:text="@{Integer.toString(viewModel.countryLiveData.deaths)}"-->
+                style="@style/data_number_GridLayout"
+                android:text="@{Integer.toString(viewModel.countryDataLiveData.deaths)}"/>
 
             <TextView
                 android:id="@+id/country_recovered_title_textView"
@@ -78,8 +80,8 @@
 
             <TextView
                 android:id="@+id/country_recovered_number_textView"
-                style="@style/data_number_GridLayout" />
-<!--            android:text="@{Integer.toString(viewModel.countryLiveData.recovered)}"-->
+                style="@style/data_number_GridLayout"
+                android:text="@{Integer.toString(viewModel.countryDataLiveData.recovered)}"/>
 
             <TextView
                 android:id="@+id/country_cases_per_one_million_title_textView"
@@ -88,8 +90,8 @@
 
             <TextView
                 android:id="@+id/country_cases_per_one_million_number_textView"
-                style="@style/data_number_GridLayout" />
-<!--            android:text="@{Double.toString(viewModel.countryLiveData.casesPerOneMillion)}"-->
+                style="@style/data_number_GridLayout"
+                android:text="@{Double.toString(viewModel.countryDataLiveData.casesPerOneMillion)}"/>
 
             <TextView
                 android:id="@+id/country_deaths_per_one_million_title_textView"
@@ -98,8 +100,8 @@
 
             <TextView
                 android:id="@+id/country_deaths_per_one_million_number_textView"
-                style="@style/data_number_GridLayout" />
-<!--            android:text="@{Double.toString(viewModel.countryLiveData.deathsPerOneMillion)}"-->
+                style="@style/data_number_GridLayout"
+                android:text="@{Double.toString(viewModel.countryDataLiveData.deathsPerOneMillion)}"/>
 
             <TextView
                 android:id="@+id/country_tests_per_one_million_title_textView"
@@ -108,9 +110,23 @@
 
             <TextView
                 android:id="@+id/country_tests_per_one_million_number_textView"
-                style="@style/data_number_GridLayout" />
-<!--            android:text="@{Double.toString(viewModel.countryLiveData.testsPerOneMillion)}"-->
+                style="@style/data_number_GridLayout"
+                android:text="@{Double.toString(viewModel.countryDataLiveData.testsPerOneMillion)}"/>
+
         </GridLayout>
+
+        <TextView
+            android:id="@+id/exceptionTextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@{viewModel.countryExceptionLiveData.toString()}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibilityView="@{viewModel.countryExceptionLiveData}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

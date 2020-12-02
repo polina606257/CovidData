@@ -32,7 +32,6 @@ class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener 
         countriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         viewModelAll.setListener(this)
         viewModelAll.refreshCountriesData()
-//        viewModelAll.refreshCountries()
         viewModelAll.countriesLiveData.observe(viewLifecycleOwner){ countries->
             countries?.let{
                 countriesRecyclerView.adapter = ListAdapter(it, viewModelAll)

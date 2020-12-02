@@ -10,14 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coviddata.R
-import com.example.coviddata.model.CountryData
-import com.example.coviddata.model.CountryInfo
 import com.example.coviddata.ui.countrydata.CountryDataFragmentArgs
 import com.example.coviddata.ui.countrydata.CountryDataViewModel
-import com.example.coviddata.ui.worlddata.WorldDataViewModel
-import com.example.coviddata.ui.worlddata.history.ListAdapter
 import kotlinx.android.synthetic.main.fragment_country_data_history.*
-import java.time.LocalDate
 
 class CountryDataHistoryFragment : Fragment() {
 
@@ -35,10 +30,10 @@ class CountryDataHistoryFragment : Fragment() {
         viewModel.initCountryName(countryName)
         historyCountryDataRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-//        viewModel.countryDataHistoryLiveData.observe(viewLifecycleOwner) { historyData ->
-//            historyData?.let {historyCountryDataRecyclerView.adapter = ListAdapter(it)
-////                Log.d("countryData", historyData.toString())
-//            }
-//        }
+        viewModel.countryDataHistoryLiveData.observe(viewLifecycleOwner) { historyData ->
+            historyData?.let {historyCountryDataRecyclerView.adapter = ListAdapter(it)
+                Log.d("countryData", historyData.toString())
+            }
+        }
     }
 }
