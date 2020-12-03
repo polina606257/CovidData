@@ -19,8 +19,10 @@ class CountryDataHistoryFragment : Fragment() {
     val viewModel: CountryDataViewModel by viewModels()
     val args: CountryDataFragmentArgs by navArgs()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_country_data_history, container, false)
     }
 
@@ -31,7 +33,8 @@ class CountryDataHistoryFragment : Fragment() {
         historyCountryDataRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.countryDataHistoryLiveData.observe(viewLifecycleOwner) { historyData ->
-            historyData?.let {historyCountryDataRecyclerView.adapter = ListAdapter(it)
+            historyData?.let {
+                historyCountryDataRecyclerView.adapter = ListAdapter(it)
                 Log.d("countryData", historyData.toString())
             }
         }

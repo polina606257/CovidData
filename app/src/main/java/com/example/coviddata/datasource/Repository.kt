@@ -13,18 +13,20 @@ class Repository(
 ) {
 
     suspend fun getWorldData(): DataResult<WorldData?> {
-        try {
+        return try {
             val data = remoteDataSource.getWorldData()
             data.date = LocalDate.now().toString()
             localDataSource.worldDataDao().insert(data)
-            return SuccessResult(data)
+            SuccessResult(data)
         } catch (e: Exception) {
             val localData = localDataSource.worldDataDao().getLastWorldData()
             if (localData != null)
-                return FromCacheResult(localData,
-                    "no data from remote database, data got from local database")
+                FromCacheResult(
+                    localData,
+                    "no data from remote database, data got from local database"
+                )
             else
-                return FailureResult(e.message.toString())
+                FailureResult(e.message.toString())
         }
     }
 
@@ -33,27 +35,27 @@ class Repository(
 
 
     suspend fun getAllCountriesData(): DataResult<List<CountryData>?> {
-        try {
+        return try {
             val countriesData = remoteDataSource.getAllCountriesData()
-            val _countriesList: MutableList<CountryData>? = mutableListOf()
-            val countriesList:List<CountryData>? = _countriesList
             for (countryData in countriesData) {
                 countryData.date = LocalDate.now().toString()
                 localDataSource.allCountriesDataDao().insert(countryData)
-                _countriesList?.add(countryData)
             }
-            return SuccessResult(countriesList)
+            SuccessResult(countriesData)
         } catch (e: Exception) {
             val localData = localDataSource.allCountriesDataDao().getLastAllCountriesData()
-            if(!localData.isEmpty())
-                return FromCacheResult(localData,
-                    "no data from remote database, data got from local database")
+            if (!localData.isEmpty())
+                FromCacheResult(
+                    localData,
+                    "no data from remote database, data got from local database"
+                )
             else
-                return FailureResult(e.message.toString())
-            }
+                FailureResult(e.message.toString())
         }
+    }
 
-    val allCountriesHistoryDataLiveData = localDataSource.allCountriesDataDao().getHistoryAllCountriesDataLiveData()
+    val allCountriesHistoryDataLiveData =
+        localDataSource.allCountriesDataDao().getHistoryAllCountriesDataLiveData()
 
 }
 
