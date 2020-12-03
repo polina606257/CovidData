@@ -2,7 +2,7 @@ package com.example.covidappapi.datasource.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.covidappapi.datasource.local.dao.AllCountriesDataDao
+import com.example.coviddata.datasource.local.dao.AllCountriesDataDao
 import com.example.covidappapi.datasource.local.dao.WorldDataDao
 import com.example.coviddata.model.WorldData
 import com.example.coviddata.model.CountryData

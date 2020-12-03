@@ -31,3 +31,11 @@ fun View.visibleIfFalse(value: Boolean) {
     else
         View.INVISIBLE
 }
+
+@BindingAdapter(value = ["app:visibilityView"], requireAll = false)
+fun View.visibilityView(value: Any?) {
+    visibility = if(value != null)
+        View.VISIBLE
+    else
+        View.INVISIBLE
+}

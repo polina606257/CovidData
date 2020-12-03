@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.R
+import com.example.coviddata.ui.EventObserver
 import kotlinx.android.synthetic.main.fragment_data_all_countries.*
 
 class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener {
@@ -29,11 +31,14 @@ class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener 
         super.onViewCreated(view, savedInstanceState)
         countriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         viewModelAll.setListener(this)
-        viewModelAll.refreshCountries()
+        viewModelAll.refreshCountriesData()
         viewModelAll.countriesLiveData.observe(viewLifecycleOwner){ countries->
             countries?.let{
                 countriesRecyclerView.adapter = ListAdapter(it, viewModelAll)
             }
+            viewModelAll.popupMessage.observe(viewLifecycleOwner, EventObserver{
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            })
         }
 
         countriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

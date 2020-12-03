@@ -1,14 +1,10 @@
 package com.example.coviddata.ui.countrydata.history
 
-import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coviddata.databinding.HistoryCountryDataItemBinding
 import com.example.coviddata.model.CountryData
-import kotlinx.android.synthetic.main.history_world_data_item.view.date_history
 
 class ListAdapter(private val list: List<CountryData>)
     : RecyclerView.Adapter<ListAdapter.HistoryCountryDataViewHolder>() {

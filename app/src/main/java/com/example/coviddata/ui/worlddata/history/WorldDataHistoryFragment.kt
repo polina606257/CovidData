@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coviddata.R
+import com.example.coviddata.model.WorldData
 import com.example.coviddata.ui.worlddata.WorldDataViewModel
 import kotlinx.android.synthetic.main.fragment_history_world_data.*
 
