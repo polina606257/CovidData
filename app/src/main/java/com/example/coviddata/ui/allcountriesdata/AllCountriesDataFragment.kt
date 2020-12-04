@@ -11,12 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.coviddata.model.CountryData
 import com.example.coviddata.R
 import com.example.coviddata.ui.EventObserver
 import kotlinx.android.synthetic.main.fragment_data_all_countries.*
 
-class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener {
+class AllCountriesDataFragment : Fragment() {
 
     val viewModelAllData: AllCountriesDataViewModel by viewModels()
 
@@ -30,8 +29,6 @@ class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         countriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        viewModelAllData.setListener(this)
-        viewModelAllData.refreshCountriesData()
         viewModelAllData.countriesLiveData.observe(viewLifecycleOwner){ countries->
             countries?.let{
                 countriesRecyclerView.adapter = ListAdapter(it, viewModelAllData)
@@ -64,11 +61,9 @@ class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener 
             }
         })
 
-    }
-
-    override fun onShowCountryDetails(countryData: CountryData) {
-        val action = AllCountriesDataFragmentDirections
-                .actionNavigationCountriesCasesToNavigationCountryCases(countryData.name)
-        findNavController().navigate(action)
+        viewModelAllData.navigateToDetails.observe(viewLifecycleOwner, EventObserver{
+            val action = AllCountriesDataFragmentDirections
+                .actionNavigationCountriesCasesToNavigationCountryCases(it.name)
+        findNavController().navigate(action) })
     }
 }

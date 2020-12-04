@@ -16,17 +16,8 @@ import kotlinx.coroutines.launch
 }
 
 class AllCountriesDataViewModel : BaseViewModel() {
-    private var _listener: Listener? = null
-    fun setListener(listener: Listener){
-        _listener = listener
-    }
-//    private val _popupMessage = MutableLiveData<Event<String>>()
-//    val popupMessage = _popupMessage
-
-    interface Listener{
-        fun onShowCountryDetails(countryData: CountryData)
-    }
-
+    private val _navigateToDetails = MutableLiveData<Event<CountryData>>()
+    val navigateToDetails: LiveData<Event<CountryData>> = _navigateToDetails
 
     init {
         refreshCountriesData()
@@ -79,7 +70,7 @@ class AllCountriesDataViewModel : BaseViewModel() {
         }
     }
 
-    fun refreshCountriesData(){
+     fun refreshCountriesData(){
         viewModelScope.launch {
             _refreshWorldDataLiveData.value = true
             val data = CovidApp.repository.getAllCountriesData()
@@ -89,9 +80,7 @@ class AllCountriesDataViewModel : BaseViewModel() {
     }
 
     fun showCountryDetails(countryData: CountryData){
-        _listener?.let {
-            it.onShowCountryDetails(countryData)
-        }
+        _navigateToDetails.value = Event(countryData)
     }
 }
 

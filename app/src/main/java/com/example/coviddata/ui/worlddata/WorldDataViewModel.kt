@@ -12,9 +12,6 @@ import com.example.coviddata.ui.Event
 import kotlinx.coroutines.launch
 
 class WorldDataViewModel : BaseViewModel(){
-//    val refreshWorldDataLiveData = MutableLiveData<Boolean>()
-//    private val _popupMessage = MutableLiveData<Event<String>>()
-//    val popupMessage: LiveData<Event<String>> = _popupMessage
 
     init {
         refreshWorldData()
@@ -38,8 +35,6 @@ class WorldDataViewModel : BaseViewModel(){
         else
             null
     }
-
-
 
     fun refreshWorldData(){
         viewModelScope.launch {

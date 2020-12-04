@@ -16,8 +16,6 @@ class CountryDataViewModel : BaseViewModel() {
     fun initCountryName(countryName: String) {
         this.countryName = countryName
     }
-//    private val _popupMessage = MutableLiveData<Event<String>>()
-//    val popupMessage = _popupMessage
 
     init {
         refreshCountriesData()
