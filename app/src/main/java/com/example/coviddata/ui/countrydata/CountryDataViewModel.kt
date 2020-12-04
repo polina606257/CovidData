@@ -22,6 +22,7 @@ class CountryDataViewModel : BaseViewModel() {
     }
 
     val _allCountriesDataLiveData = MutableLiveData<DataResult<List<CountryData>?>>()
+
     val countryDataLiveData: LiveData<CountryData>? =
         Transformations.map(_allCountriesDataLiveData){ result ->
             when(result){

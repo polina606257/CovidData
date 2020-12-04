@@ -9,11 +9,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.example.coviddata.CovidApp
 import com.example.coviddata.R
 import com.example.coviddata.model.CountryData
+import com.example.coviddata.ui.EventObserver
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -26,16 +28,17 @@ class MapsFragment : Fragment() {
 
     val viewModel: MapViewModel by viewModels()
 
-//    private val callback = OnMapReadyCallback { googleMap ->
-//        viewModel.allCountriesLastLiveData.observeForever { countries ->
-//            for (country in countries) {
-//                googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
-//                        .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
-//                        .icon(getPinColor(country)))
-//            }
+    private val callback = OnMapReadyCallback { googleMap ->
+        viewModel.allCountriesLastDataLiveData.observeForever { countries ->
+            for (country in countries) {
+                googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
+                        .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
+                        .icon(getPinColor(country)))
+            }
+//            viewModel._refreshWorldDataLiveData.value = false
 //            viewModel.setDownloadStatus(false)
-//        }
-//    }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -43,13 +46,16 @@ class MapsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
 //        viewModel.setDownloadStatus(true)
 //        CovidApp.repository.refreshAllCountriesData()
-//        mapFragment?.getMapAsync(callback)
-//    }
+        mapFragment?.getMapAsync(callback)
+        viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver{
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        })
+    }
 
     fun getPinColor(country: CountryData) : BitmapDescriptor {
         return when(viewModel.getGroupNumber(country)) {
