@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_data_all_countries.*
 
 class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener {
 
-    val viewModelAll: AllCountriesDataViewModel by viewModels()
+    val viewModelAllData: AllCountriesDataViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
@@ -30,13 +30,13 @@ class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         countriesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        viewModelAll.setListener(this)
-        viewModelAll.refreshCountriesData()
-        viewModelAll.countriesLiveData.observe(viewLifecycleOwner){ countries->
+        viewModelAllData.setListener(this)
+        viewModelAllData.refreshCountriesData()
+        viewModelAllData.countriesLiveData.observe(viewLifecycleOwner){ countries->
             countries?.let{
-                countriesRecyclerView.adapter = ListAdapter(it, viewModelAll)
+                countriesRecyclerView.adapter = ListAdapter(it, viewModelAllData)
             }
-            viewModelAll.popupMessage.observe(viewLifecycleOwner, EventObserver{
+            viewModelAllData.popupMessage.observe(viewLifecycleOwner, EventObserver{
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
             })
         }
@@ -44,8 +44,8 @@ class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener 
         countriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, selectedItem: View, position: Int, id: Long) {
                 when (position) {
-                    0 -> viewModelAll.sortParamLiveData.value = SortParam.NAME
-                    1 -> viewModelAll.sortParamLiveData.value = SortParam.CASES
+                    0 -> viewModelAllData.sortParamLiveData.value = SortParam.NAME
+                    1 -> viewModelAllData.sortParamLiveData.value = SortParam.CASES
                 }
             }
 
@@ -59,7 +59,7 @@ class AllCountriesDataFragment : Fragment(), AllCountriesDataViewModel.Listener 
                return true
             }
             override fun onQueryTextChange(userInput: String?): Boolean {
-                viewModelAll.filterParamLiveData.value = userInput ?: ""
+                viewModelAllData.filterParamLiveData.value = userInput ?: ""
                 return true
             }
         })

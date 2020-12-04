@@ -7,16 +7,17 @@ import com.example.coviddata.datasource.FailureResult
 import com.example.coviddata.datasource.FromCacheResult
 import com.example.coviddata.datasource.SuccessResult
 import com.example.coviddata.model.CountryData
+import com.example.coviddata.ui.BaseViewModel
 import com.example.coviddata.ui.Event
 import kotlinx.coroutines.launch
 
-class CountryDataViewModel : ViewModel() {
+class CountryDataViewModel : BaseViewModel() {
     private var countryName: String? = null
     fun initCountryName(countryName: String) {
         this.countryName = countryName
     }
-    private val _popupMessage = MutableLiveData<Event<String>>()
-    val popupMessage = _popupMessage
+//    private val _popupMessage = MutableLiveData<Event<String>>()
+//    val popupMessage = _popupMessage
 
     init {
         refreshCountriesData()
@@ -46,8 +47,10 @@ class CountryDataViewModel : ViewModel() {
 
     fun refreshCountriesData(){
         viewModelScope.launch {
+            _refreshWorldDataLiveData.value = true
             val data = CovidApp.repository.getAllCountriesData()
             _allCountriesDataLiveData.value = data
+            _refreshWorldDataLiveData.value = false
         }
     }
 

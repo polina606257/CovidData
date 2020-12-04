@@ -26,16 +26,16 @@ class MapsFragment : Fragment() {
 
     val viewModel: MapViewModel by viewModels()
 
-    private val callback = OnMapReadyCallback { googleMap ->
-        viewModel.allCountriesLastLiveData.observeForever { countries ->
-            for (country in countries) {
-                googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
-                        .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
-                        .icon(getPinColor(country)))
-            }
-            viewModel.setDownloadStatus(false)
-        }
-    }
+//    private val callback = OnMapReadyCallback { googleMap ->
+//        viewModel.allCountriesLastLiveData.observeForever { countries ->
+//            for (country in countries) {
+//                googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
+//                        .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
+//                        .icon(getPinColor(country)))
+//            }
+//            viewModel.setDownloadStatus(false)
+//        }
+//    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -43,13 +43,13 @@ class MapsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        viewModel.setDownloadStatus(true)
-        CovidApp.repository.refreshAllCountriesData()
-        mapFragment?.getMapAsync(callback)
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+//        viewModel.setDownloadStatus(true)
+//        CovidApp.repository.refreshAllCountriesData()
+//        mapFragment?.getMapAsync(callback)
+//    }
 
     fun getPinColor(country: CountryData) : BitmapDescriptor {
         return when(viewModel.getGroupNumber(country)) {

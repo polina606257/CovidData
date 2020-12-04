@@ -7,7 +7,7 @@ import com.example.coviddata.datasource.DataResult
 import com.example.coviddata.datasource.FailureResult
 import com.example.coviddata.datasource.FromCacheResult
 import com.example.coviddata.datasource.SuccessResult
-import com.example.coviddata.model.WorldData
+import com.example.coviddata.ui.BaseViewModel
 import com.example.coviddata.ui.Event
 import kotlinx.coroutines.launch
 
@@ -15,13 +15,13 @@ import kotlinx.coroutines.launch
     NAME, CASES
 }
 
-class AllCountriesDataViewModel : ViewModel() {
+class AllCountriesDataViewModel : BaseViewModel() {
     private var _listener: Listener? = null
     fun setListener(listener: Listener){
         _listener = listener
     }
-    private val _popupMessage = MutableLiveData<Event<String>>()
-    val popupMessage = _popupMessage
+//    private val _popupMessage = MutableLiveData<Event<String>>()
+//    val popupMessage = _popupMessage
 
     interface Listener{
         fun onShowCountryDetails(countryData: CountryData)
@@ -81,8 +81,10 @@ class AllCountriesDataViewModel : ViewModel() {
 
     fun refreshCountriesData(){
         viewModelScope.launch {
+            _refreshWorldDataLiveData.value = true
             val data = CovidApp.repository.getAllCountriesData()
             _allCountriesDataLiveData.value = data
+            _refreshWorldDataLiveData.value = false
         }
     }
 

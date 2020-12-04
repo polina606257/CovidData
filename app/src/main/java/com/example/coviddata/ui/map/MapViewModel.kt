@@ -16,13 +16,13 @@ class MapViewModel : ViewModel() {
     fun setDownloadStatus(isLoading: Boolean){
         _downloadMapLiveData.value = isLoading
     }
-    val allCountriesLastLiveData = CovidApp.repository.allCountriesDataLastLiveData
+//    val allCountriesLastLiveData = CovidApp.repository.allCountriesDataLastLiveData
 
-    init{
-        allCountriesLastLiveData.observeForever{
-            converter = ColorGroupConverter(it)
-        }
-    }
+//    init{
+//        allCountriesLastLiveData.observeForever{
+//            converter = ColorGroupConverter(it)
+//        }
+//    }
 
     fun getGroupNumber(country: CountryData): Int = converter.getGroupNumber(country)
 }

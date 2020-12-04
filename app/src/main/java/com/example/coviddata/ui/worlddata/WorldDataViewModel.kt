@@ -7,13 +7,14 @@ import com.example.coviddata.datasource.DataResult
 import com.example.coviddata.datasource.FailureResult
 import com.example.coviddata.datasource.FromCacheResult
 import com.example.coviddata.datasource.SuccessResult
+import com.example.coviddata.ui.BaseViewModel
 import com.example.coviddata.ui.Event
 import kotlinx.coroutines.launch
 
-class WorldDataViewModel : ViewModel(){
-    val refreshWorldDataLiveData = MutableLiveData<Boolean>()
-    private val _popupMessage = MutableLiveData<Event<String>>()
-    val popupMessage: LiveData<Event<String>> = _popupMessage
+class WorldDataViewModel : BaseViewModel(){
+//    val refreshWorldDataLiveData = MutableLiveData<Boolean>()
+//    private val _popupMessage = MutableLiveData<Event<String>>()
+//    val popupMessage: LiveData<Event<String>> = _popupMessage
 
     init {
         refreshWorldData()
@@ -42,10 +43,10 @@ class WorldDataViewModel : ViewModel(){
 
     fun refreshWorldData(){
         viewModelScope.launch {
-            refreshWorldDataLiveData.value = true
+            _refreshWorldDataLiveData.value = true
             val data = CovidApp.repository.getWorldData()
             _worldDataLiveData.value = data
-            refreshWorldDataLiveData.value = false
+            _refreshWorldDataLiveData.value = false
         }
     }
 
