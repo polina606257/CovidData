@@ -14,9 +14,17 @@
     <string name="refresh_world_data_button">REFRESH</string>
     <string name="covid_history_btn_text">COVID HISTORY</string>
 
-    <string-array name="spinner_order_countries_choice">
+    <string-array name="spinner_parameter_for_order_countries_">
         <item>alphabet order</item>
         <item>cases order</item>
     </string-array>
-<!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
+
+    <string-array name="spinner_parameter_for_sort_map_">
+        <item>cases</item>
+        <item>deaths</item>
+        <item>recovered</item>
+        <item>cases per one million</item>
+        <item>deaths per one million</item>
+        <item>tests per one million</item>
+    </string-array>
 </resources>

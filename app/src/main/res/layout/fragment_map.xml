@@ -25,6 +25,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:visibilityViewLoading="@{viewModel.refreshWorldDataLiveData}" />
 
+        <Spinner
+            android:id="@+id/mapSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/spinner_parameter_for_sort_map_"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <include
             layout="@layout/fragment_google_map"
             android:layout_width="0dp"

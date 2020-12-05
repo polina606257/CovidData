@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 
 class MapViewModel : BaseViewModel() {
     private lateinit var converter: ColorGroupConverter
-    private val _downloadMapLiveData = MutableLiveData<Boolean>()
-    val downloadMapLiveData: LiveData<Boolean> = _downloadMapLiveData
+//    private val _downloadMapLiveData = MutableLiveData<Boolean>()
+//    val downloadMapLiveData: LiveData<Boolean> = _downloadMapLiveData
 
 
     init {
@@ -52,9 +52,9 @@ class MapViewModel : BaseViewModel() {
     }
 
 
-    fun setDownloadStatus(isLoading: Boolean){
-        _downloadMapLiveData.value = true
-    }
+//    fun setDownloadStatus(isLoading: Boolean){
+//        _downloadMapLiveData.value = true
+//    }
 
     init{
         allCountriesLastDataLiveData.observeForever{

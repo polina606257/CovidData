@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import com.example.coviddata.CovidApp
 import com.example.coviddata.R
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.ui.EventObserver
@@ -57,14 +56,26 @@ class MapsFragment : Fragment() {
         })
     }
 
-    fun getPinColor(country: CountryData) : BitmapDescriptor {
+//    fun getPinColor(country: CountryData) : BitmapDescriptor {
+//        return when(viewModel.getGroupNumber(country)) {
+//            1 -> defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
+//            2 -> defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)
+//            3 -> defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
+//            4 -> defaultMarker(BitmapDescriptorFactory.HUE_ROSE)
+//            else ->
+//                defaultMarker(BitmapDescriptorFactory.HUE_RED)
+//        }
+//    }
+
+
+    fun getPinColor(country: CountryData) : BitmapDescriptor? {
         return when(viewModel.getGroupNumber(country)) {
-            1 -> defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
-            2 -> defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)
-            3 -> defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
-            4 -> defaultMarker(BitmapDescriptorFactory.HUE_ROSE)
+            1 -> bitmapDescriptorFromVector(R.drawable.group1mapmarker)
+            2 -> bitmapDescriptorFromVector(R.drawable.group2mapmarker)
+            3 -> bitmapDescriptorFromVector(R.drawable.group3mapmarker)
+            4 -> bitmapDescriptorFromVector(R.drawable.group4mapmarker)
             else ->
-                defaultMarker(BitmapDescriptorFactory.HUE_RED)
+                bitmapDescriptorFromVector(R.drawable.group5mapmarker)
         }
     }
 
