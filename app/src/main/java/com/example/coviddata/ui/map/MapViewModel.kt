@@ -93,6 +93,7 @@ class MapViewModel : BaseViewModel() {
     }
 
     fun getGroupNumber(country: CountryData): Int = converter.getGroupNumber(country)
+
 }
 
 

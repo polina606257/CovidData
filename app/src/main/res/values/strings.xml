@@ -26,5 +26,6 @@
         <item>cases per one million</item>
         <item>deaths per one million</item>
         <item>tests per one million</item>
+        <item>select</item>
     </string-array>
 </resources>

@@ -2,26 +2,26 @@ package com.example.coviddata.ui.map
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import com.google.android.gms.maps.model.BitmapDescriptor
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.coviddata.R
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.ui.EventObserver
-import com.example.coviddata.ui.allcountriesdata.SortParamCountries
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.fragment_data_all_countries.*
+import kotlinx.android.synthetic.main.fragment_map.*
 
 
 class MapsFragment : Fragment() {
@@ -31,18 +31,27 @@ class MapsFragment : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
         viewModel.countriesLiveData.observeForever { countries ->
             for (country in countries) {
-                googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
+                googleMap.addMarker(
+                    MarkerOptions().position(
+                        LatLng(
+                            country.countryInfo.lat,
+                            country.countryInfo.lng
+                        )
+                    )
                         .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
-                        .icon(getMarker(country)))
+                        .icon(getMarker(country))
+                )
             }
 //            viewModel._refreshWorldDataLiveData.value = false
 //            viewModel.setDownloadStatus(false)
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
@@ -57,8 +66,26 @@ class MapsFragment : Fragment() {
             })
 
 
-        countriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, selectedItem: View, position: Int, id: Long) {
+        var list = resources.getStringArray(R.array.spinner_parameter_for_sort_map_)
+        val listsize = list.size - 1
+        val dataAdapter: ArrayAdapter<String> =
+            object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list) {
+                override fun getCount(): Int {
+                    return listsize
+                }
+            }
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        mapSpinner.setAdapter(dataAdapter)
+
+        mapSpinner.setSelection(listsize)
+
+        mapSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                selectedItem: View,
+                position: Int,
+                id: Long
+            ) {
                 when (position) {
                     0 -> viewModel.sortParamLiveData.value = SortParamMap.CASES
                     1 -> viewModel.sortParamLiveData.value = SortParamMap.DEATHS
