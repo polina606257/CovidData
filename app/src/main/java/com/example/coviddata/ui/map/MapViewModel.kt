@@ -9,10 +9,17 @@ import com.example.coviddata.datasource.SuccessResult
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.ui.BaseViewModel
 import com.example.coviddata.ui.Event
+import com.example.coviddata.ui.allcountriesdata.SortParamCountries
 import kotlinx.coroutines.launch
 
+enum class SortParamMap {
+    CASES, DEATHS, RECOVERED, CASESPERMILLION, DEATHSPERMILLION, TESTPERMILLION
+}
+
 class MapViewModel : BaseViewModel() {
-    private lateinit var converter: ColorGroupConverter
+    lateinit var converter: ColorGroupConverter
+    var titleNum: Int? = 0
+//    var title: String? = null
 //    private val _downloadMapLiveData = MutableLiveData<Boolean>()
 //    val downloadMapLiveData: LiveData<Boolean> = _downloadMapLiveData
 
@@ -22,7 +29,7 @@ class MapViewModel : BaseViewModel() {
     }
 
     val _allCountriesDataLiveData = MutableLiveData<DataResult<List<CountryData>?>>()
-    val allCountriesLastDataLiveData: LiveData<List<CountryData>> =
+    val allCountriesLastDataLiveData: LiveData<List<CountryData>?> =
         Transformations.map(_allCountriesDataLiveData){ result ->
             when(result){
                 is SuccessResult -> result.data?.filter {
@@ -42,6 +49,29 @@ class MapViewModel : BaseViewModel() {
             null
     }
 
+    val sortParamLiveData: MutableLiveData<SortParamMap> = MutableLiveData(SortParamMap.CASES)
+
+    val countriesLiveData = MediatorLiveData<List<CountryData>>().apply {
+        addSource(sortParamLiveData) {
+            value = prepareListCountries()
+        }
+        addSource(allCountriesLastDataLiveData) {
+            value = prepareListCountries()
+        }
+    }
+
+    private fun prepareListCountries(): List<CountryData>?{
+        val countries = allCountriesLastDataLiveData.value
+        return when(sortParamLiveData.value!!){
+            SortParamMap.CASES -> countries?.sortedBy { it.cases }
+            SortParamMap.DEATHS -> countries?.sortedBy { it.deaths }
+            SortParamMap.RECOVERED -> countries?.sortedBy { it.recovered }
+            SortParamMap.CASESPERMILLION -> countries?.sortedBy { it.casesPerOneMillion }
+            SortParamMap.DEATHSPERMILLION -> countries?.sortedBy { it.deathsPerOneMillion }
+            SortParamMap.TESTPERMILLION -> countries?.sortedBy { it.testsPerOneMillion }
+        }
+    }
+
     fun refreshCountriesData(){
         viewModelScope.launch {
             _refreshWorldDataLiveData.value = true
@@ -57,7 +87,7 @@ class MapViewModel : BaseViewModel() {
 //    }
 
     init{
-        allCountriesLastDataLiveData.observeForever{
+        countriesLiveData.observeForever{
             converter = ColorGroupConverter(it)
         }
     }

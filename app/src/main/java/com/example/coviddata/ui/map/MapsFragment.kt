@@ -3,24 +3,25 @@ package com.example.coviddata.ui.map
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.example.coviddata.R
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.ui.EventObserver
+import com.example.coviddata.ui.allcountriesdata.SortParamCountries
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-
+import kotlinx.android.synthetic.main.fragment_data_all_countries.*
 
 
 class MapsFragment : Fragment() {
@@ -28,11 +29,11 @@ class MapsFragment : Fragment() {
     val viewModel: MapViewModel by viewModels()
 
     private val callback = OnMapReadyCallback { googleMap ->
-        viewModel.allCountriesLastDataLiveData.observeForever { countries ->
+        viewModel.countriesLiveData.observeForever { countries ->
             for (country in countries) {
                 googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
                         .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
-                        .icon(getPinColor(country)))
+                        .icon(getMarker(country)))
             }
 //            viewModel._refreshWorldDataLiveData.value = false
 //            viewModel.setDownloadStatus(false)
@@ -51,24 +52,30 @@ class MapsFragment : Fragment() {
 //        viewModel.setDownloadStatus(true)
 //        CovidApp.repository.refreshAllCountriesData()
         mapFragment?.getMapAsync(callback)
-        viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver{
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-        })
+            viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            })
+
+
+        countriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, selectedItem: View, position: Int, id: Long) {
+                when (position) {
+                    0 -> viewModel.sortParamLiveData.value = SortParamMap.CASES
+                    1 -> viewModel.sortParamLiveData.value = SortParamMap.DEATHS
+                    2 -> viewModel.sortParamLiveData.value = SortParamMap.RECOVERED
+                    3 -> viewModel.sortParamLiveData.value = SortParamMap.CASESPERMILLION
+                    4 -> viewModel.sortParamLiveData.value = SortParamMap.DEATHSPERMILLION
+                    5 -> viewModel.sortParamLiveData.value = SortParamMap.TESTPERMILLION
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
     }
 
-//    fun getPinColor(country: CountryData) : BitmapDescriptor {
-//        return when(viewModel.getGroupNumber(country)) {
-//            1 -> defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
-//            2 -> defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)
-//            3 -> defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
-//            4 -> defaultMarker(BitmapDescriptorFactory.HUE_ROSE)
-//            else ->
-//                defaultMarker(BitmapDescriptorFactory.HUE_RED)
-//        }
-//    }
-
-
-    fun getPinColor(country: CountryData) : BitmapDescriptor? {
+    fun getMarker(country: CountryData) : BitmapDescriptor? {
         return when(viewModel.getGroupNumber(country)) {
             1 -> bitmapDescriptorFromVector(R.drawable.group1mapmarker)
             2 -> bitmapDescriptorFromVector(R.drawable.group2mapmarker)
