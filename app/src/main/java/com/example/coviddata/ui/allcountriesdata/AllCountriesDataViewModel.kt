@@ -11,7 +11,7 @@ import com.example.coviddata.ui.BaseViewModel
 import com.example.coviddata.ui.Event
 import kotlinx.coroutines.launch
 
- enum class SortParam {
+ enum class SortParamCountries {
     NAME, CASES
 }
 
@@ -43,11 +43,11 @@ class AllCountriesDataViewModel : BaseViewModel() {
             null
     }
 
-    val sortParamLiveData: MutableLiveData<SortParam> = MutableLiveData(SortParam.NAME)
+    val sortParamCountriesLiveData: MutableLiveData<SortParamCountries> = MutableLiveData(SortParamCountries.NAME)
     val filterParamLiveData: MutableLiveData<String> = MutableLiveData<String>("")
 
     val countriesLiveData = MediatorLiveData<List<CountryData>>().apply {
-        addSource(sortParamLiveData) {
+        addSource(sortParamCountriesLiveData) {
             value = prepareListCountries()
         }
         addSource(filterParamLiveData) {
@@ -64,9 +64,9 @@ class AllCountriesDataViewModel : BaseViewModel() {
             countries?.filter { it.name.startsWith(filterParamLiveData.value!!, true)  }
         else
             countries
-        return when(sortParamLiveData.value!!){
-            SortParam.NAME -> filteredCountries?.sortedBy { it.name }
-            SortParam.CASES -> filteredCountries?.sortedByDescending { it.cases }
+        return when(sortParamCountriesLiveData.value!!){
+            SortParamCountries.NAME -> filteredCountries?.sortedBy { it.name }
+            SortParamCountries.CASES -> filteredCountries?.sortedByDescending { it.cases }
         }
     }
 

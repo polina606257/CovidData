@@ -11,6 +11,10 @@ import com.example.coviddata.ui.BaseViewModel
 import com.example.coviddata.ui.Event
 import kotlinx.coroutines.launch
 
+enum class SortParamMap {
+    CASES, DEATHS, RECOVERED, CASESPERMILLION, DEATHSPERMILLION, TESTPERMILLION
+}
+
 class MapViewModel : BaseViewModel() {
     private lateinit var converter: ColorGroupConverter
 //    private val _downloadMapLiveData = MutableLiveData<Boolean>()

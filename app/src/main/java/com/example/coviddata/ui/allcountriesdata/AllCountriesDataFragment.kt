@@ -41,8 +41,8 @@ class AllCountriesDataFragment : Fragment() {
         countriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, selectedItem: View, position: Int, id: Long) {
                 when (position) {
-                    0 -> viewModelAllData.sortParamLiveData.value = SortParam.NAME
-                    1 -> viewModelAllData.sortParamLiveData.value = SortParam.CASES
+                    0 -> viewModelAllData.sortParamCountriesLiveData.value = SortParamCountries.NAME
+                    1 -> viewModelAllData.sortParamCountriesLiveData.value = SortParamCountries.CASES
                 }
             }
 

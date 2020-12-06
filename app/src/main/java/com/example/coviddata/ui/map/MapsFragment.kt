@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -20,7 +21,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-
+import kotlinx.android.synthetic.main.fragment_data_all_countries.*
 
 
 class MapsFragment : Fragment() {
@@ -32,7 +33,7 @@ class MapsFragment : Fragment() {
             for (country in countries) {
                 googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
                         .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
-                        .icon(getPinColor(country)))
+                        .icon(getMarker(country)))
             }
 //            viewModel._refreshWorldDataLiveData.value = false
 //            viewModel.setDownloadStatus(false)
@@ -51,24 +52,12 @@ class MapsFragment : Fragment() {
 //        viewModel.setDownloadStatus(true)
 //        CovidApp.repository.refreshAllCountriesData()
         mapFragment?.getMapAsync(callback)
-        viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver{
+        viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })
     }
 
-//    fun getPinColor(country: CountryData) : BitmapDescriptor {
-//        return when(viewModel.getGroupNumber(country)) {
-//            1 -> defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
-//            2 -> defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)
-//            3 -> defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)
-//            4 -> defaultMarker(BitmapDescriptorFactory.HUE_ROSE)
-//            else ->
-//                defaultMarker(BitmapDescriptorFactory.HUE_RED)
-//        }
-//    }
-
-
-    fun getPinColor(country: CountryData) : BitmapDescriptor? {
+    fun getMarker(country: CountryData) : BitmapDescriptor? {
         return when(viewModel.getGroupNumber(country)) {
             1 -> bitmapDescriptorFromVector(R.drawable.group1mapmarker)
             2 -> bitmapDescriptorFromVector(R.drawable.group2mapmarker)
