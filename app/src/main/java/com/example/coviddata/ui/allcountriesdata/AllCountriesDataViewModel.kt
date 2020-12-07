@@ -15,33 +15,9 @@ import kotlinx.coroutines.launch
     NAME, CASES
 }
 
-class AllCountriesDataViewModel : BaseViewModel() {
+class AllCountriesDataViewModel : BaseViewModel<List<CountryData>>() {
     private val _navigateToDetails = MutableLiveData<Event<CountryData>>()
     val navigateToDetails: LiveData<Event<CountryData>> = _navigateToDetails
-
-    init {
-        refreshCountriesData()
-    }
-
-    val _allCountriesDataLiveData = MutableLiveData<DataResult<List<CountryData>?>>()
-    val allCountriesDataLiveData: LiveData<List<CountryData>?> =
-        Transformations.map(_allCountriesDataLiveData){ result ->
-        when(result){
-            is SuccessResult -> result.data
-            is FailureResult -> null
-            is FromCacheResult ->{
-                _popupMessage.value = Event(result.message)
-                result.data
-            }
-        }
-    }
-
-    val allCountriesExceptionLiveData: LiveData<String> = Transformations.map(_allCountriesDataLiveData){ result ->
-        if (result is FailureResult)
-            result.exception
-        else
-            null
-    }
 
     val sortParamCountriesLiveData: MutableLiveData<SortParamCountries> = MutableLiveData(SortParamCountries.NAME)
     val filterParamLiveData: MutableLiveData<String> = MutableLiveData<String>("")
@@ -53,13 +29,13 @@ class AllCountriesDataViewModel : BaseViewModel() {
         addSource(filterParamLiveData) {
             value = prepareListCountries()
         }
-        addSource(allCountriesDataLiveData) {
+        addSource(mainLiveData) {
             value = prepareListCountries()
         }
     }
 
     private fun prepareListCountries(): List<CountryData>?{
-        val countries = allCountriesDataLiveData.value
+        val countries = mainLiveData.value
         val filteredCountries = if (filterParamLiveData.value != "")
             countries?.filter { it.name.startsWith(filterParamLiveData.value!!, true)  }
         else
@@ -70,17 +46,12 @@ class AllCountriesDataViewModel : BaseViewModel() {
         }
     }
 
-     fun refreshCountriesData(){
-        viewModelScope.launch {
-            _refreshWorldDataLiveData.value = true
-            val data = CovidApp.repository.getAllCountriesData()
-            _allCountriesDataLiveData.value = data
-            _refreshWorldDataLiveData.value = false
-        }
-    }
-
     fun showCountryDetails(countryData: CountryData){
         _navigateToDetails.value = Event(countryData)
+    }
+
+    override suspend fun getData(): DataResult<List<CountryData>?> {
+       return CovidApp.repository.getAllCountriesData()
     }
 }
 

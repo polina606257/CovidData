@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -30,17 +29,19 @@ class MapsFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         viewModel.countriesLiveData.observeForever { countries ->
-            for (country in countries) {
-                googleMap.addMarker(
-                    MarkerOptions().position(
-                        LatLng(
-                            country.countryInfo.lat,
-                            country.countryInfo.lng
+            countries?.let {
+                for (country in countries) {
+                    googleMap.addMarker(
+                        MarkerOptions().position(
+                            LatLng(
+                                country.countryInfo.lat,
+                                country.countryInfo.lng
+                            )
                         )
+                            .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
+                            .icon(getMarker(country))
                     )
-                        .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
-                        .icon(getMarker(country))
-                )
+                }
             }
 //            viewModel._refreshWorldDataLiveData.value = false
 //            viewModel.setDownloadStatus(false)
@@ -61,23 +62,22 @@ class MapsFragment : Fragment() {
 //        viewModel.setDownloadStatus(true)
 //        CovidApp.repository.refreshAllCountriesData()
         mapFragment?.getMapAsync(callback)
-            viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-            })
+        viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        })
 
 
-        var list = resources.getStringArray(R.array.spinner_parameter_for_sort_map_)
-        val listsize = list.size - 1
-        val dataAdapter: ArrayAdapter<String> =
-            object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list) {
-                override fun getCount(): Int {
-                    return listsize
-                }
-            }
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        mapSpinner.setAdapter(dataAdapter)
-
-        mapSpinner.setSelection(listsize)
+//        var list = resources.getStringArray(R.array.spinner_parameter_for_sort_map_)
+//
+//        val dataAdapter: ArrayAdapter<String> =ArrayAdapter(this, android.R.layout.simple_spinner_item, list) {
+//                override fun getCount(): Int {
+//                    return listsize
+//                }
+//            }
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        mapSpinner.setAdapter(dataAdapter)
+//
+//        mapSpinner.setSelection(listsize)
 
         mapSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -102,24 +102,15 @@ class MapsFragment : Fragment() {
         }
     }
 
-    fun getMarker(country: CountryData) : BitmapDescriptor? {
-        return when(viewModel.getGroupNumber(country)) {
-            1 -> bitmapDescriptorFromVector(R.drawable.group1mapmarker)
-            2 -> bitmapDescriptorFromVector(R.drawable.group2mapmarker)
-            3 -> bitmapDescriptorFromVector(R.drawable.group3mapmarker)
-            4 -> bitmapDescriptorFromVector(R.drawable.group4mapmarker)
-            else ->
-                bitmapDescriptorFromVector(R.drawable.group5mapmarker)
-        }
-    }
-
-    private fun bitmapDescriptorFromVector(vectorResId: Int): BitmapDescriptor? {
-        return ContextCompat.getDrawable(requireContext(), vectorResId)?.run {
+    fun getMarker(country: CountryData): BitmapDescriptor? {
+        val resId = viewModel.getMarkerId(country)
+        return ContextCompat.getDrawable(requireContext(), resId)?.run {
             setBounds(0, 0, intrinsicWidth, intrinsicHeight)
             val bitmap =
-                    Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+                Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
             draw(Canvas(bitmap))
             BitmapDescriptorFactory.fromBitmap(bitmap)
         }
     }
+
 }

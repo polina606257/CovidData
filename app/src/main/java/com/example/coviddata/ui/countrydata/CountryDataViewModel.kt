@@ -11,47 +11,17 @@ import com.example.coviddata.ui.BaseViewModel
 import com.example.coviddata.ui.Event
 import kotlinx.coroutines.launch
 
-class CountryDataViewModel : BaseViewModel() {
+class CountryDataViewModel : BaseViewModel<List<CountryData>>() {
     private var countryName: String? = null
     fun initCountryName(countryName: String) {
         this.countryName = countryName
     }
 
-    init {
-        refreshCountriesData()
-    }
-
-    val _allCountriesDataLiveData = MutableLiveData<DataResult<List<CountryData>?>>()
-
     val countryDataLiveData: LiveData<CountryData>? =
-        Transformations.map(_allCountriesDataLiveData){ result ->
-            when(result){
-                is SuccessResult -> {
-                    result.data!!.find { it.name == countryName }
-                }
-                is FailureResult -> null
-                is FromCacheResult ->{
-                    _popupMessage.value = Event(result.message)
-                    result.data!!.find { it.name == countryName }
-                }
-            }
+        Transformations.map(mainLiveData){ countries ->
+            countries?.find { it.name == countryName }
         }
 
-    val countryExceptionLiveData: LiveData<String> = Transformations.map(_allCountriesDataLiveData){ result ->
-        if (result is FailureResult)
-            result.exception
-        else
-            null
-    }
-
-    fun refreshCountriesData(){
-        viewModelScope.launch {
-            _refreshWorldDataLiveData.value = true
-            val data = CovidApp.repository.getAllCountriesData()
-            _allCountriesDataLiveData.value = data
-            _refreshWorldDataLiveData.value = false
-        }
-    }
 
     private val allCountriesDataHistoryLiveData: LiveData<List<CountryData>> =
         CovidApp.repository.allCountriesHistoryDataLiveData
@@ -59,4 +29,8 @@ class CountryDataViewModel : BaseViewModel() {
         Transformations.map(allCountriesDataHistoryLiveData) { historyData ->
             historyData.filter { it.name == countryName }
         }
+
+    override suspend fun getData(): DataResult<List<CountryData>?> {
+        return CovidApp.repository.getAllCountriesData()
+    }
 }

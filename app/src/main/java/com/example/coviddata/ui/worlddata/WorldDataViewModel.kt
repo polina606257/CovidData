@@ -11,41 +11,12 @@ import com.example.coviddata.ui.BaseViewModel
 import com.example.coviddata.ui.Event
 import kotlinx.coroutines.launch
 
-class WorldDataViewModel : BaseViewModel(){
-
-    init {
-        refreshWorldData()
-    }
-
-    val _worldDataLiveData = MutableLiveData<DataResult<WorldData?>>()
-    val worldDataLiveData: LiveData<WorldData?> = Transformations.map(_worldDataLiveData){ result ->
-        when(result){
-            is SuccessResult -> result.data
-            is FailureResult -> null
-            is FromCacheResult ->{
-                _popupMessage.value = Event(result.message)
-                result.data
-            }
-        }
-    }
-
-    val worldExceptionLiveData: LiveData<String> = Transformations.map(_worldDataLiveData){ result ->
-        if (result is FailureResult)
-            result.exception
-        else
-            null
-    }
-
-    fun refreshWorldData(){
-        viewModelScope.launch {
-            _refreshWorldDataLiveData.value = true
-            val data = CovidApp.repository.getWorldData()
-            _worldDataLiveData.value = data
-            _refreshWorldDataLiveData.value = false
-        }
-    }
+class WorldDataViewModel : BaseViewModel<WorldData>(){
 
     val worldDataHistoryLiveData: LiveData<List<WorldData>> = CovidApp.repository.worldDataHistoryLiveData
+    override suspend fun getData(): DataResult<WorldData?> {
+        return CovidApp.repository.getWorldData()
+    }
 }
 
 

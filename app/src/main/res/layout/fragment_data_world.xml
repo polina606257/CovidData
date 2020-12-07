@@ -34,7 +34,7 @@
             android:columnCount="2"
             android:orientation="horizontal"
             android:useDefaultMargins="true"
-            app:visibilityView="@{viewModel.worldDataLiveData}"
+            app:visibilityView="@{viewModel.mainLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
             <TextView
                 android:id="@+id/world_data_cases_number_textView"
                 style="@style/data_number_GridLayout"
-                android:text="@{Integer.toString(viewModel.worldDataLiveData.cases)}" />
+                android:text="@{Integer.toString(viewModel.mainLiveData.cases)}" />
 
             <TextView
                 android:id="@+id/world_data_deaths_title_textView"
@@ -58,7 +58,7 @@
             <TextView
                 android:id="@+id/world_data_deaths_number_textView"
                 style="@style/data_number_GridLayout"
-                android:text="@{Integer.toString(viewModel.worldDataLiveData.deaths)}" />
+                android:text="@{Integer.toString(viewModel.mainLiveData.deaths)}" />
 
             <TextView
                 android:id="@+id/world_data_recovered_title_textView"
@@ -68,14 +68,14 @@
             <TextView
                 android:id="@+id/world_data_recovered_number_textView"
                 style="@style/data_number_GridLayout"
-                android:text="@{Integer.toString(viewModel.worldDataLiveData.recovered)}" />
+                android:text="@{Integer.toString(viewModel.mainLiveData.recovered)}" />
         </GridLayout>
 
         <Button
             android:id="@+id/refreshWorldDataButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.refreshWorldData()}"
+            android:onClick="@{() -> viewModel.refreshData()}"
             android:text="@string/refresh_world_data_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,9 +86,9 @@
             android:id="@+id/exceptionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.worldExceptionLiveData.toString()}"
+            android:text="@{viewModel.exceptionLiveData.toString()}"
             android:textStyle="bold"
-            app:visibilityView="@{viewModel.worldExceptionLiveData}"
+            app:visibilityView="@{viewModel.exceptionLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -100,7 +100,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:visibilityViewLoading="@{viewModel.refreshWorldDataLiveData}"
+            app:visibilityViewLoading="@{viewModel.refreshLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

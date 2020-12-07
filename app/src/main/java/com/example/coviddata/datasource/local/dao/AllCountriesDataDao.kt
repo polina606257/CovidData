@@ -15,6 +15,9 @@ interface AllCountriesDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(countryData: CountryData)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(countries: List<CountryData>)
+
     @Delete
     suspend fun delete(countryData: CountryData)
 

@@ -1,40 +1,46 @@
 package com.example.coviddata.ui
 
 import androidx.lifecycle.*
-import com.example.coviddata.R
 import com.example.coviddata.datasource.*
+import kotlinx.coroutines.launch
 
-open class  BaseViewModel: ViewModel() {
-    val _refreshWorldDataLiveData = MutableLiveData<Boolean>()
-    open val refreshWorldDataLiveData: LiveData<Boolean> = _refreshWorldDataLiveData
-    val _popupMessage = MutableLiveData<Event<String>>()
-    open val popupMessage: LiveData<Event<String>> = _popupMessage
+abstract class  BaseViewModel<T>: ViewModel() {
+    private val _refreshLiveData = MutableLiveData<Boolean>()
+    val refreshLiveData: LiveData<Boolean> = _refreshLiveData
+    private val _popupMessage = MutableLiveData<Event<String>>()
+    val popupMessage: LiveData<Event<String>> = _popupMessage
 
-//    open fun getDataLiveData(dataLiveData: MutableLiveData<DataResult<R?>>): LiveData<R?> =
-//        Transformations.map(dataLiveData){ result ->
-//        when(result){
-//            is SuccessResult -> result.data
-//            is FailureResult -> null
-//            is FromCacheResult ->{
-//                _popupMessage.value = Event(result.message)
-//                result.data
-//            }
-//        }
-//    }
+    private val _mainLiveData = MutableLiveData<DataResult<T?>>()
+    val mainLiveData =
+        Transformations.map(_mainLiveData){ result ->
+        when(result){
+            is SuccessResult -> result.data
+            is FailureResult -> null
+            is FromCacheResult ->{
+                _popupMessage.value = Event(result.message)
+                result.data
+            }
+        }
+    }
 
-//    open fun getExceptionLiveData  (dataResultLiveData: MutableLiveData<DataResult<out R?>>): LiveData<String> =
-//        Transformations.map(dataResultLiveData) { result ->
-//            if (result is FailureResult)
-//                result.exception
-//            else
-//                null
-//        }
+    val exceptionLiveData =
+        Transformations.map(_mainLiveData) { result ->
+            if (result is FailureResult)
+                result.exception
+            else
+                null
+        }
 
-//    open fun refreshData(dataFromRepository: DataResult<WorldData?>, dataResultLiveData: MutableLiveData<DataResult<WorldData?>>){
-//        viewModelScope.launch {
-//            refreshWorldDataLiveData.value = true
-//            dataResultLiveData.value = dataFromRepository
-//            refreshWorldDataLiveData.value = false
-//        }
-//    }
+    fun refreshData(){
+        viewModelScope.launch {
+            _refreshLiveData.value = true
+            _mainLiveData.value = getData()
+            _refreshLiveData.value = false
+        }
+    }
+
+    abstract suspend fun getData(): DataResult<T?>
+    init {
+        refreshData()
+    }
 }

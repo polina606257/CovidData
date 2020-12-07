@@ -23,7 +23,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visibilityViewLoading="@{viewModel.refreshWorldDataLiveData}" />
+            app:visibilityViewLoading="@{viewModel.refreshLiveData}" />
 
         <include
             layout="@layout/fragment_google_map"
@@ -32,7 +32,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/mapSpinner" />
 <!--            app:visibilityViewNotLoading="@{viewModel.downloadMapLiveData}"/>-->
 
         <Spinner
@@ -41,7 +41,6 @@
             android:layout_height="wrap_content"
             android:entries="@array/spinner_parameter_for_sort_map_"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/white"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -36,15 +36,14 @@ class Repository(
 
     suspend fun getAllCountriesData(): DataResult<List<CountryData>?> {
         return try {
-            val countriesData = remoteDataSource.getAllCountriesData()
-            for (countryData in countriesData) {
-                countryData.date = LocalDate.now().toString()
-                localDataSource.allCountriesDataDao().insert(countryData)
+            val countriesData = remoteDataSource.getAllCountriesData().onEach {
+                it.date = LocalDate.now().toString()
             }
+            localDataSource.allCountriesDataDao().insert(countriesData)
             SuccessResult(countriesData)
         } catch (e: Exception) {
             val localData = localDataSource.allCountriesDataDao().getLastAllCountriesData()
-            if (!localData.isEmpty())
+            if (localData.isNotEmpty())
                 FromCacheResult(
                     localData,
                     "no data from remote database, data got from local database"

@@ -119,21 +119,21 @@
             android:id="@+id/exceptionTextView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="@{viewModel.countryExceptionLiveData.toString()}"
+            android:text="@{viewModel.exceptionLiveData}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visibilityView="@{viewModel.countryExceptionLiveData}" />
+            app:visibilityView="@{viewModel.exceptionLiveData}" />
 
         <ProgressBar
             android:id="@+id/refreshProgressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:visibilityViewLoading="@{viewModel.refreshWorldDataLiveData}"
+            app:visibilityViewLoading="@{viewModel.refreshLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
