@@ -65,7 +65,7 @@
                 android:id="@+id/country_cases_title_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cases_textView"
+                android:text="@string/cases_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -78,7 +78,7 @@
                 android:id="@+id/country_deaths_title_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/deaths_textView"
+                android:text="@string/deaths_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -91,7 +91,7 @@
                 android:id="@+id/country_recovered_title_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/recovered_textView"
+                android:text="@string/recovered_title"
                 android:textStyle="bold" />
 
             <TextView

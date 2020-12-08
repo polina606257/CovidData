@@ -23,7 +23,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visibilityViewLoading="@{viewModel.refreshLiveData}" />
+            app:visibleIfTrue="@{viewModel.refreshLiveData}" />
 
         <include
             layout="@layout/fragment_google_map"

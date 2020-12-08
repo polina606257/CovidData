@@ -5,12 +5,12 @@
     <string name="covid_on_map_title">Covid on map</string>
     <string name="title_country_data">Covid in country</string>
     <string name="date_textView">Date:</string>
-    <string name="cases_textView">Cases:</string>
-    <string name="deaths_textView">Deaths:</string>
-    <string name="recovered_textView">Recovered:</string>
-    <string name="cases_per_one_million_textView">Cases per one million:</string>
-    <string name="deaths_per_one_million_textView">Deaths per one million:</string>
-    <string name="tests_per_one_million_textView">Tests per one million:</string>
+    <string name="cases_title">Cases:</string>
+    <string name="deaths_title">Deaths:</string>
+    <string name="recovered_title">Recovered:</string>
+    <string name="cases_per_one_million_title">Cases per one million:</string>
+    <string name="deaths_per_one_million_title">Deaths per one million:</string>
+    <string name="tests_per_one_million_title">Tests per one million:</string>
     <string name="refresh_world_data_button">REFRESH</string>
     <string name="covid_history_btn_text">COVID HISTORY</string>
 

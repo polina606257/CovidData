@@ -22,8 +22,8 @@ class ColorGroupConverterTest{
 
     @Test
     fun getGroupNumberTest(){
-        assertEquals(1, converter.getMarkerId(listCountries[4]))
-        assertEquals(5, converter.getMarkerId(listCountries[1]))
+        assertEquals(1, converter.getMarkerInfo(listCountries[4]))
+        assertEquals(5, converter.getMarkerInfo(listCountries[1]))
     }
 }
 

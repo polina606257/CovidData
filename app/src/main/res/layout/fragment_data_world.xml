@@ -34,7 +34,7 @@
             android:columnCount="2"
             android:orientation="horizontal"
             android:useDefaultMargins="true"
-            app:visibilityView="@{viewModel.mainLiveData}"
+            app:visibleIfNotNull="@{viewModel.mainLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
             <TextView
                 android:id="@+id/world_data_cases_title_textView"
                 style="@style/data_title_GridLayout"
-                android:text="@string/cases_textView" />
+                android:text="@string/cases_title" />
 
             <TextView
                 android:id="@+id/world_data_cases_number_textView"
@@ -53,7 +53,7 @@
             <TextView
                 android:id="@+id/world_data_deaths_title_textView"
                 style="@style/data_title_GridLayout"
-                android:text="@string/deaths_textView" />
+                android:text="@string/deaths_title" />
 
             <TextView
                 android:id="@+id/world_data_deaths_number_textView"
@@ -63,7 +63,7 @@
             <TextView
                 android:id="@+id/world_data_recovered_title_textView"
                 style="@style/data_title_GridLayout"
-                android:text="@string/recovered_textView" />
+                android:text="@string/recovered_title" />
 
             <TextView
                 android:id="@+id/world_data_recovered_number_textView"
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:text="@{viewModel.exceptionLiveData.toString()}"
             android:textStyle="bold"
-            app:visibilityView="@{viewModel.exceptionLiveData}"
+            app:visibleIfNotNull="@{viewModel.exceptionLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -100,7 +100,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:visibilityViewLoading="@{viewModel.refreshLiveData}"
+            app:visibleIfTrue="@{viewModel.refreshLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

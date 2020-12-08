@@ -16,7 +16,7 @@ fun ImageView.imageURL(url: String){
     }
 }
 
-@BindingAdapter(value = ["app:visibilityViewLoading"], requireAll = false)
+@BindingAdapter(value = ["app:visibleIfTrue"], requireAll = false)
 fun View.visibleIfTrue(value: Boolean) {
     visibility = if(value)
         View.VISIBLE
@@ -24,15 +24,15 @@ fun View.visibleIfTrue(value: Boolean) {
         View.INVISIBLE
 }
 
-@BindingAdapter(value = ["app:visibilityViewNotLoading"], requireAll = false)
-fun View.visibleIfFalse(value: Boolean) {
-    visibility = if(!value)
-        View.VISIBLE
-    else
-        View.INVISIBLE
-}
+//@BindingAdapter(value = ["app:visibleIfFalse"], requireAll = false)
+//fun View.visibleIfFalse(value: Boolean) {
+//    visibility = if(!value)
+//        View.VISIBLE
+//    else
+//        View.INVISIBLE
+//}
 
-@BindingAdapter(value = ["app:visibilityView"], requireAll = false)
+@BindingAdapter(value = ["app:visibleIfNotNull"], requireAll = false)
 fun View.visibleIfNotNull(value: Any?) {
     visibility = if(value != null)
         View.VISIBLE

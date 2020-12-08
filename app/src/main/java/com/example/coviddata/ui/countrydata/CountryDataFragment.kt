@@ -19,12 +19,7 @@ class CountryDataFragment : Fragment() {
     val viewModel: CountryDataViewModel by viewModels()
     val args: CountryDataFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    )
-            : View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_data_country, container, false)
         return root
     }
@@ -42,6 +37,7 @@ class CountryDataFragment : Fragment() {
             val action = CountryDataFragmentDirections.actionNavigationCountryCasesToCountryDataHistoryFragment(countryName)
             findNavController().navigate(action)
         }
+
         viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver{
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })

@@ -34,6 +34,5 @@ class RemoteDataSource {
     suspend fun getAllCountriesData() = remoteService.getAllCountriesData()
 
     suspend fun getCountryData(country: String): CountryData = remoteService.getCountryData(country)
-
 }
 

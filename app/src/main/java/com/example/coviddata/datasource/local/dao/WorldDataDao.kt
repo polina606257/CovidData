@@ -1,4 +1,4 @@
-package com.example.covidappapi.datasource.local.dao
+package com.example.coviddata.datasource.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

@@ -31,61 +31,30 @@ class MapsFragment : Fragment() {
         viewModel.countriesLiveData.observeForever { countries ->
             countries?.let {
                 for (country in countries) {
-                    googleMap.addMarker(
-                        MarkerOptions().position(
-                            LatLng(
-                                country.countryInfo.lat,
-                                country.countryInfo.lng
-                            )
-                        )
-                            .title("Cases per 1 million: ${Math.round(country.casesPerOneMillion)}")
-                            .icon(getMarker(country))
-                    )
+                    googleMap.addMarker(MarkerOptions()
+                        .position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
+                            .title("${getString(viewModel.getMarkerInfo(country).markerTitle)} " +
+                                    "${viewModel.getMarkerInfo(country).markerNumber}")
+                            .icon(getMarker(country)))
                 }
             }
-//            viewModel._refreshWorldDataLiveData.value = false
-//            viewModel.setDownloadStatus(false)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-//        viewModel.setDownloadStatus(true)
-//        CovidApp.repository.refreshAllCountriesData()
         mapFragment?.getMapAsync(callback)
         viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })
 
-
-//        var list = resources.getStringArray(R.array.spinner_parameter_for_sort_map_)
-//
-//        val dataAdapter: ArrayAdapter<String> =ArrayAdapter(this, android.R.layout.simple_spinner_item, list) {
-//                override fun getCount(): Int {
-//                    return listsize
-//                }
-//            }
-//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        mapSpinner.setAdapter(dataAdapter)
-//
-//        mapSpinner.setSelection(listsize)
-
         mapSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                selectedItem: View,
-                position: Int,
-                id: Long
-            ) {
+            override fun onItemSelected(parent: AdapterView<*>, selectedItem: View, position: Int, id: Long) {
                 when (position) {
                     0 -> viewModel.sortParamLiveData.value = SortParamMap.CASES
                     1 -> viewModel.sortParamLiveData.value = SortParamMap.DEATHS
@@ -102,8 +71,8 @@ class MapsFragment : Fragment() {
         }
     }
 
-    fun getMarker(country: CountryData): BitmapDescriptor? {
-        val resId = viewModel.getMarkerId(country)
+    private fun getMarker(country: CountryData): BitmapDescriptor? {
+        val resId = viewModel.getMarkerInfo(country).markerId
         return ContextCompat.getDrawable(requireContext(), resId)?.run {
             setBounds(0, 0, intrinsicWidth, intrinsicHeight)
             val bitmap =
@@ -112,5 +81,4 @@ class MapsFragment : Fragment() {
             BitmapDescriptorFactory.fromBitmap(bitmap)
         }
     }
-
 }

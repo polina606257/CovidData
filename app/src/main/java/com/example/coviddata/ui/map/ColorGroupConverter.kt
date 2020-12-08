@@ -1,41 +1,55 @@
 package com.example.coviddata.ui.map
 
+import androidx.lifecycle.LiveData
 import com.example.coviddata.R
 import com.example.coviddata.model.CountryData
 
-class ColorGroupConverter(val listCountries: List<CountryData>) {
+class ColorGroupConverter(val listCountries: List<CountryData>, val sortParamLiveData: LiveData<SortParamMap>) {
     data class MarkerInfo(
         val markerId: Int,
         val markerTitle: Int,
-        val number: Double
+        val markerNumber: Long
     )
-    fun getMarkerId(country: CountryData): Int {
+
+    fun getMarkerInfo(country: CountryData): MarkerInfo {
         return when (listCountries.indexOf(country).toDouble()) {
             in listCountries.size * 0.0 .. listCountries.size * 0.1 ->
-                R.drawable.group1mapmarker
+                MarkerInfo(R.drawable.group1mapmarker, getTitle(sortParamLiveData.value!!),
+                    getNumber(country, sortParamLiveData.value!!))
             in listCountries.size * 0.1 .. listCountries.size * 0.3 ->
-                R.drawable.group2mapmarker
+                MarkerInfo(R.drawable.group2mapmarker, getTitle(sortParamLiveData.value!!),
+                    getNumber(country, sortParamLiveData.value!!))
             in listCountries.size * 0.3 .. listCountries.size * 0.6 ->
-                R.drawable.group3mapmarker
+                MarkerInfo(R.drawable.group3mapmarker, getTitle(sortParamLiveData.value!!),
+                    getNumber(country, sortParamLiveData.value!!))
             in listCountries.size * 0.6 .. listCountries.size * 0.8 ->
-                R.drawable.group4mapmarker
+                MarkerInfo(R.drawable.group4mapmarker, getTitle(sortParamLiveData.value!!),
+                    getNumber(country, sortParamLiveData.value!!))
             else ->
-                R.drawable.group5mapmarker
+                MarkerInfo(R.drawable.group5mapmarker, getTitle(sortParamLiveData.value!!),
+                    getNumber(country, sortParamLiveData.value!!))
         }
     }
 
-//    private fun getCasesRelatedForGroup(percentForMin: Double, percentForMax: Double) : ClosedFloatingPointRange<Double> {
-//        val countriesListSize = listCountries.size
-//        val minNumPerGroup = countriesListSize * percentForMin
-//        val maxNumPerGroup = countriesListSize * percentForMax
-//        return minNumPerGroup..maxNumPerGroup
-//    }
-//        val countryMinCasesPerOneMillion = listCountries.minByOrNull { it.casesPerOneMillion }
-//        val countryMaxCasesPerOneMillion = listCountries.maxByOrNull { it.casesPerOneMillion }
-//        val minNumCasesPerGroup = (countryMaxCasesPerOneMillion!!.casesPerOneMillion - countryMinCasesPerOneMillion!!
-//                .casesPerOneMillion)* percentForMin
-//        val maxNumCasesPerGroup = (countryMaxCasesPerOneMillion.casesPerOneMillion - countryMinCasesPerOneMillion
-//                .casesPerOneMillion) * percentForMax
-//        return minNumCasesPerGroup..(maxNumCasesPerGroup)
-//    }
+    fun getTitle(sortParamMap: SortParamMap): Int {
+        return when (sortParamMap.ordinal) {
+            SortParamMap.CASES.ordinal -> R.string.cases_title
+            SortParamMap.DEATHS.ordinal -> R.string.deaths_title
+            SortParamMap.RECOVERED.ordinal -> R.string.recovered_title
+            SortParamMap.CASESPERMILLION.ordinal -> R.string.cases_per_one_million_title
+            SortParamMap.DEATHSPERMILLION.ordinal -> R.string.deaths_per_one_million_title
+            else -> R.string.tests_per_one_million_title
+        }
+    }
+
+    fun getNumber(country: CountryData, sortParamMap: SortParamMap): Long {
+        return when (sortParamMap.ordinal) {
+            SortParamMap.CASES.ordinal -> country.cases.toLong()
+            SortParamMap.DEATHS.ordinal -> country.deaths.toLong()
+            SortParamMap.RECOVERED.ordinal -> country.recovered.toLong()
+            SortParamMap.CASESPERMILLION.ordinal -> Math.round(country.casesPerOneMillion)
+            SortParamMap.DEATHSPERMILLION.ordinal -> Math.round(country.deathsPerOneMillion)
+            else -> Math.round(country.testsPerOneMillion)
+        }
+    }
 }

@@ -1,7 +1,7 @@
 package com.example.coviddata.datasource
 
 import androidx.lifecycle.LiveData
-import com.example.covidappapi.datasource.local.LocalDataSource
+import com.example.coviddata.datasource.local.LocalDataSource
 import com.example.coviddata.datasource.remote.RemoteDataSource
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.model.WorldData
@@ -33,7 +33,6 @@ class Repository(
     val worldDataHistoryLiveData: LiveData<List<WorldData>> = localDataSource.worldDataDao()
         .getHistoryWorldDataLiveData()
 
-
     suspend fun getAllCountriesData(): DataResult<List<CountryData>?> {
         return try {
             val countriesData = remoteDataSource.getAllCountriesData().onEach {
@@ -55,7 +54,6 @@ class Repository(
 
     val allCountriesHistoryDataLiveData =
         localDataSource.allCountriesDataDao().getHistoryAllCountriesDataLiveData()
-
 }
 
 

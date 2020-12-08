@@ -3,13 +3,8 @@ package com.example.coviddata.ui.map
 import androidx.lifecycle.*
 import com.example.coviddata.CovidApp
 import com.example.coviddata.datasource.DataResult
-import com.example.coviddata.datasource.FailureResult
-import com.example.coviddata.datasource.FromCacheResult
-import com.example.coviddata.datasource.SuccessResult
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.ui.BaseViewModel
-import com.example.coviddata.ui.Event
-import kotlinx.coroutines.launch
 
 enum class SortParamMap {
     CASES, DEATHS, RECOVERED, CASESPERMILLION, DEATHSPERMILLION, TESTPERMILLION
@@ -17,11 +12,6 @@ enum class SortParamMap {
 
 class MapViewModel : BaseViewModel<List<CountryData>>() {
     lateinit var converter: ColorGroupConverter
-//    private val _downloadMapLiveData = MutableLiveData<Boolean>()
-//    val downloadMapLiveData: LiveData<Boolean> = _downloadMapLiveData
-
-
-
 
     val sortParamLiveData: MutableLiveData<SortParamMap> = MutableLiveData(SortParamMap.CASES)
 
@@ -46,25 +36,19 @@ class MapViewModel : BaseViewModel<List<CountryData>>() {
         }
     }
 
-
-//    fun setDownloadStatus(isLoading: Boolean){
-//        _downloadMapLiveData.value = true
-//    }
-
     init{
         countriesLiveData.observeForever{
             it?.let{
-                converter = ColorGroupConverter(it)
+                converter = ColorGroupConverter(it, sortParamLiveData)
             }
         }
     }
 
-    fun getMarkerId(country: CountryData): Int = converter.getMarkerId(country)
+    fun getMarkerInfo(country: CountryData ): ColorGroupConverter.MarkerInfo = converter.getMarkerInfo(country )
 
     override suspend fun getData(): DataResult<List<CountryData>?> {
          return CovidApp.repository.getAllCountriesData()
     }
-
 }
 
 
