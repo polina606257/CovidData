@@ -7,7 +7,7 @@ import com.example.coviddata.model.CountryData
 import com.example.coviddata.ui.BaseViewModel
 
 enum class SortParamMap {
-    CASES, DEATHS, RECOVERED, CASESPERMILLION, DEATHSPERMILLION, TESTPERMILLION
+    CASES, DEATHS, RECOVERED, CASES_PER_MILLION, DEATHS_PER_MILLION, TEST_PER_MILLION
 }
 
 class MapViewModel : BaseViewModel<List<CountryData>>() {
@@ -30,9 +30,9 @@ class MapViewModel : BaseViewModel<List<CountryData>>() {
             SortParamMap.CASES -> countries?.sortedBy { it.cases }
             SortParamMap.DEATHS -> countries?.sortedBy { it.deaths }
             SortParamMap.RECOVERED -> countries?.sortedBy { it.recovered }
-            SortParamMap.CASESPERMILLION -> countries?.sortedBy { it.casesPerOneMillion }
-            SortParamMap.DEATHSPERMILLION -> countries?.sortedBy { it.deathsPerOneMillion }
-            SortParamMap.TESTPERMILLION -> countries?.sortedBy { it.testsPerOneMillion }
+            SortParamMap.CASES_PER_MILLION -> countries?.sortedBy { it.casesPerOneMillion }
+            SortParamMap.DEATHS_PER_MILLION -> countries?.sortedBy { it.deathsPerOneMillion }
+            SortParamMap.TEST_PER_MILLION -> countries?.sortedBy { it.testsPerOneMillion }
         }
     }
 

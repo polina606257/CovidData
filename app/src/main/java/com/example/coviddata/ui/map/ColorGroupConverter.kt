@@ -36,8 +36,8 @@ class ColorGroupConverter(val listCountries: List<CountryData>, val sortParamLiv
             SortParamMap.CASES.ordinal -> R.string.cases_title
             SortParamMap.DEATHS.ordinal -> R.string.deaths_title
             SortParamMap.RECOVERED.ordinal -> R.string.recovered_title
-            SortParamMap.CASESPERMILLION.ordinal -> R.string.cases_per_one_million_title
-            SortParamMap.DEATHSPERMILLION.ordinal -> R.string.deaths_per_one_million_title
+            SortParamMap.CASES_PER_MILLION.ordinal -> R.string.cases_per_one_million_title
+            SortParamMap.DEATHS_PER_MILLION.ordinal -> R.string.deaths_per_one_million_title
             else -> R.string.tests_per_one_million_title
         }
     }
@@ -47,8 +47,8 @@ class ColorGroupConverter(val listCountries: List<CountryData>, val sortParamLiv
             SortParamMap.CASES.ordinal -> country.cases.toLong()
             SortParamMap.DEATHS.ordinal -> country.deaths.toLong()
             SortParamMap.RECOVERED.ordinal -> country.recovered.toLong()
-            SortParamMap.CASESPERMILLION.ordinal -> Math.round(country.casesPerOneMillion)
-            SortParamMap.DEATHSPERMILLION.ordinal -> Math.round(country.deathsPerOneMillion)
+            SortParamMap.CASES_PER_MILLION.ordinal -> Math.round(country.casesPerOneMillion)
+            SortParamMap.DEATHS_PER_MILLION.ordinal -> Math.round(country.deathsPerOneMillion)
             else -> Math.round(country.testsPerOneMillion)
         }
     }

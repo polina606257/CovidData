@@ -31,10 +31,11 @@ class MapsFragment : Fragment() {
         viewModel.countriesLiveData.observeForever { countries ->
             countries?.let {
                 for (country in countries) {
+                    val markerInfo = viewModel.getMarkerInfo(country)
                     googleMap.addMarker(MarkerOptions()
                         .position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
-                            .title("${getString(viewModel.getMarkerInfo(country).markerTitle)} " +
-                                    "${viewModel.getMarkerInfo(country).markerNumber}")
+                            .title("${getString(markerInfo.markerTitle)} " +
+                                    "${markerInfo.markerNumber}")
                             .icon(getMarker(country)))
                 }
             }
@@ -59,9 +60,9 @@ class MapsFragment : Fragment() {
                     0 -> viewModel.sortParamLiveData.value = SortParamMap.CASES
                     1 -> viewModel.sortParamLiveData.value = SortParamMap.DEATHS
                     2 -> viewModel.sortParamLiveData.value = SortParamMap.RECOVERED
-                    3 -> viewModel.sortParamLiveData.value = SortParamMap.CASESPERMILLION
-                    4 -> viewModel.sortParamLiveData.value = SortParamMap.DEATHSPERMILLION
-                    5 -> viewModel.sortParamLiveData.value = SortParamMap.TESTPERMILLION
+                    3 -> viewModel.sortParamLiveData.value = SortParamMap.CASES_PER_MILLION
+                    4 -> viewModel.sortParamLiveData.value = SortParamMap.DEATHS_PER_MILLION
+                    5 -> viewModel.sortParamLiveData.value = SortParamMap.TEST_PER_MILLION
                 }
             }
 
