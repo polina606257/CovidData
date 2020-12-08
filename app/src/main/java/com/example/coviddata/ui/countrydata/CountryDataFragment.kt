@@ -12,8 +12,10 @@ import androidx.navigation.fragment.navArgs
 import com.example.coviddata.R
 import com.example.coviddata.databinding.FragmentDataCountryBinding
 import com.example.coviddata.ui.EventObserver
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_data_country.*
 
+@AndroidEntryPoint
 class CountryDataFragment : Fragment() {
 
     val viewModel: CountryDataViewModel by viewModels()

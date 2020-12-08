@@ -6,8 +6,9 @@ import com.example.coviddata.datasource.remote.RemoteDataSource
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.model.WorldData
 import java.time.LocalDate
+import javax.inject.Inject
 
-class Repository(
+class Repository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) {
