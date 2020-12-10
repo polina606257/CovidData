@@ -14,6 +14,10 @@ class CountryDataViewModel @ViewModelInject constructor(val repository: Reposito
         this.countryName = countryName
     }
 
+    init {
+        refreshData()
+    }
+
     val countryDataLiveData: LiveData<CountryData>? =
         Transformations.map(mainLiveData){ countries ->
             countries?.find { it.name == countryName }

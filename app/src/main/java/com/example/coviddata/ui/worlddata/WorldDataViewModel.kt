@@ -10,7 +10,12 @@ import com.example.coviddata.ui.BaseViewModel
 
 class WorldDataViewModel @ViewModelInject constructor(val repository: Repository) : BaseViewModel<WorldData>(){
 
+    init {
+        refreshData()
+    }
+
     val worldDataHistoryLiveData: LiveData<List<WorldData>> = repository.worldDataHistoryLiveData
+
     override suspend fun getData(): DataResult<WorldData?> {
         return repository.getWorldData()
     }

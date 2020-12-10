@@ -31,6 +31,7 @@ class MapsFragment : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
         viewModel.countriesLiveData.observeForever { countries ->
             countries?.let {
+                googleMap.clear()
                 for (country in countries) {
                     val markerInfo = viewModel.getMarkerInfo(country)
                     googleMap.addMarker(MarkerOptions()

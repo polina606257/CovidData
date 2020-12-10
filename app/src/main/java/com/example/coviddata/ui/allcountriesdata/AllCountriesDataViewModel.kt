@@ -17,6 +17,10 @@ class AllCountriesDataViewModel @ViewModelInject constructor(val repository: Rep
     private val _navigateToDetails = MutableLiveData<Event<CountryData>>()
     val navigateToDetails: LiveData<Event<CountryData>> = _navigateToDetails
 
+    init {
+        refreshData()
+    }
+
     val sortParamCountriesLiveData: MutableLiveData<SortParamCountries> = MutableLiveData(SortParamCountries.NAME)
     val filterParamLiveData: MutableLiveData<String> = MutableLiveData<String>("")
 

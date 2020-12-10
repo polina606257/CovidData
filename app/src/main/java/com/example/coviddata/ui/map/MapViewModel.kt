@@ -15,6 +15,10 @@ enum class SortParamMap {
 class MapViewModel @ViewModelInject constructor(val repository: Repository) : BaseViewModel<List<CountryData>>() {
     lateinit var converter: ColorGroupConverter
 
+    init {
+        refreshData()
+    }
+
     val sortParamLiveData: MutableLiveData<SortParamMap> = MutableLiveData(SortParamMap.CASES)
 
     val countriesLiveData = MediatorLiveData<List<CountryData>>().apply {

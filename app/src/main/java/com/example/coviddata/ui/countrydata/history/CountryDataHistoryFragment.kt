@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coviddata.R
 import com.example.coviddata.ui.countrydata.CountryDataFragmentArgs
 import com.example.coviddata.ui.countrydata.CountryDataViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_country_data_history.*
 
+@AndroidEntryPoint
 class CountryDataHistoryFragment : Fragment() {
 
     val viewModel: CountryDataViewModel by viewModels()
