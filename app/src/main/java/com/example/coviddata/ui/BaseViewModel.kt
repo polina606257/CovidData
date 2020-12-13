@@ -21,6 +21,7 @@ abstract class  BaseViewModel<T> : ViewModel() {
                 result.data
             }
         }
+//            repository.getLastAllCountriesData().distinctUntilChanged().switchMap{it.data }
     }
 
     val exceptionLiveData =

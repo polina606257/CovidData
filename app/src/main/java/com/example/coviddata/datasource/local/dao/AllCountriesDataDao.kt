@@ -23,4 +23,5 @@ interface AllCountriesDataDao {
 
     suspend fun getLastAllCountriesData() = getHistoryAllCountriesData().filter { it.date ==
             (getHistoryAllCountriesData().maxByOrNull { it.date })?.date.toString() }
+
 }
