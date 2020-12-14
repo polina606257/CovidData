@@ -4,13 +4,15 @@ import androidx.lifecycle.*
 import com.example.coviddata.model.WorldData
 import com.example.coviddata.CovidApp
 import com.example.coviddata.datasource.DataResult
+import com.example.coviddata.datasource.Repository
 import com.example.coviddata.ui.BaseViewModel
+import javax.inject.Inject
 
-class WorldDataViewModel : BaseViewModel<WorldData>(){
+class WorldDataViewModel @Inject constructor(val repository: Repository): BaseViewModel<WorldData>(){
 
-    val worldDataHistoryLiveData: LiveData<List<WorldData>> = CovidApp.repository.worldDataHistoryLiveData
+    val worldDataHistoryLiveData: LiveData<List<WorldData>> = repository.worldDataHistoryLiveData
     override suspend fun getData(): DataResult<WorldData?> {
-        return CovidApp.repository.getWorldData()
+        return repository.getWorldData()
     }
 }
 

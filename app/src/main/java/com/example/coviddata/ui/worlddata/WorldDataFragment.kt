@@ -1,5 +1,6 @@
 package com.example.coviddata.ui.worlddata
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +9,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.coviddata.CovidApp
 import com.example.coviddata.R
 import com.example.coviddata.databinding.FragmentDataWorldBinding
 import com.example.coviddata.ui.EventObserver
 import kotlinx.android.synthetic.main.fragment_data_world.*
+import javax.inject.Inject
 
 class WorldDataFragment : Fragment() {
 
-    val viewModel: WorldDataViewModel by viewModels()
+    @Inject lateinit var viewModelFactory: WorldViewModelFactory
+    val viewModel: WorldDataViewModel by viewModels{viewModelFactory}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
@@ -36,5 +40,10 @@ class WorldDataFragment : Fragment() {
         viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver{
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as CovidApp).appComponent.inject(this)
     }
 }
