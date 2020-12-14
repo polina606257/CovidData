@@ -69,7 +69,7 @@ class MapViewModel @ViewModelInject constructor(val repository: Repository) : Ba
 
 
     fun getNumber(country: CountryData, sortParamMap: SortParamMap): Long {
-        var number: Long = when (sortParamMap.ordinal) {
+        return when (sortParamMap.ordinal) {
             SortParamMap.CASES.ordinal -> country.cases.toLong()
             SortParamMap.DEATHS.ordinal -> country.deaths.toLong()
             SortParamMap.RECOVERED.ordinal -> country.recovered.toLong()
@@ -77,8 +77,7 @@ class MapViewModel @ViewModelInject constructor(val repository: Repository) : Ba
             SortParamMap.DEATHS_PER_MILLION.ordinal -> Math.round(country.deathsPerOneMillion)
             else -> Math.round(country.testsPerOneMillion)
         }
-          return number
-        }
+    }
 }
 
 
