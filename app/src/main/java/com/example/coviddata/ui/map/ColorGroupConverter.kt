@@ -4,30 +4,32 @@ import androidx.lifecycle.LiveData
 import com.example.coviddata.R
 import com.example.coviddata.model.CountryData
 
-class ColorGroupConverter(val listCountries: List<CountryData>, val sortParamLiveData: LiveData<SortParamMap>) {
+class ColorGroupConverter(val listCountries: List<CountryData>) {
+
     data class MarkerInfo(
         val markerId: Int,
         val markerTitle: Int,
-        val markerNumber: Long
+        val markerNumber: Long,
     )
 
-    fun getMarkerInfo(country: CountryData): MarkerInfo {
+    fun getMarkerInfo(country: CountryData, sortParamMap: SortParamMap): MarkerInfo {
         return when (listCountries.indexOf(country).toDouble()) {
-            in listCountries.size * 0.0 .. listCountries.size * 0.1 ->
-                MarkerInfo(R.drawable.group1mapmarker, getTitle(sortParamLiveData.value!!),
-                    getNumber(country, sortParamLiveData.value!!))
+            (listCountries.indexOf(country).toDouble() >= listCountries.size * 0.0)
+                    && (listCountries.indexOf(country).toDouble() < listCountries.size * 0.1) ->
+                MarkerInfo(R.drawable.group1mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap))
             in listCountries.size * 0.1 .. listCountries.size * 0.3 ->
-                MarkerInfo(R.drawable.group2mapmarker, getTitle(sortParamLiveData.value!!),
-                    getNumber(country, sortParamLiveData.value!!))
+                MarkerInfo(R.drawable.group2mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap))
             in listCountries.size * 0.3 .. listCountries.size * 0.6 ->
-                MarkerInfo(R.drawable.group3mapmarker, getTitle(sortParamLiveData.value!!),
-                    getNumber(country, sortParamLiveData.value!!))
+                MarkerInfo(R.drawable.group3mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap))
             in listCountries.size * 0.6 .. listCountries.size * 0.8 ->
-                MarkerInfo(R.drawable.group4mapmarker, getTitle(sortParamLiveData.value!!),
-                    getNumber(country, sortParamLiveData.value!!))
+                MarkerInfo(R.drawable.group4mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap))
             else ->
-                MarkerInfo(R.drawable.group5mapmarker, getTitle(sortParamLiveData.value!!),
-                    getNumber(country, sortParamLiveData.value!!))
+                MarkerInfo(R.drawable.group5mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap))
         }
     }
 
@@ -41,6 +43,7 @@ class ColorGroupConverter(val listCountries: List<CountryData>, val sortParamLiv
             else -> R.string.tests_per_one_million_title
         }
     }
+
 
     fun getNumber(country: CountryData, sortParamMap: SortParamMap): Long {
         return when (sortParamMap.ordinal) {

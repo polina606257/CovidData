@@ -12,6 +12,10 @@ class CountryDataViewModel : BaseViewModel<List<CountryData>>() {
         this.countryName = countryName
     }
 
+    init {
+        refreshData()
+    }
+
     val countryDataLiveData: LiveData<CountryData>? =
         Transformations.map(mainLiveData){ countries ->
             countries?.find { it.name == countryName }

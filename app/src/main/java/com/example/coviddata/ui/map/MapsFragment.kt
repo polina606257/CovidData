@@ -32,12 +32,11 @@ class MapsFragment : Fragment() {
             countries?.let {
                 googleMap.clear()
                 for (country in countries) {
-                    val markerInfo = viewModel.getMarkerInfo(country)
-                    googleMap.addMarker(MarkerOptions()
-                        .position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
-                            .title("${getString(markerInfo.markerTitle)} " +
-                                    "${markerInfo.markerNumber}")
-                            .icon(getMarker(country)))
+                    val markerInfo =
+                        viewModel.getMarkerInfo(country, viewModel.sortParamLiveData.value!!)
+                    googleMap.addMarker(MarkerOptions().position(LatLng(country.countryInfo.lat, country.countryInfo.lng))
+                        .title(getString(markerInfo.markerTitle) + "${markerInfo.markerNumber}")
+                        .icon(getMarker(country)))
                 }
             }
         }
@@ -74,7 +73,7 @@ class MapsFragment : Fragment() {
     }
 
     private fun getMarker(country: CountryData): BitmapDescriptor? {
-        val resId = viewModel.getMarkerInfo(country).markerId
+        val resId = viewModel.getMarkerInfo(country, viewModel.sortParamLiveData.value!!).markerId
         return ContextCompat.getDrawable(requireContext(), resId)?.run {
             setBounds(0, 0, intrinsicWidth, intrinsicHeight)
             val bitmap =

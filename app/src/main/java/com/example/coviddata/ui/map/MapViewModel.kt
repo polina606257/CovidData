@@ -13,6 +13,10 @@ enum class SortParamMap {
 class MapViewModel : BaseViewModel<List<CountryData>>() {
     lateinit var converter: ColorGroupConverter
 
+    init {
+        refreshData()
+    }
+
     val sortParamLiveData: MutableLiveData<SortParamMap> = MutableLiveData(SortParamMap.CASES)
 
     val countriesLiveData = MediatorLiveData<List<CountryData>>().apply {
@@ -39,12 +43,13 @@ class MapViewModel : BaseViewModel<List<CountryData>>() {
     init{
         countriesLiveData.observeForever{
             it?.let{
-                converter = ColorGroupConverter(it, sortParamLiveData)
+                converter = ColorGroupConverter(it)
             }
         }
     }
 
-    fun getMarkerInfo(country: CountryData ): ColorGroupConverter.MarkerInfo = converter.getMarkerInfo(country )
+    fun getMarkerInfo(country: CountryData, sortParamMap: SortParamMap): ColorGroupConverter.MarkerInfo =
+        converter.getMarkerInfo(country, sortParamMap)
 
     override suspend fun getData(): DataResult<List<CountryData>?> {
          return CovidApp.repository.getAllCountriesData()
