@@ -13,23 +13,33 @@ class ColorGroupConverter(val listCountries: List<CountryData>) {
     )
 
     fun getMarkerInfo(country: CountryData, sortParamMap: SortParamMap): MarkerInfo {
-        return when (listCountries.indexOf(country).toDouble()) {
-            (listCountries.indexOf(country).toDouble() >= listCountries.size * 0.0)
-                    && (listCountries.indexOf(country).toDouble() < listCountries.size * 0.1) ->
-                MarkerInfo(R.drawable.group1mapmarker, getTitle(sortParamMap),
-                    getNumber(country, sortParamMap))
-            in listCountries.size * 0.1 .. listCountries.size * 0.3 ->
-                MarkerInfo(R.drawable.group2mapmarker, getTitle(sortParamMap),
-                    getNumber(country, sortParamMap))
-            in listCountries.size * 0.3 .. listCountries.size * 0.6 ->
-                MarkerInfo(R.drawable.group3mapmarker, getTitle(sortParamMap),
-                    getNumber(country, sortParamMap))
-            in listCountries.size * 0.6 .. listCountries.size * 0.8 ->
-                MarkerInfo(R.drawable.group4mapmarker, getTitle(sortParamMap),
-                    getNumber(country, sortParamMap))
+        val index = listCountries.indexOf(country).toDouble()
+        return when {
+            (index >= listCountries.size * 0.0) && (index < listCountries.size * 0.1) ->
+                MarkerInfo(
+                    R.drawable.group1mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap)
+                )
+            in listCountries.size * 0.1..listCountries.size * 0.3 ->
+                MarkerInfo(
+                    R.drawable.group2mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap)
+                )
+            in listCountries.size * 0.3..listCountries.size * 0.6 ->
+                MarkerInfo(
+                    R.drawable.group3mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap)
+                )
+            in listCountries.size * 0.6..listCountries.size * 0.8 ->
+                MarkerInfo(
+                    R.drawable.group4mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap)
+                )
             else ->
-                MarkerInfo(R.drawable.group5mapmarker, getTitle(sortParamMap),
-                    getNumber(country, sortParamMap))
+                MarkerInfo(
+                    R.drawable.group5mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap)
+                )
         }
     }
 
