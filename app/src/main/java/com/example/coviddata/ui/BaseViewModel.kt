@@ -40,7 +40,4 @@ abstract class  BaseViewModel<T>: ViewModel() {
     }
 
     abstract suspend fun getData(): DataResult<T?>
-    init {
-        refreshData()
-    }
 }
