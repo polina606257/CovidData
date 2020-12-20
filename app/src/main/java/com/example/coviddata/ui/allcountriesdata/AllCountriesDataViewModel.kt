@@ -4,16 +4,23 @@ import androidx.lifecycle.*
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.CovidApp
 import com.example.coviddata.datasource.DataResult
+import com.example.coviddata.datasource.Repository
 import com.example.coviddata.ui.BaseViewModel
 import com.example.coviddata.ui.Event
+import com.example.coviddata.ui.worlddata.WorldDataViewModel
+import javax.inject.Inject
 
  enum class SortParamCountries {
     NAME, CASES
 }
 
-class AllCountriesDataViewModel : BaseViewModel<List<CountryData>>() {
+class AllCountriesDataViewModel @Inject constructor(private val repository: Repository): BaseViewModel<List<CountryData>>() {
     private val _navigateToDetails = MutableLiveData<Event<CountryData>>()
     val navigateToDetails: LiveData<Event<CountryData>> = _navigateToDetails
+
+    init {
+        refreshData()
+    }
 
     val sortParamCountriesLiveData: MutableLiveData<SortParamCountries> = MutableLiveData(SortParamCountries.NAME)
     val filterParamLiveData: MutableLiveData<String> = MutableLiveData<String>("")
@@ -47,7 +54,14 @@ class AllCountriesDataViewModel : BaseViewModel<List<CountryData>>() {
     }
 
     override suspend fun getData(): DataResult<List<CountryData>?> {
-       return CovidApp.repository.getAllCountriesData()
+       return repository.getAllCountriesData()
     }
 }
 
+ @Suppress("UNCHECKED_CAST")
+ class AllCountriesViewModelFactory @Inject constructor(private val repository: Repository) :
+     ViewModelProvider.NewInstanceFactory() {
+     override fun <T : ViewModel> create(modelClass: Class<T>): T {
+         return AllCountriesDataViewModel(repository) as T
+     }
+ }

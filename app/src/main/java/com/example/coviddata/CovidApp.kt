@@ -19,9 +19,6 @@ class CovidApp : Application() {
         appComponent = DaggerAppComponent.factory().create(applicationContext)
 
 
-
-
-
         val remoteDataSource = RemoteDataSource()
         val localDataSource = Room.databaseBuilder(applicationContext, LocalDataSource::class.java, "db")
             .build()

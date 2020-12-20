@@ -1,5 +1,6 @@
 package com.example.coviddata.ui.countrydata.history
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,14 +10,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coviddata.CovidApp
 import com.example.coviddata.R
 import com.example.coviddata.ui.countrydata.CountryDataFragmentArgs
 import com.example.coviddata.ui.countrydata.CountryDataViewModel
+import com.example.coviddata.ui.countrydata.CountryViewModelFactory
+import com.example.coviddata.ui.worlddata.WorldViewModelFactory
 import kotlinx.android.synthetic.main.fragment_country_data_history.*
+import javax.inject.Inject
 
 class CountryDataHistoryFragment : Fragment() {
 
-    val viewModel: CountryDataViewModel by viewModels()
+    @Inject lateinit var viewModelFactory: CountryViewModelFactory
+    val viewModel: CountryDataViewModel by viewModels{viewModelFactory}
     val args: CountryDataFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -38,5 +44,10 @@ class CountryDataHistoryFragment : Fragment() {
                 Log.d("countryData", historyData.toString())
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as CovidApp).appComponent.inject(this)
     }
 }

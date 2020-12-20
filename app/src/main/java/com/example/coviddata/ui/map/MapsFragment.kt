@@ -1,5 +1,6 @@
 package com.example.coviddata.ui.map
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
@@ -11,9 +12,11 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.coviddata.CovidApp
 import com.example.coviddata.R
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.ui.EventObserver
+import com.example.coviddata.ui.worlddata.WorldViewModelFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptor
@@ -21,11 +24,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_map.*
+import javax.inject.Inject
 
 
 class MapsFragment : Fragment() {
 
-    val viewModel: MapViewModel by viewModels()
+    @Inject lateinit var viewModelFactory: MapViewModelFactory
+    val viewModel: MapViewModel by viewModels{viewModelFactory}
 
     private val callback = OnMapReadyCallback { googleMap ->
         viewModel.countriesLiveData.observe(this) { countries ->
@@ -71,6 +76,11 @@ class MapsFragment : Fragment() {
 
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as CovidApp).appComponent.inject(this)
     }
 
     private fun getMarker(country: CountryData): BitmapDescriptor? {

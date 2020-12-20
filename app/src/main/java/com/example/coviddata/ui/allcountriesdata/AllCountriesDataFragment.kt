@@ -1,5 +1,6 @@
 package com.example.coviddata.ui.allcountriesdata
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +12,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coviddata.CovidApp
 import com.example.coviddata.R
 import com.example.coviddata.databinding.FragmentDataAllCountriesBinding
 import com.example.coviddata.ui.EventObserver
+import com.example.coviddata.ui.worlddata.WorldViewModelFactory
 import kotlinx.android.synthetic.main.fragment_data_all_countries.*
+import javax.inject.Inject
 
 class AllCountriesDataFragment : Fragment() {
 
-    val viewModel: AllCountriesDataViewModel by viewModels()
+    @Inject lateinit var viewModelFactory: AllCountriesViewModelFactory
+    val viewModel: AllCountriesDataViewModel by viewModels{viewModelFactory}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
@@ -69,5 +74,10 @@ class AllCountriesDataFragment : Fragment() {
             val action = AllCountriesDataFragmentDirections
                 .actionNavigationCountriesCasesToNavigationCountryCases(it.name)
         findNavController().navigate(action) })
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as CovidApp).appComponent.inject(this)
     }
 }
