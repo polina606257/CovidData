@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coviddata.R
 import com.example.coviddata.databinding.FragmentDataAllCountriesBinding
 import com.example.coviddata.ui.EventObserver
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_data_all_countries.*
 
+@AndroidEntryPoint
 class AllCountriesDataFragment : Fragment() {
 
     val viewModel: AllCountriesDataViewModel by viewModels()

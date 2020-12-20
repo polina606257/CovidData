@@ -1,5 +1,6 @@
 package com.example.coviddata.datasource.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.coviddata.datasource.local.dao.AllCountriesDataDao

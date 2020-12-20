@@ -1,9 +1,11 @@
  package com.example.coviddata.ui.allcountriesdata
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.coviddata.model.CountryData
 import com.example.coviddata.CovidApp
 import com.example.coviddata.datasource.DataResult
+import com.example.coviddata.datasource.Repository
 import com.example.coviddata.ui.BaseViewModel
 import com.example.coviddata.ui.Event
 
@@ -11,7 +13,7 @@ import com.example.coviddata.ui.Event
     NAME, CASES
 }
 
-class AllCountriesDataViewModel : BaseViewModel<List<CountryData>>() {
+class AllCountriesDataViewModel @ViewModelInject constructor(val repository: Repository) : BaseViewModel<List<CountryData>>() {
     private val _navigateToDetails = MutableLiveData<Event<CountryData>>()
     val navigateToDetails: LiveData<Event<CountryData>> = _navigateToDetails
 
@@ -51,7 +53,7 @@ class AllCountriesDataViewModel : BaseViewModel<List<CountryData>>() {
     }
 
     override suspend fun getData(): DataResult<List<CountryData>?> {
-       return CovidApp.repository.getAllCountriesData()
+       return repository.getAllCountriesData()
     }
 }
 

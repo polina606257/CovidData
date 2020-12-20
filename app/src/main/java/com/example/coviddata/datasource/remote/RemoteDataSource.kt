@@ -6,8 +6,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RemoteDataSource {
+@Singleton
+class RemoteDataSource @Inject constructor() {
     private val BASE_URL = "https://corona.lmao.ninja/"
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())

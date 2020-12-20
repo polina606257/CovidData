@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.example.coviddata.datasource.*
 import kotlinx.coroutines.launch
 
-abstract class  BaseViewModel<T>: ViewModel() {
+abstract class  BaseViewModel<T> : ViewModel() {
     private val _refreshLiveData = MutableLiveData<Boolean>()
     val refreshLiveData: LiveData<Boolean> = _refreshLiveData
     private val _popupMessage = MutableLiveData<Event<String>>()
@@ -21,6 +21,7 @@ abstract class  BaseViewModel<T>: ViewModel() {
                 result.data
             }
         }
+//            repository.getLastAllCountriesData().distinctUntilChanged().switchMap{it.data }
     }
 
     val exceptionLiveData =
@@ -40,7 +41,4 @@ abstract class  BaseViewModel<T>: ViewModel() {
     }
 
     abstract suspend fun getData(): DataResult<T?>
-    init {
-        refreshData()
-    }
 }

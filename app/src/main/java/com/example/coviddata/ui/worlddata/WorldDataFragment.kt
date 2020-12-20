@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.coviddata.R
 import com.example.coviddata.databinding.FragmentDataWorldBinding
 import com.example.coviddata.ui.EventObserver
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_data_world.*
 
+@AndroidEntryPoint
 class WorldDataFragment : Fragment() {
 
     val viewModel: WorldDataViewModel by viewModels()
