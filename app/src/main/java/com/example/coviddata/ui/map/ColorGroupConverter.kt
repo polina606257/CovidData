@@ -56,6 +56,7 @@ class ColorGroupConverter(val listCountries: List<CountryData>) {
     }
 
 
+
     fun getNumber(country: CountryData, sortParamMap: SortParamMap): Long {
         return when (sortParamMap.ordinal) {
             SortParamMap.CASES.ordinal -> country.cases.toLong()
