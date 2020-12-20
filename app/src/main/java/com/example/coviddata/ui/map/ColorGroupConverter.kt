@@ -20,17 +20,17 @@ class ColorGroupConverter(val listCountries: List<CountryData>) {
                     R.drawable.group1mapmarker, getTitle(sortParamMap),
                     getNumber(country, sortParamMap)
                 )
-            in listCountries.size * 0.1..listCountries.size * 0.3 ->
+            (index >= listCountries.size * 0.1) && (index < listCountries.size * 0.3) ->
                 MarkerInfo(
                     R.drawable.group2mapmarker, getTitle(sortParamMap),
                     getNumber(country, sortParamMap)
                 )
-            in listCountries.size * 0.3..listCountries.size * 0.6 ->
+            (index >= listCountries.size * 0.3) && (index < listCountries.size * 0.6) ->
                 MarkerInfo(
                     R.drawable.group3mapmarker, getTitle(sortParamMap),
                     getNumber(country, sortParamMap)
                 )
-            in listCountries.size * 0.6..listCountries.size * 0.8 ->
+            (index >= listCountries.size * 0.6) && (index < listCountries.size * 0.8) ->
                 MarkerInfo(
                     R.drawable.group4mapmarker, getTitle(sortParamMap),
                     getNumber(country, sortParamMap)
