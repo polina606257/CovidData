@@ -9,7 +9,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <application
         android:name=".CovidApp"
         android:allowBackup="true"
@@ -18,10 +18,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CovidData">
+        <service
+            android:name=".service.RefreshDataService"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDoiOyHJidFrAzi6dc4zAvyGMgg3nuZUlQ"/>
+            android:value="AIzaSyDoiOyHJidFrAzi6dc4zAvyGMgg3nuZUlQ" />
 
         <activity
             android:name=".MainActivity"

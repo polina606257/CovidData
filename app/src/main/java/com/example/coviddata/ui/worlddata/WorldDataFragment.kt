@@ -1,6 +1,8 @@
 package com.example.coviddata.ui.worlddata
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.coviddata.R
 import com.example.coviddata.databinding.FragmentDataWorldBinding
+import com.example.coviddata.service.RefreshDataService
 import com.example.coviddata.ui.EventObserver
 import kotlinx.android.synthetic.main.fragment_data_world.*
 
@@ -36,5 +39,9 @@ class WorldDataFragment : Fragment() {
         viewModel.popupMessage.observe(viewLifecycleOwner, EventObserver{
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })
+
+        startServiceButton.setOnClickListener {
+            requireContext().startService(Intent(requireContext(), RefreshDataService::class.java))
+        }
     }
 }
