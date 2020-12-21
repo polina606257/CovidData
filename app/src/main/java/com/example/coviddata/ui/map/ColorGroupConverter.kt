@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.coviddata.R
 import com.example.coviddata.model.CountryData
 
-class ColorGroupConverter(val listCountries: List<CountryData>, val sortParamLiveData: LiveData<SortParamMap>) {
+class ColorGroupConverter(val listCountries: List<CountryData>) {
     data class MarkerInfo(
         val markerId: Int,
         val markerTitle: Int,
@@ -35,8 +35,8 @@ class ColorGroupConverter(val listCountries: List<CountryData>, val sortParamLiv
                     getNumber(country, sortParamMap)
                 )
             else ->
-                MarkerInfo(R.drawable.group5mapmarker, getTitle(sortParamLiveData.value!!),
-                    getNumber(country, sortParamLiveData.value!!))
+                MarkerInfo(R.drawable.group5mapmarker, getTitle(sortParamMap),
+                    getNumber(country, sortParamMap))
         }
     }
 
